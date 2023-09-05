@@ -7,7 +7,7 @@ import { Box, Paper, Stack, ToggleButton, ToggleButtonGroup, Typography } from "
 export default function Page() {
   const [theme, setTheme] = useState("dark");
 
-  const themeHandler = (_, value: string) => {
+  const themeHandler = (event: any, value: string) => {
     setTheme(value);
   };
 

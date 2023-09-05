@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Chat,
-  ChevronLeft,
-  Home,
-  Menu,
-  Notifications,
-  People,
-  Settings,
-} from "@mui/icons-material";
+import { Chat, ChevronLeft, Home, Menu, Notifications, People, Settings } from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -27,11 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function NavigationContainer({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function NavigationContainer({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const [isDrawerOpened, setDrawerOpened] = useState(false);
@@ -45,11 +33,7 @@ export default function NavigationContainer({
     <Box>
       <AppBar>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={() => setDrawerOpened(true)}
-            sx={{ mr: 2 }}
-          >
+          <IconButton color="inherit" onClick={() => setDrawerOpened(true)} sx={{ mr: 2 }}>
             <Menu />
           </IconButton>
           <Typography variant={"h6"} flexGrow={1}>
@@ -58,16 +42,10 @@ export default function NavigationContainer({
           <IconButton color={"inherit"} onClick={() => navigateLink("/chat")}>
             <Chat />
           </IconButton>
-          <IconButton
-            color={"inherit"}
-            onClick={() => navigateLink("/notifications")}
-          >
+          <IconButton color={"inherit"} onClick={() => navigateLink("/notifications")}>
             <Notifications />
           </IconButton>
-          <IconButton
-            color={"inherit"}
-            onClick={() => navigateLink("/settings")}
-          >
+          <IconButton color={"inherit"} onClick={() => navigateLink("/settings")}>
             <Settings />
           </IconButton>
         </Toolbar>
