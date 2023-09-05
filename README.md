@@ -1,6 +1,6 @@
 # Fitness
 
-A hackathon project.
+A hackathon project!
 
 ## Project Information
 
