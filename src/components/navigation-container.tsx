@@ -39,7 +39,7 @@ export default function NavigationContainer({
   const navigateLink = (url: string) => {
     router.push(url);
     setDrawerOpened(false);
-  }
+  };
 
   return (
     <Box>
@@ -48,20 +48,26 @@ export default function NavigationContainer({
           <IconButton
             color="inherit"
             onClick={() => setDrawerOpened(true)}
-            sx={{ mr: 4 }}
+            sx={{ mr: 2 }}
           >
             <Menu />
           </IconButton>
           <Typography variant={"h6"} flexGrow={1}>
             Anywhere Fitness
           </Typography>
-          <IconButton color={"inherit"}>
+          <IconButton color={"inherit"} onClick={() => navigateLink("/chat")}>
             <Chat />
           </IconButton>
-          <IconButton color={"inherit"}>
+          <IconButton
+            color={"inherit"}
+            onClick={() => navigateLink("/notifications")}
+          >
             <Notifications />
           </IconButton>
-          <IconButton color={"inherit"}>
+          <IconButton
+            color={"inherit"}
+            onClick={() => navigateLink("/settings")}
+          >
             <Settings />
           </IconButton>
         </Toolbar>

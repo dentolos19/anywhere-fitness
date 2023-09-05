@@ -1,7 +1,5 @@
-import "@/styles/globals.css";
-
 import NavigationContainer from "@/components/navigation-container";
-import ThemeRegistry from "@/components/theme-registry";
+import ThemeContainer from "@/components/theme-container";
 import { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
@@ -19,13 +17,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icon-512x512.png"></link>
+        <link rel="icon" href="/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icon-512x512.png" />
         <meta name="theme-color" content="#000" />
       </head>
       <body className={font.className}>
-        <ThemeRegistry options={{ key: "mui" }}>
+        <ThemeContainer>
           <NavigationContainer>{children}</NavigationContainer>
-        </ThemeRegistry>
+        </ThemeContainer>
       </body>
     </html>
   );

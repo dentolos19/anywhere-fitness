@@ -7,37 +7,34 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
-  Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
 
-export default function PostContainer() {
+export default function PostContainer({
+  children,
+  author,
+  postDate,
+  mediaUrl,
+}: {
+  children: React.ReactNode;
+  author: string;
+  postDate: string;
+  mediaUrl?: string;
+}) {
   return (
     <Card>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }}>
-            R
-          </Avatar>
-        }
+        avatar={<Avatar>M</Avatar>}
         action={
           <IconButton>
             <MoreVert />
           </IconButton>
         }
-        title="Mohamad Bofer Dinesh"
-        subheader="September 11, 2023"
+        title={author}
+        subheader={postDate}
       />
-      <CardMedia
-        component="img"
-        image="/placeholder.jpg"
-      />
+      {mediaUrl && <CardMedia component="img" image="/placeholder.jpg" />}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
+        {children}
       </CardContent>
       <CardActions disableSpacing>
         <IconButton>

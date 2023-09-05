@@ -6,5 +6,5 @@ export default function NotFound() {
       <Typography variant={"h5"}>404</Typography>
       <Typography marginTop={2}>The page that you're looking for does not exist.</Typography>
     </Box>
-  )
+  );
 }
