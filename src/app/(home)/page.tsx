@@ -1,7 +1,13 @@
+import PostContainer from "@/components/post-container";
+import { Stack } from "@mui/material";
+
 export default function Page() {
   return (
-    <main>
-      <h1>Hello, world!</h1>
-    </main>
+    <Stack spacing={2} marginTop={2}>
+      <PostContainer/>
+      <PostContainer/>
+      <PostContainer/>
+      <PostContainer/>
+    </Stack>
   )
 }

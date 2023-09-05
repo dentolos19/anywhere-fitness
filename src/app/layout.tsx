@@ -1,18 +1,28 @@
-import "@/styles/globals.css";
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import "@/styles/globals.css";
+
+import NavigationContainer from "@/components/navigation-container";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { Metadata } from "next";
+import { Roboto } from "next/font/google";
+
+const font = Roboto({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "Anywhere Fitness",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -20,7 +30,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-512x512.png"></link>
         <meta name="theme-color" content="#000" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={font.className}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <NavigationContainer>{children}</NavigationContainer>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

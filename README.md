@@ -1,6 +1,6 @@
-# Fitness
+# Anywhere Fitness
 
-A hackathon project!
+A community health app made for NYP's Code Overflow Hackathon 2023!
 
 ## Project Information
 
