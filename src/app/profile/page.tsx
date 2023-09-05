@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Box, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 
 export default function Page() {
@@ -12,7 +12,7 @@ export default function Page() {
 
   return (
     <Stack
-      spacing={2}
+      spacing={1}
       sx={{
         marginTop: 2,
         marginBottom: 2,
@@ -22,6 +22,7 @@ export default function Page() {
         sx={{
           display: "flex",
           height: 150,
+          padding: 2,
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -35,8 +36,8 @@ export default function Page() {
           <Avatar
             src={"/placeholder.jpg"}
             sx={{
-              width: 80,
-              height: 80,
+              width: 100,
+              height: 100,
               marginRight: 2,
             }}
           />
@@ -50,7 +51,7 @@ export default function Page() {
         sx={{
           display: "flex",
           height: 100,
-          gap: 2,
+          gap: 1,
           "& *": {
             flexGrow: 1,
           },
@@ -80,7 +81,7 @@ export default function Page() {
         sx={{
           display: "flex",
           height: 100,
-          gap: 2,
+          gap: 1,
           "& *": {
             flexGrow: 1,
           },
