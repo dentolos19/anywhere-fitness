@@ -3,7 +3,7 @@
 import "@/styles/globals.css";
 
 import NavigationContainer from "@/components/navigation-container";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import ThemeRegistry from "@/components/theme-registry";
 import { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
@@ -16,12 +16,6 @@ export const metadata: Metadata = {
   title: "Anywhere Fitness",
 };
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -31,10 +25,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#000" />
       </head>
       <body className={font.className}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+        <ThemeRegistry options={{ key: "mui" }}>
           <NavigationContainer>{children}</NavigationContainer>
-        </ThemeProvider>
+        </ThemeRegistry>
       </body>
     </html>
   );
