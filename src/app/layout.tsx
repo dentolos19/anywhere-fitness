@@ -1,5 +1,3 @@
-"use client";
-
 import "@/styles/globals.css";
 
 import NavigationContainer from "@/components/navigation-container";
