@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 
 export default function Page() {
   return (
-    <Stack spacing={2} marginTop={2}>
+    <Stack spacing={2} marginTop={2} marginBottom={2}>
       <PostContainer/>
       <PostContainer/>
       <PostContainer/>

@@ -3,18 +3,11 @@
 import createCache from "@emotion/cache";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { currentTheme } from "@/lib/settings";
+import { ThemeProvider } from "@mui/material/styles";
 import { useServerInsertedHTML } from "next/navigation";
 import { useState } from "react";
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-// This implementation is from emotion-js
-// https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
 export default function ThemeRegistry({
   children,
   options,
@@ -64,7 +57,7 @@ export default function ThemeRegistry({
 
   return (
     <CacheProvider value={cache}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={currentTheme}>
         <CssBaseline />
         {children}
       </ThemeProvider>

@@ -7,7 +7,6 @@ import {
   Menu,
   Notifications,
   People,
-  Person,
   Settings,
 } from "@mui/icons-material";
 import {
@@ -25,7 +24,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function NavigationContainer({
@@ -33,7 +32,14 @@ export default function NavigationContainer({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
   const [isDrawerOpened, setDrawerOpened] = useState(false);
+
+  const navigateLink = (url: string) => {
+    router.push(url);
+    setDrawerOpened(false);
+  }
 
   return (
     <Box>
@@ -84,7 +90,7 @@ export default function NavigationContainer({
             <Divider />
             <List>
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateLink("/")}>
                   <ListItemIcon>
                     <Home />
                   </ListItemIcon>
@@ -92,7 +98,7 @@ export default function NavigationContainer({
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateLink("/profile")}>
                   <ListItemIcon>
                     <People />
                   </ListItemIcon>
