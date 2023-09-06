@@ -1,7 +1,8 @@
 "use client";
 
 import PageContainer from "@/components/page-container";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Add, FilterAlt, LocationOn, Sort } from "@mui/icons-material";
+import { Box, Chip, Fab, Paper, Stack, Typography } from "@mui/material";
 
 export default function Page() {
   return (
@@ -14,6 +15,11 @@ export default function Page() {
           marginRight: "auto",
         }}
       >
+        <Stack spacing={1} direction={"row"}>
+          <Chip avatar={<Sort />} label={"Sort"} />
+          <Chip avatar={<FilterAlt />} label={"Filter"} />
+          <Chip avatar={<LocationOn />} label={"Location"} />
+        </Stack>
         <Paper sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1, padding: 2 }}>
             <Typography variant={"h6"}>Test</Typography>
@@ -29,6 +35,9 @@ export default function Page() {
           <img style={{ width: 200 }} src={"/placeholder.jpg"}></img>
         </Paper>
       </Stack>
+      <Fab sx={{ position: "fixed", bottom: 80, right: 30 }}>
+        <Add />
+      </Fab>
     </PageContainer>
   );
 }

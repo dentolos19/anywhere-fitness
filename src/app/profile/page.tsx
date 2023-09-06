@@ -1,9 +1,10 @@
 "use client";
 
+import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
 import { pb } from "@/lib/database";
 import settings from "@/lib/settings";
-import { Avatar, Box, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -12,10 +13,10 @@ export default function Page() {
   const [tab, setTab] = useState("weekly");
 
   useEffect(() => {
-    const userID = settings.userId;
-    if (!userID) return;
+    const userId = settings.userId;
+    if (!userId) return;
     pb.collection("users")
-      .getOne(userID)
+      .getOne(userId)
       .then((user) => {
         setAvatarUrl("");
         setName(user.name);
@@ -51,25 +52,16 @@ export default function Page() {
               <Typography color={"text.secondary"}>Rookie</Typography>
             </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              height: 100,
-              gap: 1,
-              "& *": {
-                flexGrow: 1,
-              },
-            }}
-          >
+          <EqualizeContainer>
             <Box sx={{ textAlign: "center" }}>
               <Typography variant={"h5"}>0</Typography>
-              <Typography color={"text.secondary"}>Followings</Typography>
+              <Typography color={"text.secondary"}>Followers</Typography>
             </Box>
             <Box sx={{ textAlign: "center" }}>
               <Typography variant={"h5"}>0</Typography>
               <Typography color={"text.secondary"}>Followings</Typography>
             </Box>
-          </Box>
+          </EqualizeContainer>
         </Paper>
         <Paper>
           <Tabs value={tab} centered onChange={tabHandler}>
@@ -87,26 +79,32 @@ export default function Page() {
               },
             }}
           >
-            <Paper sx={{ display: "grid", placeItems: "center" }}>
+            <Box sx={{ display: "grid", placeItems: "center" }}>
               <Box sx={{ textAlign: "center" }}>
                 <Typography color={"text.secondary"}>Avg. Distance</Typography>
                 <Typography variant={"h5"}>0</Typography>
               </Box>
-            </Paper>
-            <Paper sx={{ display: "grid", placeItems: "center" }}>
+            </Box>
+            <Box sx={{ display: "grid", placeItems: "center" }}>
               <Box sx={{ textAlign: "center" }}>
                 <Typography color={"text.secondary"}>Avg. Time</Typography>
                 <Typography variant={"h5"}>0</Typography>
               </Box>
-            </Paper>
+            </Box>
           </Box>
         </Paper>
         <Paper>
-          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Activities</Box>
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button>Activities</Button>
+          </Box>
           <Divider />
-          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Goals</Box>
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button>Goals</Button>
+          </Box>
           <Divider />
-          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Upload</Box>
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button>Upload</Button>
+          </Box>
         </Paper>
       </Stack>
     </PageContainer>

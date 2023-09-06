@@ -1,6 +1,5 @@
 "use client";
 
-import { pb } from "@/lib/database";
 import settings from "@/lib/settings";
 import {
   Chat,
@@ -9,7 +8,6 @@ import {
   Home,
   Info,
   Login,
-  Logout,
   Menu,
   Notifications,
   People,
@@ -37,6 +35,7 @@ import {
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import EqualizeContainer from "./equalize-container";
 
 const navigationLinks = [
   {
@@ -56,7 +55,7 @@ const navigationLinks = [
     href: "/track",
   },
   {
-    title: "Ads",
+    title: "Advertisements",
     icon: <EmojiPeople />,
     href: "/advertisements",
   },
@@ -78,12 +77,6 @@ export default function NavigationContainer({ children }: { children: React.Reac
   useEffect(() => {
     if (settings.userId) setLoggedIn(true);
   }, []);
-
-  const logoutHandler = () => {
-    settings.userId = "";
-    pb.authStore.clear();
-    document.location.reload();
-  };
 
   return (
     <>
@@ -122,15 +115,19 @@ export default function NavigationContainer({ children }: { children: React.Reac
               <Chat />
             </IconButton>
             <IconButton color={"inherit"} onClick={() => router.push("/notifications")}>
-              <Badge badgeContent={10} color={"primary"}>
+              <Badge badgeContent={2} color={"primary"}>
                 <Notifications />
               </Badge>
             </IconButton>
-            <IconButton color={"inherit"} onClick={logoutHandler}>
-              <Logout />
-            </IconButton>
             <IconButton color={"inherit"} onClick={() => router.push("/settings")}>
               <Settings />
+            </IconButton>
+            <IconButton
+              color={"inherit"}
+              onClick={() => router.push("/about")}
+              sx={{ display: { xs: "inline-flex", sm: "none" } }}
+            >
+              <Info />
             </IconButton>
           </Box>
           <Box sx={{ display: loggedIn ? "none" : "block" }}>
@@ -148,19 +145,37 @@ export default function NavigationContainer({ children }: { children: React.Reac
             </IconButton>
           </Toolbar>
           <Divider />
-          <Box>
-            <img
-              src={"/icon-384x384.png"}
-              alt={"Icon"}
-              style={{
-                width: "100%",
+          <Box
+            sx={{
+              display: "flex",
+              padding: 2,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Avatar
+              src={"/placeholder.jpg"}
+              sx={{
+                width: 80,
+                height: 80,
+                marginRight: 2,
               }}
             />
-            <Typography variant={"h6"} align={"center"} marginBottom={2}>
-              Anywhere Fitness
-            </Typography>
+            <Box>
+              <Typography variant={"h5"}>adsda</Typography>
+              <Typography color={"text.secondary"}>Rookie</Typography>
+            </Box>
           </Box>
-          <Divider />
+          <EqualizeContainer>
+            <Box sx={{ textAlign: "center" }}>
+              <Typography variant={"h5"}>0</Typography>
+              <Typography color={"text.secondary"}>Followers</Typography>
+            </Box>
+            <Box sx={{ textAlign: "center" }}>
+              <Typography variant={"h5"}>0</Typography>
+              <Typography color={"text.secondary"}>Followings</Typography>
+            </Box>
+          </EqualizeContainer>
           <List>
             {navigationLinks.map(
               (link) =>
@@ -178,7 +193,14 @@ export default function NavigationContainer({ children }: { children: React.Reac
       </Drawer>
       <Paper
         elevation={3}
-        sx={{ display: { xs: loggedIn ? "block" : "none", sm: "none" }, position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100 }}
+        sx={{
+          display: { xs: loggedIn ? "block" : "none", sm: "none" },
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+        }}
       >
         <BottomNavigation showLabels value={pathname}>
           {navigationLinks.map(

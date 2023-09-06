@@ -3,7 +3,9 @@
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
 import SettingContainer from "@/components/setting.container";
-import { Block, Edit, People, Person } from "@mui/icons-material";
+import { pb } from "@/lib/database";
+import settings from "@/lib/settings";
+import { Block, DarkMode, Edit, LightMode, People, Person } from "@mui/icons-material";
 import {
   Avatar,
   Badge,
@@ -18,11 +20,27 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
+
+  const [avatarUrl, setAvatarUrl] = useState("/placeholder.jpg");
+  const [name, setName] = useState("Mohamed Bofer Dinesh");
   const [theme, setTheme] = useState("dark");
   const [mention, setMention] = useState("followers");
+
+  useEffect(() => {
+    const userId = settings.userId;
+    if (!userId) return;
+    pb.collection("users")
+      .getOne(userId)
+      .then((user) => {
+        setAvatarUrl("");
+        setName(user.name);
+      });
+  }, []);
 
   const themeHandler = (event: any, value: string) => {
     setTheme(value);
@@ -31,6 +49,12 @@ export default function Page() {
   const mentionHandler = (event: any, value: string) => {
     setMention(value);
   };
+
+  const logoutHandler = () => {
+    settings.userId = "";
+    pb.authStore.clear();
+    router.refresh();
+  }
 
   return (
     <PageContainer>
@@ -57,7 +81,7 @@ export default function Page() {
                 }
               >
                 <Avatar
-                  src={"/placeholder.jpg"}
+                  src={avatarUrl}
                   sx={{
                     width: 100,
                     height: 100,
@@ -66,8 +90,8 @@ export default function Page() {
               </Badge>
             </Box>
             <Stack spacing={1}>
-              <TextField type={"text"} label={"Name"} />
-              <Button variant={"contained"}>Save</Button>
+              <TextField type={"text"} label={"Name"} value={name}/>
+              <TextField type={"date"} label={"Birthday"} value={"2000-01-01"}/>
               <EqualizeContainer>
                 <Button variant={"outlined"} color={"secondary"}>
                   Change Email
@@ -76,7 +100,31 @@ export default function Page() {
                   Change Password
                 </Button>
               </EqualizeContainer>
+              <Button variant={"contained"}>Save</Button>
+              <Button variant={"contained"} color={"error"} onClick={logoutHandler}>Logout</Button>
             </Stack>
+          </Stack>
+        </Paper>
+        <Paper sx={{ padding: 2 }}>
+          <Stack spacing={1}>
+            <Typography variant={"h5"} align={"center"}>
+              Account Information
+            </Typography>
+            <SettingContainer label={"App Theme"}>
+              <ToggleButtonGroup color={"primary"} value={theme} exclusive={true} onChange={themeHandler}>
+                <ToggleButton value={"light"}>
+                  <LightMode />
+                </ToggleButton>
+                <ToggleButton value={"dark"}>
+                  <DarkMode />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </SettingContainer>
+            <SettingContainer label={"Language"}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
           </Stack>
         </Paper>
         <Paper sx={{ padding: 2 }}>
@@ -84,6 +132,26 @@ export default function Page() {
             <Typography variant={"h5"} align={"center"}>
               Privacy
             </Typography>
+            <SettingContainer label={"Close Friends"}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
+            <SettingContainer label={"Blocked Users"}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
+            <SettingContainer label={"Story Privacy Settings"}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
+            <SettingContainer label={"Comments Privacy Settings"}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
             <SettingContainer label={"Make Profile Public"}>
               <Checkbox checked />
             </SettingContainer>
