@@ -1,4 +1,9 @@
+"use client";
+
+import settings from "@/lib/settings";
 import { BottomNavigation, Box, Container, Toolbar } from "@mui/material";
+import { useEffect, useState } from "react";
+import RequireLogin from "./require-login";
 
 export default function Page({
   children,
@@ -13,9 +18,25 @@ export default function Page({
   enableVerticalGutters?: boolean;
   enableNavigationSpacers?: boolean;
 }) {
-  return requireLogin ? (
-    <div>Login Required</div>
-  ) : enableHorizontalGutters ? (
+  const [blocked, setBlocked] = useState<boolean | undefined>();
+
+  useEffect(() => {
+    if (!settings.userId) {
+      setBlocked(true);
+    } else {
+      setBlocked(false);
+    }
+  }, []);
+
+  if (blocked === undefined) {
+    return <div>pls wait</div>;
+  }
+
+  if (requireLogin && blocked === true) {
+    return <RequireLogin />;
+  }
+
+  return enableHorizontalGutters ? (
     <Container sx={{ marginTop: enableVerticalGutters ? 2 : 0, marginBottom: enableVerticalGutters ? 2 : 0 }}>
       {enableNavigationSpacers && <Toolbar />}
       {children}

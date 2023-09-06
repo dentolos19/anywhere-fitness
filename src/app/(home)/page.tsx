@@ -4,7 +4,7 @@ import { Stack, Typography } from "@mui/material";
 
 export default function Page() {
   return (
-    <PageContainer>
+    <PageContainer requireLogin={true}>
       <Stack
         spacing={2}
         sx={{

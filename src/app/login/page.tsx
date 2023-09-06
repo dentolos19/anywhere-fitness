@@ -2,6 +2,7 @@
 
 import PageContainer from "@/components/page-container";
 import { loginUser } from "@/lib/database";
+import settings from "@/lib/settings";
 import { Alert, Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -18,6 +19,7 @@ export default function Page() {
     event.preventDefault();
     const auth = await loginUser(email, password);
     if (auth) {
+      settings.userId = auth.record.id;
       router.push("/profile");
     } else {
       setHasError(true);

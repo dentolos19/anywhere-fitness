@@ -6,7 +6,12 @@ import GoogleMapReact from "google-map-react";
 
 export default function Page() {
   return (
-    <PageContainer enableHorizontalGutters={false} enableVerticalGutters={false} enableNavigationSpacers={false}>
+    <PageContainer
+      requireLogin={true}
+      enableHorizontalGutters={false}
+      enableVerticalGutters={false}
+      enableNavigationSpacers={false}
+    >
       <Box sx={{ height: "100vh" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}

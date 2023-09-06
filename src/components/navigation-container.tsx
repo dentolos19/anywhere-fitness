@@ -1,12 +1,14 @@
 "use client";
 
 import { pb } from "@/lib/database";
+import settings from "@/lib/settings";
 import {
   Chat,
   ChevronLeft,
   EmojiPeople,
   Home,
   Info,
+  Login,
   Logout,
   Menu,
   Notifications,
@@ -34,7 +36,7 @@ import {
   Typography,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const navigationLinks = [
   {
@@ -70,25 +72,34 @@ export default function NavigationContainer({ children }: { children: React.Reac
   const router = useRouter();
   const pathname = usePathname();
 
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isDrawerOpened, setDrawerOpened] = useState(false);
 
+  useEffect(() => {
+    if (settings.userId) setLoggedIn(true);
+  }, []);
+
   const logoutHandler = () => {
+    settings.userId = "";
     pb.authStore.clear();
+    document.location.reload();
   };
 
   return (
     <>
       <AppBar>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={() => setDrawerOpened(true)}
-            sx={{
-              display: { xs: "none", sm: "inline-flex" },
-            }}
-          >
-            <Menu />
-          </IconButton>
+          <Box sx={{ display: loggedIn ? "block" : "none" }}>
+            <IconButton
+              color="inherit"
+              onClick={() => setDrawerOpened(true)}
+              sx={{
+                display: { xs: "none", sm: "inline-flex" },
+              }}
+            >
+              <Menu />
+            </IconButton>
+          </Box>
           <Avatar
             src={"/icon-192x192.png"}
             sx={{
@@ -100,26 +111,33 @@ export default function NavigationContainer({ children }: { children: React.Reac
           <Typography
             variant={"h6"}
             sx={{
-              marginLeft: 2,
+              marginLeft: loggedIn ? 2 : 0,
               flexGrow: 1,
             }}
           >
             <Box sx={{ display: { xs: "none", sm: "block" } }}>Anywhere Fitness</Box>
           </Typography>
-          <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
-            <Chat />
-          </IconButton>
-          <IconButton color={"inherit"} onClick={() => router.push("/notifications")}>
-            <Badge badgeContent={10} color={"primary"}>
-              <Notifications />
-            </Badge>
-          </IconButton>
-          <IconButton color={"inherit"} onClick={logoutHandler}>
-            <Logout />
-          </IconButton>
-          <IconButton color={"inherit"} onClick={() => router.push("/settings")}>
-            <Settings />
-          </IconButton>
+          <Box sx={{ display: loggedIn ? "block" : "none" }}>
+            <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
+              <Chat />
+            </IconButton>
+            <IconButton color={"inherit"} onClick={() => router.push("/notifications")}>
+              <Badge badgeContent={10} color={"primary"}>
+                <Notifications />
+              </Badge>
+            </IconButton>
+            <IconButton color={"inherit"} onClick={logoutHandler}>
+              <Logout />
+            </IconButton>
+            <IconButton color={"inherit"} onClick={() => router.push("/settings")}>
+              <Settings />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: loggedIn ? "none" : "block" }}>
+            <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
+              <Login />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer open={isDrawerOpened} onClick={() => setDrawerOpened(false)}>
@@ -147,7 +165,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
             {navigationLinks.map(
               (link) =>
                 !link.mobileOnly && (
-                  <ListItem disablePadding>
+                  <ListItem key={link.title} disablePadding>
                     <ListItemButton onClick={() => router.push(link.href)}>
                       <ListItemIcon>{link.icon}</ListItemIcon>
                       <ListItemText>{link.title}</ListItemText>
@@ -160,7 +178,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
       </Drawer>
       <Paper
         elevation={3}
-        sx={{ display: { xs: "block", sm: "none" }, position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100 }}
+        sx={{ display: { xs: loggedIn ? "block" : "none", sm: "none" }, position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100 }}
       >
         <BottomNavigation showLabels value={pathname}>
           {navigationLinks.map(

@@ -1,18 +1,33 @@
 "use client";
 
 import PageContainer from "@/components/page-container";
+import { pb } from "@/lib/database";
+import settings from "@/lib/settings";
 import { Avatar, Box, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [avatarUrl, setAvatarUrl] = useState("/placeholder.jpg");
+  const [name, setName] = useState("Mohamed Bofer Dinesh");
   const [tab, setTab] = useState("weekly");
+
+  useEffect(() => {
+    const userID = settings.userId;
+    if (!userID) return;
+    pb.collection("users")
+      .getOne(userID)
+      .then((user) => {
+        setAvatarUrl("");
+        setName(user.name);
+      });
+  }, []);
 
   const tabHandler = (event: any, value: string) => {
     setTab(value);
   };
 
   return (
-    <PageContainer>
+    <PageContainer requireLogin={true}>
       <Stack spacing={1}>
         <Paper>
           <Box
@@ -24,7 +39,7 @@ export default function Page() {
             }}
           >
             <Avatar
-              src={"/placeholder.jpg"}
+              src={avatarUrl}
               sx={{
                 width: { xs: 75, sm: 185 },
                 height: { xs: 75, sm: 185 },
@@ -32,7 +47,7 @@ export default function Page() {
               }}
             />
             <Box>
-              <Typography variant={"h5"}>Mohamed Bofer Dinesh</Typography>
+              <Typography variant={"h5"}>{name}</Typography>
               <Typography color={"text.secondary"}>Rookie</Typography>
             </Box>
           </Box>
