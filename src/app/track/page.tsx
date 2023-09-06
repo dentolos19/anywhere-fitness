@@ -10,16 +10,16 @@ export default function Page() {
       requireLogin={true}
       enableHorizontalGutters={false}
       enableVerticalGutters={false}
-      enableNavigationSpacers={false}
+      defineHeight={true}
     >
-      <Box sx={{ height: "100vh" }}>
+      <Box sx={{ height: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
           defaultCenter={{
             lat: 1.3821108,
             lng: 103.8824889,
           }}
-          defaultZoom={20}
+          defaultZoom={10}
         ></GoogleMapReact>
       </Box>
     </PageContainer>

@@ -33,13 +33,13 @@ export default async function Page() {
             />
           </Stack>
           {posts.items.map((post) => (
-            <PostContainer author={post.owner.name} postDate={"test"}>
+            <PostContainer key={post.id} author={post.owner.name} postDate={"test"}>
               {post.message}
             </PostContainer>
           ))}
         </Stack>
         <Fab sx={{ position: "fixed", bottom: 80, right: 30 }}>
-          <Add/>
+          <Add />
         </Fab>
       </Box>
     </PageContainer>

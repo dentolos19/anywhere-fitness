@@ -11,13 +11,13 @@ export default function Page({
   requireLogin,
   enableHorizontalGutters = true,
   enableVerticalGutters = true,
-  enableNavigationSpacers = true,
+  defineHeight // this fixes the map height and content spacing issues
 }: {
   children: React.ReactNode;
   requireLogin?: boolean;
   enableHorizontalGutters?: boolean;
   enableVerticalGutters?: boolean;
-  enableNavigationSpacers?: boolean;
+  defineHeight?: boolean;
 }) {
   const [user, setUser] = useGlobalState("user");
 
@@ -38,17 +38,24 @@ export default function Page({
     return <RequireLogin />;
   }
 
-  return enableHorizontalGutters ? (
-    <Container sx={{ marginTop: enableVerticalGutters ? 2 : 0, marginBottom: enableVerticalGutters ? 2 : 0 }}>
-      {enableNavigationSpacers && <Toolbar />}
-      {children}
-      {enableNavigationSpacers && <BottomNavigation sx={{ display: { xs: "block", sm: "none" } }} />}
-    </Container>
-  ) : (
-    <Box sx={{ marginTop: enableVerticalGutters ? 2 : 0, marginBottom: enableVerticalGutters ? 2 : 0 }}>
-      {enableNavigationSpacers && <Toolbar />}
-      {children}
-      {enableNavigationSpacers && <BottomNavigation sx={{ display: { xs: "block", sm: "none" } }} />}
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        height: defineHeight ? 0 : undefined,
+        minHeight: "100vh",
+        flexDirection: "column",
+        paddingTop: enableVerticalGutters ? 2 : 0,
+        paddingBottom: enableVerticalGutters ? 2 : 0,
+      }}
+    >
+      <Toolbar />
+      {enableHorizontalGutters ? (
+        <Container sx={{ flexGrow: 1 }}>{children}</Container>
+      ) : (
+        <Box sx={{ flexGrow: 1 }}>{children}</Box>
+      )}
+      <BottomNavigation sx={{ display: { xs: "block", sm: "none" } }} />
     </Box>
   );
 }
