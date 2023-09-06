@@ -44,6 +44,7 @@ export default function Page({
         display: "flex",
         height: defineHeight ? 0 : undefined,
         minHeight: "100vh",
+        maxHeight: "100vh",
         flexDirection: "column",
         paddingTop: enableVerticalGutters ? 2 : 0,
         paddingBottom: enableVerticalGutters ? 2 : 0,

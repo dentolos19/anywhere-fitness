@@ -89,14 +89,22 @@ export default function NavigationContainer({ children }: { children: React.Reac
               <Menu />
             </IconButton>
           </Box>
-          <Avatar
+          {/* <Avatar
             src={"/icon-192x192.png"}
             sx={{
               display: { xs: "block", sm: "none" },
               marginTop: 1,
               marginBottom: 1,
             }}
-          />
+          /> */}
+          <IconButton
+            onClick={() => router.back()}
+            sx={{
+              display: { xs: "block", sm: "none" },
+            }}
+          >
+            <ChevronLeft />
+          </IconButton>
           <Typography
             variant={"h6"}
             sx={{
