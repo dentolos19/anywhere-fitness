@@ -1,8 +1,15 @@
 "use client";
 
 import { Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <Paper
       component={"form"}
@@ -19,8 +26,8 @@ export default function Page() {
         <Typography variant={"h5"} align={"center"}>
           Anywhere Fitness
         </Typography>
-        <TextField label={"Username"} />
-        <TextField label={"Password"} />
+        <TextField type={"email"} label={"Email"} value={email} />
+        <TextField type={"password"} label={"Password"} value={password} />
         <Box
           sx={{
             display: "flex",
@@ -31,9 +38,11 @@ export default function Page() {
           }}
         >
           <Button variant={"contained"}>Login</Button>
-          <Button variant={"outlined"}>Register</Button>
+          <Button variant={"outlined"} onClick={() => router.push("/register")}>Register</Button>
         </Box>
-        <Button variant={"contained"} color={"secondary"}>Guest Mode (Developer)</Button>
+        <Button variant={"contained"} color={"secondary"}>
+          Continue As Guest
+        </Button>
       </Stack>
     </Paper>
   );

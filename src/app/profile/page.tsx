@@ -8,7 +8,7 @@ export default function Page() {
 
   const tabHandler = (event: any, value: string) => {
     setTab(value);
-  }
+  };
 
   return (
     <Stack
@@ -18,19 +18,13 @@ export default function Page() {
         marginBottom: 2,
       }}
     >
-      <Paper
-        sx={{
-          display: "flex",
-          height: 150,
-          padding: 2,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Paper>
         <Box
           sx={{
             display: "flex",
+            padding: 2,
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Avatar
@@ -46,38 +40,33 @@ export default function Page() {
             <Typography color={"text.secondary"}>Rookie</Typography>
           </Box>
         </Box>
+        <Box
+          sx={{
+            display: "flex",
+            height: 100,
+            gap: 1,
+            "& *": {
+              flexGrow: 1,
+            },
+          }}
+        >
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant={"h5"}>0</Typography>
+            <Typography color={"text.secondary"}>Followings</Typography>
+          </Box>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant={"h5"}>0</Typography>
+            <Typography color={"text.secondary"}>Followings</Typography>
+          </Box>
+        </Box>
       </Paper>
-      <Box
-        sx={{
-          display: "flex",
-          height: 100,
-          gap: 1,
-          "& *": {
-            flexGrow: 1,
-          },
-        }}
-      >
-        <Paper sx={{ display: "grid", placeItems: "center" }}>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>0</Typography>
-            <Typography color={"text.secondary"}>Followings</Typography>
-          </Box>
-        </Paper>
-        <Paper sx={{ display: "grid", placeItems: "center" }}>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>0</Typography>
-            <Typography color={"text.secondary"}>Followings</Typography>
-          </Box>
-        </Paper>
-      </Box>
       <Paper>
         <Tabs value={tab} centered onChange={tabHandler}>
-          <Tab label={"Weekly"} value={"weekly"}/>
-          <Tab label={"Monthly"} value={"monthly"}/>
-          <Tab label={"Yearly"} value={"yearly"}/>
+          <Tab label={"Weekly"} value={"weekly"} />
+          <Tab label={"Monthly"} value={"monthly"} />
+          <Tab label={"Yearly"} value={"yearly"} />
         </Tabs>
-      </Paper>
-      <Box
+        <Box
         sx={{
           display: "flex",
           height: 100,
@@ -100,14 +89,13 @@ export default function Page() {
           </Box>
         </Paper>
       </Box>
-      <Paper sx={{ display: "grid", height: 100, placeItems: "center" }}>
-        Activities
       </Paper>
-      <Paper sx={{ display: "grid", height: 100, placeItems: "center" }}>
-        Goals
-      </Paper>
-      <Paper sx={{ display: "grid", height: 100, placeItems: "center" }}>
-        Upload
+      <Paper>
+        <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Activities</Box>
+        <Divider />
+        <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Goals</Box>
+        <Divider />
+        <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>Upload</Box>
       </Paper>
     </Stack>
   );

@@ -25,10 +25,6 @@ export default function NavigationContainer({ children }: { children: React.Reac
 
   const [isDrawerOpened, setDrawerOpened] = useState(false);
 
-  const navigateLink = (url: string) => {
-    router.push(url);
-  };
-
   return (
     <Box>
       <AppBar>
@@ -45,15 +41,15 @@ export default function NavigationContainer({ children }: { children: React.Reac
           >
             <Box sx={{ display: { xs: "none", sm: "block" } }}>Anywhere Fitness</Box>
           </Typography>
-          <IconButton color={"inherit"} onClick={() => navigateLink("/chat")}>
+          <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
             <Chat />
           </IconButton>
-          <IconButton color={"inherit"} onClick={() => navigateLink("/notifications")}>
+          <IconButton color={"inherit"} onClick={() => router.push("/notifications")}>
             <Badge badgeContent={10} color={"primary"}>
               <Notifications />
             </Badge>
           </IconButton>
-          <IconButton color={"inherit"} onClick={() => navigateLink("/settings")}>
+          <IconButton color={"inherit"} onClick={() => router.push("/settings")}>
             <Settings />
           </IconButton>
         </Toolbar>
@@ -81,7 +77,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigateLink("/")}>
+              <ListItemButton onClick={() => router.push("/")}>
                 <ListItemIcon>
                   <Home />
                 </ListItemIcon>
@@ -89,7 +85,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigateLink("/profile")}>
+              <ListItemButton onClick={() => router.push("/profile")}>
                 <ListItemIcon>
                   <People />
                 </ListItemIcon>
@@ -97,7 +93,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigateLink("/about")}>
+              <ListItemButton onClick={() => router.push("/about")}>
                 <ListItemIcon>
                   <Info />
                 </ListItemIcon>

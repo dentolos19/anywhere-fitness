@@ -1,8 +1,23 @@
 "use client";
 
+import EqualizeContainer from "@/components/equalize-container";
+import SettingContainer from "@/components/setting.container";
+import { Block, Edit, People, Person } from "@mui/icons-material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Checkbox,
+  IconButton,
+  Paper,
+  Stack,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
-import { LightMode, DarkMode, Edit, Person, People, Block } from "@mui/icons-material";
-import { Box, Checkbox, IconButton, Paper, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 
 export default function Page() {
   const [theme, setTheme] = useState("dark");
@@ -27,37 +42,36 @@ export default function Page() {
       <Paper sx={{ padding: 2 }}>
         <Stack spacing={1}>
           <Typography variant={"h5"} align={"center"}>
-            Personalization
+            Account Information
           </Typography>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Profile Picture
-            </Typography>
-            <IconButton>
-              <Edit />
-            </IconButton>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              badgeContent={
+                <IconButton>
+                  <Edit />
+                </IconButton>
+              }
+            >
+              <Avatar
+                src={"/placeholder.jpg"}
+                sx={{
+                  width: 100,
+                  height: 100,
+                }}
+              />
+            </Badge>
           </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Account Information
-            </Typography>
-            <IconButton>
-              <Edit />
-            </IconButton>
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              App Theme
-            </Typography>
-            <ToggleButtonGroup value={theme} exclusive={true} onChange={themeHandler}>
-              <ToggleButton value={"light"}>
-                <LightMode />
-              </ToggleButton>
-              <ToggleButton value={"dark"}>
-                <DarkMode />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
+          <Stack spacing={1}>
+            <TextField type={"text"} label={"Name"} />
+
+            <Button variant={"contained"}>Save</Button>
+            <EqualizeContainer>
+              <Button variant={"outlined"} color={"secondary"}>Change Email</Button>
+              <Button variant={"outlined"} color={"secondary"}>Change Password</Button>
+            </EqualizeContainer>
+          </Stack>
         </Stack>
       </Paper>
 
@@ -66,23 +80,14 @@ export default function Page() {
           <Typography variant={"h5"} align={"center"}>
             Privacy
           </Typography>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Make Profile Public
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Show Online Status
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Allow Mentions From
-            </Typography>
-            <ToggleButtonGroup value={mention} exclusive={true} onChange={mentionHandler}>
+          <SettingContainer label={"Make Profile Public"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Show Online Status"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Allow Mentions From"}>
+            <ToggleButtonGroup color={"primary"} value={mention} exclusive={true} onChange={mentionHandler}>
               <ToggleButton value={"everyone"}>
                 <People />
               </ToggleButton>
@@ -93,13 +98,10 @@ export default function Page() {
                 <Block />
               </ToggleButton>
             </ToggleButtonGroup>
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Allow Diagnostic Data Collection
-            </Typography>
-            <Checkbox />
-          </Box>
+          </SettingContainer>
+          <SettingContainer label={"Allow Anonymous Data Collection"}>
+            <Checkbox checked />
+          </SettingContainer>
         </Stack>
       </Paper>
 
@@ -108,36 +110,21 @@ export default function Page() {
           <Typography variant={"h5"} align={"center"}>
             Notifications
           </Typography>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Account Suggestions
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Follower Requests
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Accepted Follow Requests
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Message Requests
-            </Typography>
-            <Checkbox />
-          </Box>
-          <Box component={"div"} display={"flex"}>
-            <Typography flexGrow={1} display={"flex"} alignItems={"center"}>
-              Unread Messages
-            </Typography>
-            <Checkbox />
-          </Box>
+          <SettingContainer label={"Account Suggestions"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Follower Requests"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Accepted Follow Requests"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Message Requests"}>
+            <Checkbox checked />
+          </SettingContainer>
+          <SettingContainer label={"Unread Messages"}>
+            <Checkbox checked />
+          </SettingContainer>
         </Stack>
       </Paper>
     </Stack>

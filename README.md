@@ -1,10 +1,10 @@
 # Anywhere Fitness
 
-A community health app made for NYP's Code Overflow Hackathon 2023!
+A mock online community health app made for NYP's Hackathon 2023!
 
 ## Project Information
 
-Problem Statement: How might we leverage technology to encourage and promote healthy living?
+**Problem Statement**: How might we leverage technology to encourage and promote healthy living?
 
 ### Members
 
