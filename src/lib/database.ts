@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("https://inexpensive-fountain.pockethost.io");
+export const pb = new PocketBase("https://inexpensive-fountain.pockethost.io");
 
 export function createUser(name: string, username: string, email: string, password: string) {
   return pb

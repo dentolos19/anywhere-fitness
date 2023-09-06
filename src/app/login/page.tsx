@@ -1,5 +1,6 @@
 "use client";
 
+import PageContainer from "@/components/page-container";
 import { loginUser } from "@/lib/database";
 import { Alert, Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,59 +25,59 @@ export default function Page() {
   };
 
   return (
-    <Paper
-      component={"form"}
-      onSubmit={submitHandler}
-      sx={{
-        maxWidth: 500,
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: 2,
-        marginBottom: 2,
-        padding: 2,
-      }}
-    >
-      <Stack spacing={2}>
-        <Typography variant={"h5"} align={"center"}>
-          Anywhere Fitness
-        </Typography>
-        {searchParams.get("registered") && <Alert severity={"success"}>Please login using your credentials.</Alert>}
-        {hasError && <Alert severity={"error"}>Unable to login into user account.</Alert>}
-        <TextField
-          type={"email"}
-          label={"Email"}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        />
-        <TextField
-          type={"password"}
-          label={"Password"}
-          value={password}
-          inputProps={{ minLength: 8 }}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-        <Box
-          sx={{
-            display: "flex",
-            gap: 1,
-            "& *": {
-              flexGrow: 1,
-            },
-          }}
-        >
-          <Button type={"submit"} variant={"contained"}>
-            Login
+    <PageContainer>
+      <Paper
+        component={"form"}
+        onSubmit={submitHandler}
+        sx={{
+          maxWidth: 500,
+          marginLeft: "auto",
+          marginRight: "auto",
+          padding: 2,
+        }}
+      >
+        <Stack spacing={2}>
+          <Typography variant={"h5"} align={"center"}>
+            Anywhere Fitness
+          </Typography>
+          {searchParams.get("registered") && <Alert severity={"success"}>Please login using your credentials.</Alert>}
+          {hasError && <Alert severity={"error"}>Unable to login into user account.</Alert>}
+          <TextField
+            type={"email"}
+            label={"Email"}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <TextField
+            type={"password"}
+            label={"Password"}
+            value={password}
+            inputProps={{ minLength: 8 }}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              "& *": {
+                flexGrow: 1,
+              },
+            }}
+          >
+            <Button type={"submit"} variant={"contained"}>
+              Login
+            </Button>
+            <Button variant={"outlined"} onClick={() => router.push("/register")}>
+              Register
+            </Button>
+          </Box>
+          <Button variant={"contained"} color={"secondary"}>
+            Continue As Guest
           </Button>
-          <Button variant={"outlined"} onClick={() => router.push("/register")}>
-            Register
-          </Button>
-        </Box>
-        <Button variant={"contained"} color={"secondary"}>
-          Continue As Guest
-        </Button>
-      </Stack>
-    </Paper>
+        </Stack>
+      </Paper>
+    </PageContainer>
   );
 }

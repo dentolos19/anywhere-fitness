@@ -65,16 +65,18 @@ export default function Page() {
           </Box>
           <Stack spacing={1}>
             <TextField type={"text"} label={"Name"} />
-
             <Button variant={"contained"}>Save</Button>
             <EqualizeContainer>
-              <Button variant={"outlined"} color={"secondary"}>Change Email</Button>
-              <Button variant={"outlined"} color={"secondary"}>Change Password</Button>
+              <Button variant={"outlined"} color={"secondary"}>
+                Change Email
+              </Button>
+              <Button variant={"outlined"} color={"secondary"}>
+                Change Password
+              </Button>
             </EqualizeContainer>
           </Stack>
         </Stack>
       </Paper>
-
       <Paper sx={{ padding: 2 }}>
         <Stack spacing={1}>
           <Typography variant={"h5"} align={"center"}>
@@ -104,7 +106,6 @@ export default function Page() {
           </SettingContainer>
         </Stack>
       </Paper>
-
       <Paper sx={{ padding: 2 }}>
         <Stack spacing={1}>
           <Typography variant={"h5"} align={"center"}>
@@ -125,6 +126,17 @@ export default function Page() {
           <SettingContainer label={"Unread Messages"}>
             <Checkbox checked />
           </SettingContainer>
+        </Stack>
+      </Paper>
+      <Paper sx={{ padding: 2 }}>
+        <Stack spacing={1}>
+          <Typography variant={"h5"} align={"center"}>
+            Advanced Options
+          </Typography>
+          <EqualizeContainer>
+            <Button variant={"outlined"} color={"error"}>Deactivate Account</Button>
+            <Button variant={"outlined"} color={"error"}>Delete Account</Button>
+          </EqualizeContainer>
         </Stack>
       </Paper>
     </Stack>

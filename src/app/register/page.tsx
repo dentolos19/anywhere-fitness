@@ -1,5 +1,6 @@
 "use client";
 
+import PageContainer from "@/components/page-container";
 import { createUser } from "@/lib/database";
 import { Alert, Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -27,64 +28,64 @@ export default function Page() {
   };
 
   return (
-    <Paper
-      component={"form"}
-      onSubmit={submitHandler}
-      sx={{
-        maxWidth: 500,
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: 2,
-        marginBottom: 2,
-        padding: 2,
-      }}
-    >
-      <Stack spacing={2}>
-        <Typography variant={"h5"} align={"center"}>
-          Anywhere Fitness
-        </Typography>
-        {hasError && <Alert severity={"error"}>Unable to create user account.</Alert>}
-        <TextField
-          type={"text"}
-          label={"Full Name"}
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          required
-        />
-        <TextField
-          type={"text"}
-          label={"Username"}
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          required
-        />
-        <TextField
-          type={"email"}
-          label={"Email"}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        />
-        <TextField
-          type={"password"}
-          label={"Password"}
-          value={password}
-          inputProps={{ minLength: 8 }}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-        <TextField
-          type={"password"}
-          label={"Confirm Password"}
-          value={confirmPassword}
-          inputProps={{ minLength: 8 }}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          required
-        />
-        <Button type={"submit"} variant={"contained"}>
-          Register
-        </Button>
-      </Stack>
-    </Paper>
+    <PageContainer>
+      <Paper
+        component={"form"}
+        onSubmit={submitHandler}
+        sx={{
+          maxWidth: 500,
+          marginLeft: "auto",
+          marginRight: "auto",
+          padding: 2,
+        }}
+      >
+        <Stack spacing={2}>
+          <Typography variant={"h5"} align={"center"}>
+            Anywhere Fitness
+          </Typography>
+          {hasError && <Alert severity={"error"}>Unable to create user account.</Alert>}
+          <TextField
+            type={"text"}
+            label={"Full Name"}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+          <TextField
+            type={"text"}
+            label={"Username"}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+          />
+          <TextField
+            type={"email"}
+            label={"Email"}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <TextField
+            type={"password"}
+            label={"Password"}
+            value={password}
+            inputProps={{ minLength: 8 }}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          <TextField
+            type={"password"}
+            label={"Confirm Password"}
+            value={confirmPassword}
+            inputProps={{ minLength: 8 }}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            required
+          />
+          <Button type={"submit"} variant={"contained"}>
+            Register
+          </Button>
+        </Stack>
+      </Paper>
+    </PageContainer>
   );
 }

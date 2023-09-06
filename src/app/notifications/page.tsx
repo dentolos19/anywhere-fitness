@@ -1,3 +1,9 @@
+import PageContainer from "@/components/page-container";
+
 export default function Page() {
-  return <h1>Notifications</h1>;
+  return (
+    <PageContainer>
+      <div>Notifications</div>
+    </PageContainer>
+  );
 }
