@@ -1,8 +1,8 @@
 "use client";
 
 import { createUser } from "@/lib/database";
-import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import { Alert, Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
@@ -17,12 +17,13 @@ export default function Page() {
 
   const submitHandler = (event: any) => {
     event.preventDefault();
-    createUser(name, username, email, password).then(
-      () => router.push("/login?registered=true"),
-      () => {
-        // TODO
+    createUser(name, username, email, password).then((success) => {
+      if (success) {
+        router.push("/login?registered=true");
+      } else {
+        setHasError(true);
       }
-    );
+    });
   };
 
   return (
@@ -42,6 +43,7 @@ export default function Page() {
         <Typography variant={"h5"} align={"center"}>
           Anywhere Fitness
         </Typography>
+        {hasError && <Alert severity={"error"}>Unable to create user account.</Alert>}
         <TextField
           type={"text"}
           label={"Full Name"}

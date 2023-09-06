@@ -17,3 +17,10 @@ export function createUser(name: string, username: string, email: string, passwo
       () => false
     );
 }
+
+export function loginUser(email: string, password: string) {
+  return pb.collection("users").authWithPassword(email, password).then(
+    (result) => result,
+    () => null
+  );
+}
