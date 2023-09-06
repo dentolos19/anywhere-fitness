@@ -56,7 +56,7 @@ const navigationLinks = [
   {
     title: "Ads",
     icon: <EmojiPeople />,
-    href: "/ads",
+    href: "/advertisements",
   },
   {
     title: "About",
@@ -160,7 +160,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
       </Drawer>
       <Paper
         elevation={3}
-        sx={{ display: { xs: "block", sm: "none" }, position: "fixed", bottom: 0, left: 0, right: 0 }}
+        sx={{ display: { xs: "block", sm: "none" }, position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100 }}
       >
         <BottomNavigation showLabels value={pathname}>
           {navigationLinks.map(

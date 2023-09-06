@@ -26,8 +26,8 @@ export default function Page() {
             <Avatar
               src={"/placeholder.jpg"}
               sx={{
-                width: 185,
-                height: 185,
+                width: { xs: 75, sm: 185 },
+                height: { xs: 75, sm: 185 },
                 marginRight: 2,
               }}
             />
