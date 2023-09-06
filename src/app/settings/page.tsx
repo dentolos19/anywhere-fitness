@@ -2,9 +2,10 @@
 
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
-import SettingContainer from "@/components/setting.container";
+import SettingContainer from "@/components/setting-container";
 import { pb } from "@/lib/database";
 import settings from "@/lib/settings";
+import { useGlobalState } from "@/lib/state";
 import { Block, DarkMode, Edit, LightMode, People, Person } from "@mui/icons-material";
 import {
   Avatar,
@@ -20,27 +21,12 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
-  const router = useRouter();
-
-  const [avatarUrl, setAvatarUrl] = useState("/placeholder.jpg");
-  const [name, setName] = useState("Mohamed Bofer Dinesh");
+  const [user, setUser] = useGlobalState("user");
   const [theme, setTheme] = useState("dark");
   const [mention, setMention] = useState("followers");
-
-  useEffect(() => {
-    const userId = settings.userId;
-    if (!userId) return;
-    pb.collection("users")
-      .getOne(userId)
-      .then((user) => {
-        setAvatarUrl("");
-        setName(user.name);
-      });
-  }, []);
 
   const themeHandler = (event: any, value: string) => {
     setTheme(value);
@@ -53,11 +39,11 @@ export default function Page() {
   const logoutHandler = () => {
     settings.userId = "";
     pb.authStore.clear();
-    router.refresh();
+    setUser(undefined);
   }
 
   return (
-    <PageContainer>
+    <PageContainer requireLogin={true}>
       <Stack
         spacing={2}
         sx={{
@@ -81,7 +67,7 @@ export default function Page() {
                 }
               >
                 <Avatar
-                  src={avatarUrl}
+                  src={user?.avatar}
                   sx={{
                     width: 100,
                     height: 100,
@@ -90,7 +76,7 @@ export default function Page() {
               </Badge>
             </Box>
             <Stack spacing={1}>
-              <TextField type={"text"} label={"Name"} value={name}/>
+              <TextField type={"text"} label={"Name"} value={user?.name}/>
               <TextField type={"date"} label={"Birthday"} value={"2000-01-01"}/>
               <EqualizeContainer>
                 <Button variant={"outlined"} color={"secondary"}>

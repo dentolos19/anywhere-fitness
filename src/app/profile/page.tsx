@@ -2,26 +2,13 @@
 
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
-import { pb } from "@/lib/database";
-import settings from "@/lib/settings";
+import { useGlobalState } from "@/lib/state";
 import { Avatar, Box, Button, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
-  const [avatarUrl, setAvatarUrl] = useState("/placeholder.jpg");
-  const [name, setName] = useState("Mohamed Bofer Dinesh");
+  const [user, _] = useGlobalState("user");
   const [tab, setTab] = useState("weekly");
-
-  useEffect(() => {
-    const userId = settings.userId;
-    if (!userId) return;
-    pb.collection("users")
-      .getOne(userId)
-      .then((user) => {
-        setAvatarUrl("");
-        setName(user.name);
-      });
-  }, []);
 
   const tabHandler = (event: any, value: string) => {
     setTab(value);
@@ -40,7 +27,7 @@ export default function Page() {
             }}
           >
             <Avatar
-              src={avatarUrl}
+              src={user?.avatar}
               sx={{
                 width: { xs: 75, sm: 185 },
                 height: { xs: 75, sm: 185 },
@@ -48,16 +35,16 @@ export default function Page() {
               }}
             />
             <Box>
-              <Typography variant={"h5"}>{name}</Typography>
+              <Typography variant={"h5"}>{user?.name}</Typography>
               <Typography color={"text.secondary"}>Rookie</Typography>
             </Box>
           </Box>
           <EqualizeContainer>
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: "center", height: 100 }}>
               <Typography variant={"h5"}>0</Typography>
               <Typography color={"text.secondary"}>Followers</Typography>
             </Box>
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: "center", height: 100 }}>
               <Typography variant={"h5"}>0</Typography>
               <Typography color={"text.secondary"}>Followings</Typography>
             </Box>

@@ -2,6 +2,21 @@ import PocketBase from "pocketbase";
 
 export const pb = new PocketBase("https://inexpensive-fountain.pockethost.io");
 
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  name: string;
+  avatar: string;
+}
+
+export type Post = {
+  id: string;
+  owner: User;
+  cover: string;
+  message: string;
+}
+
 export function createUser(name: string, username: string, email: string, password: string) {
   return pb
     .collection("users")
@@ -19,8 +34,22 @@ export function createUser(name: string, username: string, email: string, passwo
 }
 
 export function loginUser(email: string, password: string) {
-  return pb.collection("users").authWithPassword(email, password).then(
-    (result) => result,
-    () => null
-  );
+  return pb
+    .collection("users")
+    .authWithPassword<User>(email, password)
+    .then(
+      (result) => result.record,
+      () => undefined
+    );
+}
+
+export function getUser(id: string) {
+  return pb.collection("users").getOne<User>(id);
+}
+
+export function getPosts() {
+  return pb.collection("posts").getList<Post>(1, 20, {
+    sort: "-created",
+    expand: "owner"
+  })
 }

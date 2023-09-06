@@ -27,7 +27,7 @@ export default function RequireLogin() {
             <Button variant={"contained"} onClick={() => router.push("/login")}>
               Login
             </Button>
-            <Button variant={"outlined"} onClick={() => router.push("/login")}>
+            <Button variant={"outlined"} onClick={() => router.push("/register")}>
               Register
             </Button>
           </EqualizeContainer>

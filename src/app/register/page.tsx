@@ -18,6 +18,10 @@ export default function Page() {
 
   const submitHandler = (event: any) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setHasError(true);
+      return;
+    }
     createUser(name, username, email, password).then((success) => {
       if (success) {
         router.push("/login?registered=true");

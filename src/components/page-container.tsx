@@ -1,8 +1,9 @@
 "use client";
 
-import settings from "@/lib/settings";
+import { User, pb } from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
 import { BottomNavigation, Box, Container, Toolbar } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import RequireLogin from "./require-login";
 
 export default function Page({
@@ -18,21 +19,22 @@ export default function Page({
   enableVerticalGutters?: boolean;
   enableNavigationSpacers?: boolean;
 }) {
-  const [blocked, setBlocked] = useState<boolean | undefined>();
+  const [user, setUser] = useGlobalState("user");
 
   useEffect(() => {
-    if (!settings.userId) {
-      setBlocked(true);
-    } else {
-      setBlocked(false);
+    if (user) return;
+    if (pb.authStore.isValid) {
+      console.log("Uses auth store");
+      const authUser = pb.authStore.model as User;
+      setUser({
+        id: authUser.id,
+        name: authUser.name,
+        avatar: authUser.avatar,
+      });
     }
   }, []);
 
-  if (blocked === undefined) {
-    return <div>pls wait</div>;
-  }
-
-  if (requireLogin && blocked === true) {
+  if (requireLogin && !user) {
     return <RequireLogin />;
   }
 

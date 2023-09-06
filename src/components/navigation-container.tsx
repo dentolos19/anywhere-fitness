@@ -1,6 +1,6 @@
 "use client";
 
-import settings from "@/lib/settings";
+import { useGlobalState } from "@/lib/state";
 import {
   Chat,
   ChevronLeft,
@@ -34,7 +34,7 @@ import {
   Typography,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EqualizeContainer from "./equalize-container";
 
 const navigationLinks = [
@@ -71,18 +71,14 @@ export default function NavigationContainer({ children }: { children: React.Reac
   const router = useRouter();
   const pathname = usePathname();
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, _] = useGlobalState("user");
   const [isDrawerOpened, setDrawerOpened] = useState(false);
-
-  useEffect(() => {
-    if (settings.userId) setLoggedIn(true);
-  }, []);
 
   return (
     <>
       <AppBar>
         <Toolbar>
-          <Box sx={{ display: loggedIn ? "block" : "none" }}>
+          <Box sx={{ display: user ? "block" : "none" }}>
             <IconButton
               color="inherit"
               onClick={() => setDrawerOpened(true)}
@@ -104,13 +100,13 @@ export default function NavigationContainer({ children }: { children: React.Reac
           <Typography
             variant={"h6"}
             sx={{
-              marginLeft: loggedIn ? 2 : 0,
+              marginLeft: user ? 2 : 0,
               flexGrow: 1,
             }}
           >
             <Box sx={{ display: { xs: "none", sm: "block" } }}>Anywhere Fitness</Box>
           </Typography>
-          <Box sx={{ display: loggedIn ? "block" : "none" }}>
+          <Box sx={{ display: user ? "block" : "none" }}>
             <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
               <Chat />
             </IconButton>
@@ -130,7 +126,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
               <Info />
             </IconButton>
           </Box>
-          <Box sx={{ display: loggedIn ? "none" : "block" }}>
+          <Box sx={{ display: user ? "none" : "block" }}>
             <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
               <Login />
             </IconButton>
@@ -154,7 +150,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
             }}
           >
             <Avatar
-              src={"/placeholder.jpg"}
+              src={user?.avatar}
               sx={{
                 width: 80,
                 height: 80,
@@ -162,7 +158,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
               }}
             />
             <Box>
-              <Typography variant={"h5"}>adsda</Typography>
+              <Typography variant={"h5"}>{user?.name}</Typography>
               <Typography color={"text.secondary"}>Rookie</Typography>
             </Box>
           </Box>
@@ -194,7 +190,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
       <Paper
         elevation={3}
         sx={{
-          display: { xs: loggedIn ? "block" : "none", sm: "none" },
+          display: { xs: user ? "block" : "none", sm: "none" },
           position: "fixed",
           bottom: 0,
           left: 0,

@@ -2,7 +2,7 @@
 
 import PageContainer from "@/components/page-container";
 import { loginUser } from "@/lib/database";
-import settings from "@/lib/settings";
+import { useGlobalState } from "@/lib/state";
 import { Alert, Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -11,15 +11,20 @@ export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [_, setUser] = useGlobalState("user");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setHasError] = useState(false);
 
   const submitHandler = async (event: any) => {
     event.preventDefault();
-    const auth = await loginUser(email, password);
-    if (auth) {
-      settings.userId = auth.record.id;
+    const authUser = await loginUser(email, password);
+    if (authUser) {
+      setUser({
+        id: authUser.id,
+        name: authUser.name,
+        avatar: authUser.avatar,
+      });
       router.push("/profile");
     } else {
       setHasError(true);
