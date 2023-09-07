@@ -37,15 +37,14 @@ export default function Page() {
 
   const handleDialogClose = (value?: FormData) => {
     setPostDialogOpen(false);
-    if (value) {
-      const user = getAuthUser();
-      if (!user) return;
-      value.append("author", user.id);
-      createPostForm(value).then((result) => {
-        if (!result) return;
-        setPosts([result, ...posts]);
-      });
-    }
+    if (!value) return;
+    const user = getAuthUser();
+    if (!user) return;
+    value.append("author", user.id);
+    createPostForm(value).then((result) => {
+      if (!result) return;
+      setPosts([result, ...posts]);
+    });
   };
 
   const handlePostDelete = (id: string) => {
@@ -73,10 +72,14 @@ export default function Page() {
             }}
           >
             {stories.map((item, index) => (
-              <Button key={index} sx={{ display: "flex", flexDirection: "column", gap: 1 }} onClick={() => {
-                setStoryDialogUrl(item.cover);
-                setStoryDialogOpen(true);
-              }}>
+              <Button
+                key={index}
+                sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+                onClick={() => {
+                  setStoryDialogUrl(item.cover);
+                  setStoryDialogOpen(true);
+                }}
+              >
                 <Avatar
                   src={item.cover}
                   sx={{ width: 80, height: 80, border: "4px solid #0097B2", borderSpacing: 2 }}

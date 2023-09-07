@@ -21,6 +21,17 @@ export type Post = {
   created: Date;
 };
 
+export type Advertisement = {
+  id: string;
+  author: string;
+  title: string;
+  description: string;
+  expand: {
+    author: User;
+  };
+  created: Date;
+};
+
 export function createUser(name: string, username: string, email: string, password: string) {
   return pb
     .collection("users")
@@ -95,4 +106,34 @@ export function createPost(author: string, message: string) {
 
 export function deletePost(id: string) {
   return pb.collection("posts").delete(id);
+}
+
+export function getAdvertisements() {
+  return pb.collection("advertisements").getList<Advertisement>(1, 20, {
+    sort: "-created",
+    expand: "author",
+  });
+}
+
+export function createAdvertisement(author: string, title: string, description: string) {
+  return pb
+    .collection("advertisements")
+    .create<Advertisement>(
+      {
+        author,
+        title: title,
+        description: description,
+      },
+      {
+        expand: "author",
+      }
+    )
+    .then(
+      (result) => result,
+      () => undefined
+    );
+}
+
+export function deleteAdvertisement(id: string) {
+  return pb.collection("advertisements").delete(id);
 }
