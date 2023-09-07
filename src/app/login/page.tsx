@@ -28,6 +28,16 @@ export default function Page() {
     }
   };
 
+  const guestHandler = async () => {
+    const authUser = await loginUser("Guest", "wNkYXSBpFCLHC4C");
+    if (authUser) {
+      setUser(authUser);
+      router.push("/profile");
+    } else {
+      setHasError(true);
+    }
+  }
+
   return (
     <PageContainer>
       <Paper
@@ -69,6 +79,7 @@ export default function Page() {
               Register
             </Button>
           </EqualizeContainer>
+          <Button color={"secondary"} variant={"outlined"} onClick={guestHandler}>Continue As Guest</Button>
           <Button color={"info"}>Forget Password?</Button>
         </Stack>
       </Paper>
