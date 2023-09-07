@@ -1,9 +1,9 @@
 "use client";
 
-import { User, pb } from "@/lib/database";
+import { getAuthUser } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import { BottomNavigation, Box, Container, Toolbar } from "@mui/material";
-import { useEffect } from "react";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import RequireLogin from "./require-login";
 
 export default function Page({
@@ -11,7 +11,7 @@ export default function Page({
   requireLogin,
   enableHorizontalGutters = true,
   enableVerticalGutters = true,
-  defineHeight // this fixes the map height and content spacing issues
+  defineHeight, // this fixes the map height and content spacing issues
 }: {
   children: React.ReactNode;
   requireLogin?: boolean;
@@ -21,17 +21,15 @@ export default function Page({
 }) {
   const [user, setUser] = useGlobalState("user");
 
-  useEffect(() => {
+  useEnhancedEffect(() => {
     if (user) return;
-    if (pb.authStore.isValid) {
-      console.log("Uses auth store");
-      const authUser = pb.authStore.model as User;
+    const authUser = getAuthUser();
+    if (authUser)
       setUser({
         id: authUser.id,
         name: authUser.name,
         avatar: authUser.avatar,
       });
-    }
   }, []);
 
   if (requireLogin && !user) {

@@ -8,14 +8,18 @@ export type User = {
   email: string;
   name: string;
   avatar: string;
-}
+};
 
 export type Post = {
   id: string;
-  owner: User;
+  author: string;
   cover: string;
   message: string;
-}
+  expand: {
+    author: User;
+  };
+  created: Date;
+};
 
 export function createUser(name: string, username: string, email: string, password: string) {
   return pb
@@ -47,16 +51,31 @@ export function getUser(id: string) {
   return pb.collection("users").getOne<User>(id);
 }
 
+export function getAuthUser() {
+  if (pb.authStore.isValid) {
+    return pb.authStore.model as User;
+  }
+  return undefined;
+}
+
 export function getPosts() {
   return pb.collection("posts").getList<Post>(1, 20, {
     sort: "-created",
-    expand: "owner"
-  })
+    expand: "author",
+  });
 }
 
-export function getFileUrl(collectionName: string, recordId: string, fileName: string, token?: string) {
-  const url = `${pb.baseUrl}/files/${collectionName}}/${recordId}/${fileName}`;
-  if (token)
-    return `${url}?token=${token}`;
-  return url;
+export function createPost(author: string, message: string) {
+  return pb
+    .collection("posts")
+    .create<Post>({
+      author,
+      message,
+    }, {
+      expand: "author",
+    })
+    .then(
+      (result) => result,
+      () => undefined
+    );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { getFileUrl, pb } from "@/lib/database";
+import { pb } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import {
   Chat,
@@ -161,7 +161,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
                 }}
               >
                 <Avatar
-                  src={getFileUrl("_pb_users_auth_", user.id, user.avatar, pb.authStore.token)}
+                  src={pb.files.getUrl(user, user.avatar)}
                   sx={{
                     width: 80,
                     height: 80,

@@ -2,7 +2,7 @@
 
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
-import { getFileUrl, pb } from "@/lib/database";
+import { pb } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import { Avatar, Box, Button, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
@@ -19,27 +19,29 @@ export default function Page() {
     <PageContainer requireLogin={true}>
       <Stack spacing={1}>
         <Paper>
-          <Box
-            sx={{
-              display: "flex",
-              padding: 2,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Avatar
-              src={getFileUrl("_pb_users_auth_", user?.id, user?.avatar, pb.authStore.token)}
+          {user && (
+            <Box
               sx={{
-                width: { xs: 75, sm: 185 },
-                height: { xs: 75, sm: 185 },
-                marginRight: 2,
+                display: "flex",
+                padding: 2,
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            />
-            <Box>
-              <Typography variant={"h5"}>{user?.name}</Typography>
-              <Typography color={"text.secondary"}>Rookie</Typography>
+            >
+              <Avatar
+                src={pb.files.getUrl(user, user.avatar)}
+                sx={{
+                  width: { xs: 75, sm: 185 },
+                  height: { xs: 75, sm: 185 },
+                  marginRight: 2,
+                }}
+              />
+              <Box>
+                <Typography variant={"h5"}>{user.name}</Typography>
+                <Typography color={"text.secondary"}>Rookie</Typography>
+              </Box>
             </Box>
-          </Box>
+          )}
           <EqualizeContainer>
             <Box sx={{ textAlign: "center", height: 100 }}>
               <Typography variant={"h5"}>0</Typography>
