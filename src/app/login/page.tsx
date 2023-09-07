@@ -20,11 +20,7 @@ export default function Page() {
     event.preventDefault();
     const authUser = await loginUser(email, password);
     if (authUser) {
-      setUser({
-        id: authUser.id,
-        name: authUser.name,
-        avatar: authUser.avatar,
-      });
+      setUser(authUser);
       router.push("/profile");
     } else {
       setHasError(true);
@@ -80,9 +76,6 @@ export default function Page() {
               Register
             </Button>
           </Box>
-          <Button variant={"contained"} color={"secondary"}>
-            Continue As Guest
-          </Button>
         </Stack>
       </Paper>
     </PageContainer>

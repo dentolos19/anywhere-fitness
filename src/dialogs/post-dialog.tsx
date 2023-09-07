@@ -62,7 +62,7 @@ export default function PostDialog({
           }}>
             <Button component={"label"} variant={"contained"} fullWidth>
               Upload
-              <VisuallyHiddenInput type="file" onChange={handleFileUpload} />
+              <VisuallyHiddenInput type="file" accept={".png,.jpg"} onChange={handleFileUpload} />
             </Button>
             <Typography align={"center"}>{file?.name || "No file selected."}</Typography>
           </Box>

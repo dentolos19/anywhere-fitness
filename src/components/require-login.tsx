@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import EqualizeContainer from "./equalize-container";
 import PageContainer from "./page-container";
@@ -19,9 +19,9 @@ export default function RequireLogin() {
         }}
       >
         <Stack spacing={2}>
-          <Typography variant={"h5"} align={"center"}>
-            Anywhere Fitness
-          </Typography>
+          <Box>
+            <img src={"/title.png"} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          </Box>
           <Typography align={"center"}>You need to be logged in to view this page.</Typography>
           <EqualizeContainer>
             <Button variant={"contained"} onClick={() => router.push("/login")}>

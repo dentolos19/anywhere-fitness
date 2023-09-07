@@ -3,6 +3,7 @@
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
 import SettingContainer from "@/components/setting-container";
+import { darkTheme, lightTheme } from "@/components/theme-container";
 import { pb } from "@/lib/database";
 import settings from "@/lib/settings";
 import { useGlobalState } from "@/lib/state";
@@ -21,15 +22,27 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
 
 export default function Page() {
   const [user, setUser] = useGlobalState("user");
+  const [_, setGlobalTheme] = useGlobalState("theme");
   const [theme, setTheme] = useState("dark");
   const [mention, setMention] = useState("followers");
 
+  useEnhancedEffect(() => {
+    if (settings.theme === "dark") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
   const themeHandler = (event: any, value: string) => {
+    settings.theme = value;
     setTheme(value);
+    setGlobalTheme(value === "dark" ? darkTheme : lightTheme);
   };
 
   const mentionHandler = (event: any, value: string) => {
@@ -37,10 +50,9 @@ export default function Page() {
   };
 
   const logoutHandler = () => {
-    settings.userId = "";
     pb.authStore.clear();
     setUser(undefined);
-  }
+  };
 
   return (
     <PageContainer requireLogin={true}>
@@ -67,7 +79,7 @@ export default function Page() {
                 }
               >
                 <Avatar
-                  src={user?.avatar}
+                  src={user && pb.files.getUrl(user, user.avatar)}
                   sx={{
                     width: 100,
                     height: 100,
@@ -76,8 +88,8 @@ export default function Page() {
               </Badge>
             </Box>
             <Stack spacing={1}>
-              <TextField type={"text"} label={"Name"} value={user?.name}/>
-              <TextField type={"date"} label={"Birthday"} value={"2000-01-01"}/>
+              <TextField type={"text"} label={"Name"} value={user?.name} />
+              <TextField type={"date"} label={"Birthday"} value={"2000-01-01"} />
               <EqualizeContainer>
                 <Button variant={"outlined"} color={"secondary"}>
                   Change Email
@@ -87,7 +99,9 @@ export default function Page() {
                 </Button>
               </EqualizeContainer>
               <Button variant={"contained"}>Save</Button>
-              <Button variant={"contained"} color={"error"} onClick={logoutHandler}>Logout</Button>
+              <Button variant={"contained"} color={"error"} onClick={logoutHandler}>
+                Logout
+              </Button>
             </Stack>
           </Stack>
         </Paper>

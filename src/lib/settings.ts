@@ -1,12 +1,12 @@
 class Settings {
-    // userId
-    get userId() {
-      const value = localStorage.getItem("userId");
-      if (!value) return "";
+    // theme
+    get theme() {
+      const value = localStorage.getItem("theme");
+      if (!value) return "dark";
       return value;
     }
-    set userId(value: string) {
-      localStorage.setItem("userId", value);
+    set theme(value: string) {
+      localStorage.setItem("theme", value);
     }
   }
 

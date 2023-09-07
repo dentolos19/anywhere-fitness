@@ -24,12 +24,7 @@ export default function Page({
   useEnhancedEffect(() => {
     if (user) return;
     const authUser = getAuthUser();
-    if (authUser)
-      setUser({
-        id: authUser.id,
-        name: authUser.name,
-        avatar: authUser.avatar,
-      });
+    if (authUser) setUser(authUser);
   }, []);
 
   if (requireLogin && !user) {
