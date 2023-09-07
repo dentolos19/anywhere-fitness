@@ -13,7 +13,7 @@ import {
   Notifications,
   People,
   Settings,
-  StackedLineChart,
+  StackedLineChart
 } from "@mui/icons-material";
 import {
   AppBar,
@@ -133,7 +133,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
             </IconButton>
           </Box>
           <Box sx={{ display: user ? "none" : "block" }}>
-            <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
+            <IconButton color={"inherit"} onClick={() => router.push("/login")}>
               <Login />
             </IconButton>
           </Box>

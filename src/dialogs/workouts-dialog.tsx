@@ -1,67 +1,168 @@
 "use client";
 
 import { Info } from "@mui/icons-material";
-import { Dialog, DialogTitle, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogTitle,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+} from "@mui/material";
 
 const workouts = [
   {
-    name: "Leg Curls",
-    category: "Legs",
-    url: "https://youtu.be/ELOCsoDSmrg",
+    name: "Legs",
+    exercises: [
+      {
+        name: "Leg Curls",
+        url: "https://youtu.be/ELOCsoDSmrg",
+      },
+      {
+        name: "Leg Raises",
+        url: "https://youtu.be/JB2oyawG9KI",
+      },
+      {
+        name: "Leg Press",
+        url: "https://youtu.be/IZxyjW7MPJQ",
+      },
+      {
+        name: "Regular Squats",
+        url: "https://youtu.be/YaXPRqUwItQ",
+      },
+      {
+        name: "Sumo Squats",
+        url: "https://youtu.be/2C-uNgKwPLE",
+      },
+    ],
   },
   {
-    name: "Leg Raises",
-    category: "Legs",
-    url: "https://youtu.be/JB2oyawG9KI",
+    name: "Back",
+    exercises: [
+      {
+        name: "Pull-Ups",
+        url: "https://youtu.be/jFmCrA6fo78",
+      },
+      {
+        name: "Seated Cable Row",
+        url: "https://youtu.be/xQNrFHEMhI4",
+      },
+    ],
   },
   {
-    name: "Leg Press",
-    category: "Legs",
-    url: "https://youtu.be/IZxyjW7MPJQ",
+    name: "Chest",
+    exercises: [
+      {
+        name: "Push-Ups",
+        url: "https://youtu.be/IODxDxX7oi4",
+      },
+      {
+        name: "Chest Press",
+        url: "https://youtu.be/xUm0BiZCWlQ",
+      },
+      {
+        name: "Incline Bench Press",
+        url: "https://youtu.be/uIzbJX5EVIY",
+      },
+      {
+        name: "Pec Flyes",
+        url: "https://youtu.be/gqA9QMKLcGk",
+      },
+    ],
   },
   {
-    name: "Regular Squats",
-    category: "Legs",
-    url: "https://youtu.be/YaXPRqUwItQ",
+    name: "Abs",
+    exercises: [
+      {
+        name: "Plank",
+        url: "https://youtu.be/pSHjTRCQxIw",
+      },
+      {
+        name: "Sit-Ups",
+        url: "https://youtu.be/1fbU_MkV7NE",
+      },
+    ],
   },
   {
-    name: "Sumo Squats",
-    category: "Legs",
-    url: "https://youtu.be/2C-uNgKwPLE",
+    name: "Shoulders",
+    exercises: [
+      {
+        name: "Overhead Press",
+        url: "https://youtu.be/2yjwXTZQDDI",
+      },
+      {
+        name: "Lateral Raises",
+        url: "https://youtu.be/3VcKaXpzqRo",
+      },
+    ],
+  },
+  {
+    name: "Arms",
+    exercises: [
+      {
+        name: "Dumbbell Flyes",
+        url: "https://youtu.be/eozdVDA78K0",
+      },
+      {
+        name: "Bicep Curls",
+        url: "https://youtu.be/ykJmrZ5v0Oo",
+      },
+      {
+        name: "Hammer Curls",
+        url: "https://youtu.be/zC3nLlEvin4",
+      },
+      {
+        name: "Preacher Curls",
+        url: "https://youtu.be/fIWP-FRFNU0",
+      },
+      {
+        name: "Skullcrushers",
+        url: "https://youtu.be/d_KZxkY_0cM",
+      },
+      {
+        name: "Sam Sulek Forearms",
+        url: "https://www.tiktok.com/@samsulektalk/video/7271064931053636896?is_from_webapp=1&sender_device=pc",
+      },
+    ],
   },
 ];
+
+export type WorkoutsDialogResult = { workoutName: string; workoutCategory: string }
 
 export default function WorkoutsDialog({
   open,
   onClose,
 }: {
   open?: boolean;
-  onClose: (value: string | undefined) => void;
+  onClose: (value: WorkoutsDialogResult | undefined) => void;
 }) {
-  const router = useRouter();
-
-  const closeHandler = () => onClose(undefined);
-  const clickHandler = (value: string) => onClose(value);
-
   return (
-    <Dialog open={open === true} onClose={closeHandler} maxWidth={"xs"} fullWidth={true}>
+    <Dialog open={open === true} onClose={() => onClose(undefined)} maxWidth={"xs"} fullWidth={true}>
       <DialogTitle>Select A Workout</DialogTitle>
-      <List sx={{ pt: 0 }}>
+      <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
-          <ListItem
-            key={workout.name}
-            secondaryAction={
-              <IconButton LinkComponent={"a"} edge={"end"} href={workout.url} target="_blank">
-                <Info />
-              </IconButton>
-            }
-            disablePadding
-          >
-            <ListItemButton onClick={() => clickHandler(workout.name)}>
-              <ListItemText primary={workout.name} />
-            </ListItemButton>
-          </ListItem>
+          <ul key={workout.name}>
+            <li>
+              <ListSubheader>{workout.name}</ListSubheader>
+              {workout.exercises.map((exercise, index) => (
+                <ListItem
+                  key={index}
+                  secondaryAction={
+                    <IconButton LinkComponent={"a"} edge={"end"} href={exercise.url} target="_blank">
+                      <Info />
+                    </IconButton>
+                  }
+                  disablePadding
+                >
+                  <ListItemButton onClick={() => onClose({ workoutName: exercise.name, workoutCategory: workout.name })}>
+                    <ListItemText primary={exercise.name} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </li>
+          </ul>
         ))}
       </List>
     </Dialog>

@@ -1,9 +1,10 @@
 "use client";
 
+import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
 import { loginUser } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
-import { Alert, Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Paper, Stack, TextField } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -40,9 +41,9 @@ export default function Page() {
         }}
       >
         <Stack spacing={2}>
-          <Typography variant={"h5"} align={"center"}>
-            Anywhere Fitness
-          </Typography>
+          <Box>
+            <img src={"/title.png"} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          </Box>
           {searchParams.get("registered") && <Alert severity={"success"}>Please login using your credentials.</Alert>}
           {hasError && <Alert severity={"error"}>Unable to login into user account.</Alert>}
           <TextField
@@ -60,22 +61,15 @@ export default function Page() {
             onChange={(event) => setPassword(event.target.value)}
             required
           />
-          <Box
-            sx={{
-              display: "flex",
-              gap: 1,
-              "& *": {
-                flexGrow: 1,
-              },
-            }}
-          >
+          <EqualizeContainer>
             <Button type={"submit"} variant={"contained"}>
               Login
             </Button>
             <Button variant={"outlined"} onClick={() => router.push("/register")}>
               Register
             </Button>
-          </Box>
+          </EqualizeContainer>
+          <Button color={"info"}>Forget Password?</Button>
         </Stack>
       </Paper>
     </PageContainer>

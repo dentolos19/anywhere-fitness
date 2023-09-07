@@ -1,7 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/page-container";
-import WorkoutsDialog from "@/dialogs/workouts-dialog";
+import WorkoutsDialog, { WorkoutsDialogResult } from "@/dialogs/workouts-dialog";
 import { Add, Delete, FitnessCenter, MonitorHeart, Remove, Sort } from "@mui/icons-material";
 import { Box, Chip, IconButton, Paper, SpeedDial, SpeedDialAction, Stack, Typography } from "@mui/material";
 import { useState } from "react";
@@ -10,16 +10,16 @@ export default function Page() {
   const [workouts, setWorkouts] = useState([
     {
       name: "Leg Curls",
-      count: 1,
+      category: "Legs",
+      count: 0,
     },
   ]);
   const [workoutOpen, setWorkoutOpen] = useState(false);
 
-  const workoutDialogCloseHandler = (value: string | undefined) => {
-    if (value) {
-      setWorkouts((workouts) => [...workouts, { name: value, count: 1 }]);
-    }
+  const workoutDialogCloseHandler = (value: WorkoutsDialogResult | undefined) => {
     setWorkoutOpen(false);
+    if (value)
+      setWorkouts((workouts) => [...workouts, { name: value.workoutName, category: value.workoutCategory, count: 0 }]);
   };
 
   return (
@@ -39,18 +39,21 @@ export default function Page() {
           <Stack spacing={1}>
             {workouts.map((workout, index) => (
               <Paper key={index} sx={{ display: "flex", padding: 2, alignItems: "center" }}>
-                <Typography variant={"h5"} fontWeight={600}>
-                  {workout.name}
-                </Typography>
+                <Box>
+                  <Typography variant={"h5"} fontWeight={600}>
+                    {workout.name}
+                  </Typography>
+                  <Typography variant={"body2"} color={"text.secondary"}>
+                    {workout.category}
+                  </Typography>
+                </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <IconButton
                     onClick={() =>
                       setWorkouts((state) =>
                         state.map((item, itemIndex) =>
-                          itemIndex === index
-                            ? { name: item.name, count: item.count <= 0 ? item.count : --item.count }
-                            : item
+                          itemIndex === index ? { ...item, count: item.count <= 0 ? item.count : --item.count } : item
                         )
                       )
                     }
@@ -61,9 +64,7 @@ export default function Page() {
                   <IconButton
                     onClick={() =>
                       setWorkouts((state) =>
-                        state.map((item, itemIndex) =>
-                          itemIndex === index ? { name: item.name, count: ++item.count } : item
-                        )
+                        state.map((item, itemIndex) => (itemIndex === index ? { ...item, count: ++item.count } : item))
                       )
                     }
                   >

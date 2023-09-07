@@ -1,8 +1,9 @@
 "use client";
 
+import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
 import { createUser } from "@/lib/database";
-import { Alert, Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Paper, Stack, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -44,10 +45,10 @@ export default function Page() {
         }}
       >
         <Stack spacing={2}>
-          <Typography variant={"h5"} align={"center"}>
-            Anywhere Fitness
-          </Typography>
-          {hasError && <Alert severity={"error"}>Unable to create user account.</Alert>}
+          <Box>
+            <img src={"/title.png"} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+          </Box>
+          {hasError && <Alert severity={"error"}>Unable to create user account!</Alert>}
           <TextField
             type={"text"}
             label={"Full Name"}
@@ -85,9 +86,14 @@ export default function Page() {
             onChange={(event) => setConfirmPassword(event.target.value)}
             required
           />
-          <Button type={"submit"} variant={"contained"}>
-            Register
-          </Button>
+          <EqualizeContainer>
+            <Button variant={"outlined"} onClick={() => router.push("/login")}>
+              Login
+            </Button>
+            <Button type={"submit"} variant={"contained"}>
+              Register
+            </Button>
+          </EqualizeContainer>
         </Stack>
       </Paper>
     </PageContainer>

@@ -1,7 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/page-container";
-import { ListItemButton, Paper } from "@mui/material";
+import { Box, ListItemButton, Paper } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,8 +13,8 @@ export default function AlignItemsList() {
   const router = useRouter();
 
   return (
-    <PageContainer>
-      <Paper
+    <PageContainer requireLogin={true}>
+      <Box
         sx={{
           maxWidth: 700,
           marginLeft: "auto",
@@ -23,23 +23,27 @@ export default function AlignItemsList() {
       >
         <List>
           <ListItem disableGutters>
-            <ListItemButton onClick={() => router.push("/chat/ai")}>
-              <ListItemAvatar>
-                <Avatar alt="baymax" />
-              </ListItemAvatar>
-              <ListItemText primary={"baymax"} secondary={"your ai chat companion"} />
-            </ListItemButton>
+            <Paper sx={{ width: "100%" }}>
+              <ListItemButton onClick={() => router.push("/chat/ai")}>
+                <ListItemAvatar>
+                  <Avatar alt="baymax" src={"baymax.jpg"} />
+                </ListItemAvatar>
+                <ListItemText primary={"Baymax AI"} secondary={"Your personal healthcare companion!"} />
+              </ListItemButton>
+            </Paper>
           </ListItem>
           <ListItem disableGutters>
-            <ListItemButton onClick={() => router.push("/chat/other")}>
-              <ListItemAvatar>
-                <Avatar alt="friend" src="/placeholder.jpg" />
-              </ListItemAvatar>
-              <ListItemText primary="ur other friend" secondary={"u no friends la"} />
-            </ListItemButton>
+            <Paper sx={{ width: "100%" }}>
+              <ListItemButton onClick={() => router.push("/chat/other")}>
+                <ListItemAvatar>
+                  <Avatar alt="friend" src="/placeholder.jpg" />
+                </ListItemAvatar>
+                <ListItemText primary="bestieeeee 🥰🥰🥰" secondary={"netflix and chill??"} />
+              </ListItemButton>
+            </Paper>
           </ListItem>
         </List>
-      </Paper>
+      </Box>
     </PageContainer>
   );
 }

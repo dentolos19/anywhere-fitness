@@ -11,16 +11,16 @@ import { useState } from "react";
 
 const stories = [
   {
-    cover: "/placeholder.jpg",
-    name: "Story #1",
+    cover: "/baymax.jpg",
+    name: "Baymax AI",
   },
   {
     cover: "/placeholder.jpg",
-    name: "Story #2",
+    name: "imh",
   },
   {
-    cover: "/placeholder.jpg",
-    name: "Story #3",
+    cover: "/placeholder-amos.jpg",
+    name: "amos",
   },
 ]
 
