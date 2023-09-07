@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -54,18 +53,17 @@ export default function PostDialog({
       <DialogTitle>Create A Post</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
+          {file && (
+            <>
+              <img src={URL.createObjectURL(file)} />
+              <Typography align={"center"}>{file.name}</Typography>
+            </>
+          )}
           <TextField value={value} onChange={(event) => setValue(event.target.value)} fullWidth multiline />
-          <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 1
-          }}>
-            <Button component={"label"} variant={"contained"} fullWidth>
-              Upload
-              <VisuallyHiddenInput type="file" accept={".png,.jpg"} onChange={handleFileUpload} />
-            </Button>
-            <Typography align={"center"}>{file?.name || "No file selected."}</Typography>
-          </Box>
+          <Button component={"label"} color={"info"} variant={"outlined"} fullWidth>
+            Upload Cover
+            <VisuallyHiddenInput type="file" accept={".png,.jpg"} onChange={handleFileUpload} />
+          </Button>
         </Stack>
       </DialogContent>
       <DialogActions>

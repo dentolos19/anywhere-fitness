@@ -59,8 +59,11 @@ export default function Page() {
       <Stack
         spacing={2}
         sx={{
+          maxWidth: 600,
           marginTop: 2,
           marginBottom: 2,
+          marginLeft: "auto",
+          marginRight: "auto",
         }}
       >
         <Paper sx={{ padding: 2 }}>
@@ -91,10 +94,10 @@ export default function Page() {
               <TextField type={"text"} label={"Name"} value={user?.name} />
               <TextField type={"date"} label={"Birthday"} value={"2000-01-01"} />
               <EqualizeContainer>
-                <Button variant={"outlined"} color={"secondary"}>
+                <Button variant={"outlined"} color={"info"}>
                   Change Email
                 </Button>
-                <Button variant={"outlined"} color={"secondary"}>
+                <Button variant={"outlined"} color={"info"}>
                   Change Password
                 </Button>
               </EqualizeContainer>

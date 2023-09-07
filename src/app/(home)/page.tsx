@@ -85,7 +85,7 @@ export default function Page() {
               <PostContainer key={item.id} post={item} onDelete={handlePostDelete} />
             ))}
           </Stack>
-          <Fab sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }} onClick={() => setDialogOpen(true)}>
+          <Fab color={"info"} sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }} onClick={() => setDialogOpen(true)}>
             <Add />
           </Fab>
         </Box>
