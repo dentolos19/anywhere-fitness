@@ -7,7 +7,7 @@ export default function Page() {
         <Paper sx={{ padding: 2, maxWidth: 500, marginLeft: "auto", marginRight: "auto", overflow: "hidden" }}>
           <Typography variant={"h4"} align={"center"} gutterBottom>Achievements</Typography>
           <Typography variant={"h5"} gutterBottom>Calories</Typography>
-          <Stack direction={"row"} sx={{ flexWrap: "wrap", gap: 1 }}>
+          <Stack direction={"row"} sx={{ marginBottom: 4, flexWrap: "wrap", gap: 1 }}>
             <Box sx={{ width: 100, height: 100 }}>
                 <img src={"/fire.png"} style={{ maxWidth: "100%", maxHeight: "100%" }} />
             </Box>
@@ -16,7 +16,7 @@ export default function Page() {
             </Box>
           </Stack>
           <Typography variant={"h5"} gutterBottom>Sports</Typography>
-          <Stack direction={"row"} sx={{ flexWrap: "wrap", gap: 1 }}>
+          <Stack direction={"row"} sx={{ marginBottom: 4, flexWrap: "wrap", gap: 1 }}>
             <Box sx={{ width: 100, height: 100 }}>
                 <img src={"/goal.png"} style={{ maxWidth: "100%", maxHeight: "100%" }} />
             </Box>

@@ -20,12 +20,20 @@ export default function Page() {
 
   return (
     <PageContainer requireLogin={true}>
-      <Stack spacing={1}>
+      <Stack
+        spacing={1}
+        sx={{
+          maxWidth: 800,
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
         <Paper>
           {user && (
             <Box
               sx={{
                 display: "flex",
+                marginBottom: 2,
                 padding: 2,
                 alignItems: "center",
                 justifyContent: "center",
@@ -34,8 +42,8 @@ export default function Page() {
               <Avatar
                 src={pb.files.getUrl(user, user.avatar)}
                 sx={{
-                  width: { xs: 75, sm: 185 },
-                  height: { xs: 75, sm: 185 },
+                  width: { xs: 80, sm: 150 },
+                  height: { xs: 80, sm: 150 },
                   marginRight: 2,
                 }}
               />

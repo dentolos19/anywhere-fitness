@@ -2,7 +2,7 @@ class Settings {
     // theme
     get theme() {
       const value = localStorage.getItem("theme");
-      if (!value) return "dark";
+      if (!value) return "light";
       return value;
     }
     set theme(value: string) {

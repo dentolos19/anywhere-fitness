@@ -101,7 +101,6 @@ export default function Page() {
                   Change Password
                 </Button>
               </EqualizeContainer>
-              <Button variant={"contained"}>Save</Button>
               <Button variant={"contained"} color={"error"} onClick={logoutHandler}>
                 Logout
               </Button>
@@ -111,7 +110,7 @@ export default function Page() {
         <Paper sx={{ padding: 2 }}>
           <Stack spacing={1}>
             <Typography variant={"h5"} align={"center"}>
-              Account Information
+              Personalisation
             </Typography>
             <SettingContainer label={"App Theme"}>
               <ToggleButtonGroup color={"primary"} value={theme} exclusive={true} onChange={themeHandler}>
