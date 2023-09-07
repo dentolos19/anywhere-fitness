@@ -5,9 +5,24 @@ import PostContainer from "@/components/post-container";
 import PostDialog from "@/dialogs/post-dialog";
 import { Post, createPostForm, deletePost, getAuthUser, getPosts } from "@/lib/database";
 import { Add } from "@mui/icons-material";
-import { Avatar, Box, Fab, Stack } from "@mui/material";
+import { Avatar, Box, Fab, Stack, Typography } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
+
+const stories = [
+  {
+    cover: "/placeholder.jpg",
+    name: "Story #1",
+  },
+  {
+    cover: "/placeholder.jpg",
+    name: "Story #2",
+  },
+  {
+    cover: "/placeholder.jpg",
+    name: "Story #3",
+  },
+]
 
 export default function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -33,7 +48,7 @@ export default function Page() {
   const handlePostDelete = (id: string) => {
     deletePost(id);
     setPosts(posts.filter((item) => item.id !== id));
-  }
+  };
 
   return (
     <>
@@ -53,18 +68,17 @@ export default function Page() {
               marginBottom: 2,
             }}
           >
-            <Avatar
-              src={"/placeholder.jpg"}
-              sx={{ width: 80, height: 80, border: "4px solid #0097B2", borderSpacing: 2 }}
-            />
-            <Avatar
-              src={"/placeholder.jpg"}
-              sx={{ width: 80, height: 80, border: "4px solid #0097B2", borderSpacing: 2 }}
-            />
-            <Avatar
-              src={"/placeholder.jpg"}
-              sx={{ width: 80, height: 80, border: "4px solid #0097B2", borderSpacing: 2 }}
-            />
+            {
+              stories.map((item, index) => (
+                <Box key={index} sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <Avatar
+                src={item.cover}
+                sx={{ width: 80, height: 80, border: "4px solid #0097B2", borderSpacing: 2 }}
+              />
+              <Typography align={"center"} fontSize={"0.8em"}>{item.name}</Typography>
+            </Box>
+              ))
+            }
           </Stack>
           <Stack spacing={1}>
             {posts.map((item) => (

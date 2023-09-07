@@ -5,9 +5,12 @@ import PageContainer from "@/components/page-container";
 import { pb } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import { Avatar, Box, Button, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
+
   const [user, _] = useGlobalState("user");
   const [tab, setTab] = useState("weekly");
 
@@ -85,11 +88,15 @@ export default function Page() {
         </Paper>
         <Paper>
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
-            <Button>Activities</Button>
+            <Button onClick={() => router.push("/profile/achievements")}>Achievements</Button>
           </Box>
           <Divider />
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
-            <Button>Goals</Button>
+            <Button onClick={() => router.push("/profile/goals")}>Goals</Button>
+          </Box>
+          <Divider />
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button>History</Button>
           </Box>
           <Divider />
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>

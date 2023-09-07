@@ -2,7 +2,7 @@
 
 import PageContainer from "@/components/page-container";
 import WorkoutsDialog from "@/dialogs/workouts-dialog";
-import { Add, FitnessCenter, MonitorHeart, Remove, Sort } from "@mui/icons-material";
+import { Add, Delete, FitnessCenter, MonitorHeart, Remove, Sort } from "@mui/icons-material";
 import { Box, Chip, IconButton, Paper, SpeedDial, SpeedDialAction, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -44,14 +44,37 @@ export default function Page() {
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <IconButton>
+                  <IconButton
+                    onClick={() =>
+                      setWorkouts((state) =>
+                        state.map((item, itemIndex) =>
+                          itemIndex === index
+                            ? { name: item.name, count: item.count <= 0 ? item.count : --item.count }
+                            : item
+                        )
+                      )
+                    }
+                  >
                     <Remove />
                   </IconButton>
                   <Typography>{workout.count}</Typography>
-                  <IconButton>
+                  <IconButton
+                    onClick={() =>
+                      setWorkouts((state) =>
+                        state.map((item, itemIndex) =>
+                          itemIndex === index ? { name: item.name, count: ++item.count } : item
+                        )
+                      )
+                    }
+                  >
                     <Add />
                   </IconButton>
                 </Box>
+                <IconButton
+                  onClick={() => setWorkouts((workouts) => workouts.filter((_, itemIndex) => index !== itemIndex))}
+                >
+                  <Delete />
+                </IconButton>
               </Paper>
             ))}
           </Stack>

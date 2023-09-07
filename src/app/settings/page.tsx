@@ -153,10 +153,10 @@ export default function Page() {
               </IconButton>
             </SettingContainer>
             <SettingContainer label={"Make Profile Public"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Show Online Status"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Allow Mentions From"}>
               <ToggleButtonGroup color={"primary"} value={mention} exclusive={true} onChange={mentionHandler}>
@@ -172,7 +172,7 @@ export default function Page() {
               </ToggleButtonGroup>
             </SettingContainer>
             <SettingContainer label={"Allow Anonymous Data Collection"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
           </Stack>
         </Paper>
@@ -182,19 +182,19 @@ export default function Page() {
               Notifications
             </Typography>
             <SettingContainer label={"Account Suggestions"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Follower Requests"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Accepted Follow Requests"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Message Requests"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
             <SettingContainer label={"Unread Messages"}>
-              <Checkbox checked />
+              <Checkbox />
             </SettingContainer>
           </Stack>
         </Paper>

@@ -52,7 +52,6 @@ const navigationLinks = [
   {
     title: "Track",
     icon: <StackedLineChart />,
-    mobileOnly: true,
     href: "/track",
   },
   {
@@ -77,7 +76,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
 
   return (
     <>
-      <AppBar>
+      <AppBar color={"secondary"}>
         <Toolbar>
           <Box sx={{ display: user ? "block" : "none" }}>
             <IconButton
@@ -98,7 +97,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
           >
             <ChevronLeft />
           </IconButton>
-          <Typography
+          {/* <Typography
             variant={"h6"}
             sx={{
               marginLeft: user ? 2 : 0,
@@ -106,7 +105,11 @@ export default function NavigationContainer({ children }: { children: React.Reac
             }}
           >
             <Box sx={{ display: { xs: "none", sm: "block" } }}>Anywhere Fitness</Box>
-          </Typography>
+          </Typography> */}
+          <Box sx={{ display: { xs: "none", sm: "flex" }, marginLeft: user ? 2 : 0, alignItems: "center" }}>
+            <img src={"/title.png"} style={{ height: 50 }} />
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: user ? "block" : "none" }}>
             <IconButton color={"inherit"} onClick={() => router.push("/chat")}>
               <Chat />

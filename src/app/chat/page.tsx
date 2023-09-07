@@ -31,7 +31,7 @@ export default function AlignItemsList() {
             </ListItemButton>
           </ListItem>
           <ListItem disableGutters>
-            <ListItemButton>
+            <ListItemButton onClick={() => router.push("/chat/other")}>
               <ListItemAvatar>
                 <Avatar alt="friend" src="/placeholder.jpg" />
               </ListItemAvatar>
