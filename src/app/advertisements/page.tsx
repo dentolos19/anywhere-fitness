@@ -1,8 +1,8 @@
 "use client";
 
 import PageContainer from "@/components/page-container";
-import { Add, FilterAlt, LocationOn, Sort } from "@mui/icons-material";
-import { Box, Card, CardContent, Chip, Fab, Stack, Typography } from "@mui/material";
+import { Add, Comment, FilterAlt, LocationOn, Sort } from "@mui/icons-material";
+import { Box, Card, CardActions, CardContent, Chip, Fab, IconButton, Stack, Typography } from "@mui/material";
 
 const advertisements = [
   {
@@ -51,6 +51,11 @@ export default function Page() {
                   by your local superman
                 </Typography>
               </CardContent>
+              <CardActions disableSpacing>
+                <IconButton>
+                  <Comment />
+                </IconButton>
+              </CardActions>
             </Card>
           ))}
         </Stack>
