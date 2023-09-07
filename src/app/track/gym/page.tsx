@@ -2,7 +2,7 @@
 
 import PageContainer from "@/components/page-container";
 import WorkoutsDialog, { WorkoutsDialogResult } from "@/dialogs/workouts-dialog";
-import { Add, Delete, FitnessCenter, MonitorHeart, Remove, Sort } from "@mui/icons-material";
+import { Add, Camera, Delete, FitnessCenter, MonitorHeart, Remove, Sort } from "@mui/icons-material";
 import { Box, Chip, IconButton, Paper, SpeedDial, SpeedDialAction, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -71,6 +71,9 @@ export default function Page() {
                     <Add />
                   </IconButton>
                 </Box>
+                <IconButton>
+                  <Camera/>
+                </IconButton>
                 <IconButton
                   onClick={() => setWorkouts((workouts) => workouts.filter((_, itemIndex) => index !== itemIndex))}
                 >

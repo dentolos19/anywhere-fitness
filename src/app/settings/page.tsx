@@ -112,7 +112,7 @@ export default function Page() {
             <Typography variant={"h5"} align={"center"}>
               Personalisation
             </Typography>
-            <SettingContainer label={"App Theme"}>
+            <SettingContainer label={"App Theme" + (theme === "dark" ? " (once you go dark, you will never turn back)" : "")}>
               <ToggleButtonGroup color={"primary"} value={theme} exclusive={true} onChange={themeHandler}>
                 <ToggleButton value={"light"}>
                   <LightMode />

@@ -4,16 +4,18 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 
 export default function NotificationDialog({
   open,
+  title,
   message,
   onClose,
 }: {
   open?: boolean;
+  title: string;
   message: string;
   onClose: () => void;
 }) {
   return (
     <Dialog open={open === true} onClose={onClose} maxWidth={"xs"} fullWidth={true}>
-      <DialogTitle>Notification</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>
       </DialogContent>

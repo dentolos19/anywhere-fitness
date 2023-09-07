@@ -9,14 +9,17 @@ import { useState } from "react";
 export default function Page() {
   const [notifications, setNotifications] = useState([
     {
-      title: "You have 1 mail(s) from a unknown source.",
+      title: "You have 1 mail(s) from an unknown source.",
+      message: "im gay",
       date: "2023-09-06",
     },
     {
       title: "Welcome to Anywhere Fitness!",
+      message: "Discover new friends that will be with you in your fitness journey! With Anywhere Fitness, you can find the perfect workout routine that fits your schedule and lifestyle.",
       date: "2023-09-06",
     },
   ]);
+  const [notificationDialogTitle, setNotificationDialogTitle] = useState("");
   const [notificationDialogMessage, setNotificationDialogMessage] = useState("");
   const [notificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
@@ -26,28 +29,15 @@ export default function Page() {
 
   return (
     <>
-      <NotificationDialog open={notificationDialogOpen} message={notificationDialogMessage} onClose={handleNotificationDialogClose} />
+      <NotificationDialog open={notificationDialogOpen} title={notificationDialogTitle} message={notificationDialogMessage} onClose={handleNotificationDialogClose} />
       <PageContainer requireLogin={true}>
-        {/* <Stack spacing={1}>
-        <Paper sx={{ display: "flex", padding: 2, alignItems: "center", gap: 1 }}>
-          <Notifications />
-          <Typography variant={"h6"}>You have 1 mail(s) from a unknown source.</Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography color={"text.secondary"}>2023-09-06</Typography>
-        </Paper>
-        <Paper sx={{ display: "flex", padding: 2, alignItems: "center", gap: 1 }}>
-          <Notifications />
-          <Typography variant={"h6"}>Welcome to Anywhere Fitness!</Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography color={"text.secondary"}>2023-09-06</Typography>
-        </Paper>
-      </Stack> */}
         <List>
           {notifications.map((notification, index) => (
             <ListItem key={index}>
               <Paper sx={{ width: "100%" }}>
                 <ListItemButton onClick={() => {
-                  setNotificationDialogMessage(notification.title);
+                  setNotificationDialogTitle(notification.title)
+                  setNotificationDialogMessage(notification.message);
                   setNotificationDialogOpen(true);
                 }}>
                   <ListItemIcon>
