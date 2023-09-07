@@ -2,6 +2,7 @@
 
 import EqualizeContainer from "@/components/equalize-container";
 import PageContainer from "@/components/page-container";
+import { getFileUrl, pb } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import { Avatar, Box, Button, Divider, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
@@ -27,7 +28,7 @@ export default function Page() {
             }}
           >
             <Avatar
-              src={user?.avatar}
+              src={getFileUrl("_pb_users_auth_", user?.id, user?.avatar, pb.authStore.token)}
               sx={{
                 width: { xs: 75, sm: 185 },
                 height: { xs: 75, sm: 185 },

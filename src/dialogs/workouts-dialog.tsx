@@ -2,8 +2,7 @@
 
 import { Info } from "@mui/icons-material";
 import { Dialog, DialogTitle, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { useState } from "react";
-import WorkoutConfirmDialog from "./workout-confirm-dialog";
+import { useRouter } from "next/navigation";
 
 const workouts = [
   {
@@ -14,23 +13,23 @@ const workouts = [
   {
     name: "Leg Raises",
     category: "Legs",
-    url: "https://youtu.be/JB2oyawG9KI"
+    url: "https://youtu.be/JB2oyawG9KI",
   },
   {
     name: "Leg Press",
     category: "Legs",
-    url: "https://youtu.be/IZxyjW7MPJQ"
+    url: "https://youtu.be/IZxyjW7MPJQ",
   },
   {
     name: "Regular Squats",
     category: "Legs",
-    url: "https://youtu.be/YaXPRqUwItQ"
+    url: "https://youtu.be/YaXPRqUwItQ",
   },
   {
     name: "Sumo Squats",
     category: "Legs",
-    url: "https://youtu.be/2C-uNgKwPLE"
-  }
+    url: "https://youtu.be/2C-uNgKwPLE",
+  },
 ];
 
 export default function WorkoutsDialog({
@@ -40,30 +39,31 @@ export default function WorkoutsDialog({
   open?: boolean;
   onClose: (value: string | undefined) => void;
 }) {
-  const [confirmOpen, setConfirmOpen] = useState(false);
+  const router = useRouter();
 
   const closeHandler = () => onClose(undefined);
   const clickHandler = (value: string) => onClose(value);
 
   return (
-    <>
-      <WorkoutConfirmDialog open={confirmOpen} onClose={() => setConfirmOpen(false)}/>
-      <Dialog open={open === true} onClose={closeHandler} maxWidth={"sm"} fullWidth={true}>
-        <DialogTitle>Select A Workout</DialogTitle>
-        <List sx={{ pt: 0 }}>
-          {workouts.map((workout) => (
-            <ListItem key={workout.name} secondaryAction={
-              <IconButton>
-                <Info/>
+    <Dialog open={open === true} onClose={closeHandler} maxWidth={"xs"} fullWidth={true}>
+      <DialogTitle>Select A Workout</DialogTitle>
+      <List sx={{ pt: 0 }}>
+        {workouts.map((workout) => (
+          <ListItem
+            key={workout.name}
+            secondaryAction={
+              <IconButton LinkComponent={"a"} edge={"end"} href={workout.url} target="_blank">
+                <Info />
               </IconButton>
-            }>
-              <ListItemButton onClick={() => setConfirmOpen(true)}>
-                <ListItemText primary={workout.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Dialog>
-    </>
+            }
+            disablePadding
+          >
+            <ListItemButton onClick={() => clickHandler(workout.name)}>
+              <ListItemText primary={workout.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { getFileUrl, pb } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import {
   Chat,
@@ -55,7 +56,7 @@ const navigationLinks = [
     href: "/track",
   },
   {
-    title: "Advertisements",
+    title: "Ads",
     icon: <EmojiPeople />,
     href: "/advertisements",
   },
@@ -100,7 +101,7 @@ export default function NavigationContainer({ children }: { children: React.Reac
           <IconButton
             onClick={() => router.back()}
             sx={{
-              display: { xs: "block", sm: "none" },
+              display: { xs: "inline-flex", sm: "none" },
             }}
           >
             <ChevronLeft />
@@ -149,37 +150,41 @@ export default function NavigationContainer({ children }: { children: React.Reac
             </IconButton>
           </Toolbar>
           <Divider />
-          <Box
-            sx={{
-              display: "flex",
-              padding: 2,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Avatar
-              src={user?.avatar}
-              sx={{
-                width: 80,
-                height: 80,
-                marginRight: 2,
-              }}
-            />
-            <Box>
-              <Typography variant={"h5"}>{user?.name}</Typography>
-              <Typography color={"text.secondary"}>Rookie</Typography>
-            </Box>
-          </Box>
-          <EqualizeContainer>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography variant={"h5"}>0</Typography>
-              <Typography color={"text.secondary"}>Followers</Typography>
-            </Box>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography variant={"h5"}>0</Typography>
-              <Typography color={"text.secondary"}>Followings</Typography>
-            </Box>
-          </EqualizeContainer>
+          {user && (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  padding: 2,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  src={getFileUrl("_pb_users_auth_", user.id, user.avatar, pb.authStore.token)}
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    marginRight: 2,
+                  }}
+                />
+                <Box>
+                  <Typography variant={"h5"}>{user.name}</Typography>
+                  <Typography color={"text.secondary"}>Rookie</Typography>
+                </Box>
+              </Box>
+              <EqualizeContainer>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography variant={"h5"}>0</Typography>
+                  <Typography color={"text.secondary"}>Followers</Typography>
+                </Box>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography variant={"h5"}>0</Typography>
+                  <Typography color={"text.secondary"}>Followings</Typography>
+                </Box>
+              </EqualizeContainer>
+            </>
+          )}
           <List>
             {navigationLinks.map(
               (link) =>

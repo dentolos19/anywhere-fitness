@@ -53,3 +53,10 @@ export function getPosts() {
     expand: "owner"
   })
 }
+
+export function getFileUrl(collectionName: string, recordId: string, fileName: string, token?: string) {
+  const url = `${pb.baseUrl}/files/${collectionName}}/${recordId}/${fileName}`;
+  if (token)
+    return `${url}?token=${token}`;
+  return url;
+}

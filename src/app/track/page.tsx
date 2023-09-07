@@ -25,7 +25,11 @@ export default function Page() {
           }}
           defaultZoom={10}
         />
-        <SpeedDial ariaLabel={"Actions"} icon={<Add />} sx={{ position: "fixed", bottom: 80, left: 30 }}>
+        <SpeedDial
+          ariaLabel={"Actions"}
+          icon={<Add />}
+          sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, left: 30 }}
+        >
           <SpeedDialAction icon={<MonitorHeart />} tooltipTitle={"Heart Rate"} tooltipPlacement={"right"} tooltipOpen />
           <SpeedDialAction icon={<MusicNote />} tooltipTitle={"Music"} tooltipPlacement={"right"} tooltipOpen />
           <SpeedDialAction
