@@ -3,7 +3,7 @@
 import PageContainer from "@/components/page-container";
 import PostContainer from "@/components/post-container";
 import PostDialog from "@/dialogs/post-dialog";
-import { Post, createPost, getAuthUser, getPosts, pb } from "@/lib/database";
+import { Post, createPostForm, deletePost, getAuthUser, getPosts } from "@/lib/database";
 import { Add } from "@mui/icons-material";
 import { Avatar, Box, Fab, Stack } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
@@ -17,21 +17,27 @@ export default function Page() {
     getPosts().then((result) => setPosts(result.items));
   }, []);
 
-  const handleDialogClose = (value?: string) => {
+  const handleDialogClose = (value?: FormData) => {
     setDialogOpen(false);
     if (value) {
       const user = getAuthUser();
       if (!user) return;
-      createPost(user.id, value).then((result) => {
+      value.append("author", user.id);
+      createPostForm(value).then((result) => {
         if (!result) return;
         setPosts([result, ...posts]);
-      })
+      });
     }
+  };
+
+  const handlePostDelete = (id: string) => {
+    deletePost(id);
+    setPosts(posts.filter((item) => item.id !== id));
   }
 
   return (
     <>
-      <PostDialog open={dialogOpen} onClose={handleDialogClose}/>
+      <PostDialog open={dialogOpen} onClose={handleDialogClose} />
       <PageContainer requireLogin={true}>
         <Box
           sx={{
@@ -62,14 +68,7 @@ export default function Page() {
           </Stack>
           <Stack spacing={1}>
             {posts.map((item) => (
-              <PostContainer
-                key={item.id}
-                author={item.expand.author.name}
-                postDate={item.created.toLocaleString()}
-                mediaUrl={item.cover && pb.files.getUrl(item, item.cover)}
-              >
-                {item.message}
-              </PostContainer>
+              <PostContainer key={item.id} post={item} onDelete={handlePostDelete} />
             ))}
           </Stack>
           <Fab sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }} onClick={() => setDialogOpen(true)}>

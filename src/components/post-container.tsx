@@ -1,31 +1,57 @@
+import { Post, pb } from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
 import { Comment, Favorite, MoreVert, Share } from "@mui/icons-material";
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton } from "@mui/material";
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { useState } from "react";
 
 export default function PostContainer({
-  children,
-  author,
-  postDate,
-  mediaUrl,
+  post,
+  onDelete,
 }: {
-  children: React.ReactNode;
-  author: string;
-  postDate: string;
-  mediaUrl?: string;
+  post: Post;
+  onDelete: (id: string) => void;
 }) {
+  const [user, _] = useGlobalState("user");
+  const [anchor, setAnchor] = useState<HTMLElement | undefined>(undefined);
+
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar>M</Avatar>}
+        avatar={<Avatar src={pb.files.getUrl(post.expand.author, post.expand.author.avatar)}/>}
         action={
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+          user?.id === post.author && (
+            <>
+              <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
+                <MoreVert />
+              </IconButton>
+              <Menu open={Boolean(anchor)} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
+                <MenuItem
+                  onClick={() => {
+                    onDelete(post.id);
+                    setAnchor(undefined);
+                  }}
+                >
+                  Delete
+                </MenuItem>
+              </Menu>
+            </>
+          )
         }
-        title={author}
-        subheader={postDate}
+        title={post.expand.author.name}
+        subheader={post.created.toLocaleString()}
       />
-      {mediaUrl && <CardMedia component="img" image={mediaUrl} />}
-      <CardContent>{children}</CardContent>
+      {post.cover && <CardMedia component="img" image={pb.files.getUrl(post, post.cover)} />}
+      <CardContent>{post.message}</CardContent>
       <CardActions disableSpacing>
         <IconButton>
           <Favorite />

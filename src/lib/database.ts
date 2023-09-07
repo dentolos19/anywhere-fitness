@@ -65,17 +65,34 @@ export function getPosts() {
   });
 }
 
-export function createPost(author: string, message: string) {
+export function createPostForm(form: FormData) {
   return pb
     .collection("posts")
-    .create<Post>({
-      author,
-      message,
-    }, {
-      expand: "author",
-    })
+    .create<Post>(form, { expand: "author" })
     .then(
       (result) => result,
       () => undefined
     );
+}
+
+export function createPost(author: string, message: string) {
+  return pb
+    .collection("posts")
+    .create<Post>(
+      {
+        author,
+        message,
+      },
+      {
+        expand: "author",
+      }
+    )
+    .then(
+      (result) => result,
+      () => undefined
+    );
+}
+
+export function deletePost(id: string) {
+  return pb.collection("posts").delete(id);
 }
