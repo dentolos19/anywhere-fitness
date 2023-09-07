@@ -52,11 +52,13 @@ const navigationLinks = [
   {
     title: "Track",
     icon: <StackedLineChart />,
+    mobileOnly: false,
     href: "/track",
   },
   {
     title: "Ads",
     icon: <EmojiPeople />,
+    mobileOnly: false,
     href: "/advertisements",
   },
   {
