@@ -1,7 +1,6 @@
-"use client";
-
 import { Info } from "@mui/icons-material";
 import {
+  Box,
   Dialog,
   DialogTitle,
   IconButton,
@@ -11,6 +10,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
+import { Workout } from "../lib/types";
 
 const workouts = [
   {
@@ -129,40 +129,38 @@ const workouts = [
   },
 ];
 
-export type WorkoutsDialogResult = { workoutName: string; workoutCategory: string }
-
 export default function WorkoutsDialog({
   open,
   onClose,
 }: {
   open?: boolean;
-  onClose: (value: WorkoutsDialogResult | undefined) => void;
+  onClose: (value: Workout | undefined) => void;
 }) {
   return (
     <Dialog open={open === true} onClose={() => onClose(undefined)} maxWidth={"xs"} fullWidth={true}>
       <DialogTitle>Select A Workout</DialogTitle>
       <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
-          <ul key={workout.name}>
-            <li>
+          <Box component={"ul"} key={workout.name}>
+            <Box component={"li"}>
               <ListSubheader>{workout.name}</ListSubheader>
               {workout.exercises.map((exercise, index) => (
                 <ListItem
                   key={index}
                   secondaryAction={
-                    <IconButton LinkComponent={"a"} edge={"end"} href={exercise.url} target="_blank">
+                    <IconButton LinkComponent={"a"} edge={"end"} href={exercise.url} target={"_blank"}>
                       <Info />
                     </IconButton>
                   }
                   disablePadding
                 >
-                  <ListItemButton onClick={() => onClose({ workoutName: exercise.name, workoutCategory: workout.name })}>
+                  <ListItemButton onClick={() => onClose({ name: exercise.name, category: workout.name })}>
                     <ListItemText primary={exercise.name} />
                   </ListItemButton>
                 </ListItem>
               ))}
-            </li>
-          </ul>
+            </Box>
+          </Box>
         ))}
       </List>
     </Dialog>

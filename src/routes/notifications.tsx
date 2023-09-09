@@ -1,0 +1,81 @@
+import { ChevronRight, Notifications } from "@mui/icons-material";
+import {
+  Container,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Typography
+} from "@mui/material";
+import { useState } from "react";
+
+const notifications = [
+  {
+    title: "Welcome to Anywhere Fitness!",
+    message:
+      "Discover new friends that will be with you in your fitness journey! With Anywhere Fitness, you can find the perfect workout routine that fits your schedule and lifestyle.",
+  },
+];
+
+const NotificationDialog = ({
+  open,
+  data,
+  onClose,
+}: {
+  open: boolean;
+  data: { title: string; message: string };
+  onClose: () => void;
+}) => {
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>{data.title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{data.message}</DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default function NotificationsPage() {
+  const [dialogData, setDialogData] = useState(notifications[0]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  return (
+    <>
+      <NotificationDialog open={dialogOpen} data={dialogData} onClose={() => setDialogOpen(false)} />
+      <Container sx={{ my: 2 }}>
+        <List sx={{ maxWidth: 600, mx: "auto" }}>
+          {notifications.map((notification, index) => (
+            <ListItem key={index}>
+              <Paper sx={{ width: "100%" }}>
+                <ListItemButton
+                  onClick={() => {
+                    setDialogData(notification);
+                    setDialogOpen(true);
+                  }}
+                >
+                  <ListItemIcon>
+                    <Notifications />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant={"h6"}>{notification.title}</Typography>
+                    <Typography color={"text.secondary"} noWrap>
+                      {notification.message}
+                    </Typography>
+                  </ListItemText>
+                  <ChevronRight />
+                </ListItemButton>
+              </Paper>
+            </ListItem>
+          ))}
+        </List>
+      </Container>
+    </>
+  );
+}

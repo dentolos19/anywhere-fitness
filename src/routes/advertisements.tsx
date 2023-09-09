@@ -1,0 +1,162 @@
+import { Add, BackHand, Chat, Delete, MoreVert } from "@mui/icons-material";
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Container,
+  Fab,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
+import { useState } from "react";
+import LoadingBoundary from "../components/loading-boundary";
+import PostAdvertisementDialog from "../dialogs/post-advertisement-dialog";
+import {
+  Advertisement,
+  createAdvertisement,
+  deleteAdvertisement,
+  getAdvertisements,
+  getFileUrl,
+} from "../lib/database";
+import { useGlobalState } from "../lib/state";
+
+const AdvertisementContainer = ({
+  advertisement,
+  onDelete,
+}: {
+  advertisement: Advertisement;
+  onDelete: (id: string) => void;
+}) => {
+  const [user, _] = useGlobalState("user");
+  const [anchor, setAnchor] = useState<HTMLElement | undefined>();
+
+  return (
+    <Card>
+      <CardHeader
+        avatar={
+          <Avatar
+            src={
+              advertisement.expand.author.avatar &&
+              getFileUrl(advertisement.expand.author, advertisement.expand.author.avatar)
+            }
+          />
+        }
+        title={advertisement.expand.author.name}
+        subheader={advertisement.created.toString()}
+        action={
+          advertisement.author === user?.id && (
+            <>
+              <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
+                <MoreVert />
+              </IconButton>
+              <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
+                {/* <MenuItem>
+                  <ListItemIcon>
+                    <Edit />
+                  </ListItemIcon>
+                  <ListItemText>Edit</ListItemText>
+                </MenuItem> */}
+                <MenuItem onClick={() => onDelete(advertisement.id)}>
+                  <ListItemIcon>
+                    <Delete />
+                  </ListItemIcon>
+                  <ListItemText>Delete</ListItemText>
+                </MenuItem>
+              </Menu>
+            </>
+          )
+        }
+      />
+      <CardContent>
+        <Typography variant={"h6"}>{advertisement.title}</Typography>
+        <Typography color={"text.secondary"}>{advertisement.description}</Typography>
+      </CardContent>
+      <CardActions>
+        <Tooltip title={"Join"}>
+          <IconButton>
+            <BackHand />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title={"Comment"}>
+          <IconButton>
+            <Chat />
+          </IconButton>
+        </Tooltip>
+      </CardActions>
+    </Card>
+  );
+};
+
+export default function AdvertisementsPage() {
+  const [loading, setLoading] = useState(true);
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const [open, setOpen] = useState(false);
+
+  useEnhancedEffect(() => {
+    getAdvertisements().then((advertisements) => {
+      setAdvertisements(advertisements.items);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <LoadingBoundary />;
+
+  const handlePost = (data: FormData | undefined) => {
+    setOpen(false);
+    if (!data) return;
+    setLoading(true);
+    createAdvertisement(data).then(
+      (advertisement) => {
+        setAdvertisements([advertisement, ...advertisements]);
+        setLoading(false);
+      },
+      () => {
+        alert("Unable to create advertisement!");
+        setLoading(false);
+      }
+    );
+  };
+
+  const handleDelete = (id: string) => {
+    setLoading(true);
+    deleteAdvertisement(id).then(
+      () => {
+        setAdvertisements(advertisements.filter((advertisement) => advertisement.id !== id));
+        setLoading(false);
+      },
+      () => {
+        alert("Unable to delete post!");
+        setLoading(false);
+      }
+    );
+  };
+
+  return (
+    <>
+      <PostAdvertisementDialog open={open} onClose={handlePost} />
+      <Container sx={{ my: 2 }}>
+        <Stack spacing={1} sx={{ maxWidth: 500, mx: "auto" }}>
+          {advertisements.map((advertisement) => (
+            <AdvertisementContainer advertisement={advertisement} onDelete={handleDelete} />
+          ))}
+        </Stack>
+        <Fab
+          color={"primary"}
+          sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}
+          onClick={() => setOpen(true)}
+        >
+          <Add />
+        </Fab>
+      </Container>
+    </>
+  );
+}

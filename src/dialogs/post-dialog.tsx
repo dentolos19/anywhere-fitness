@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Button,
   Dialog,
@@ -8,29 +6,15 @@ import {
   DialogTitle,
   Stack,
   TextField,
-  Typography,
-  styled,
+  Typography
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-
-const VisuallyHiddenInput = styled("input")`
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  white-space: nowrap;
-  width: 1px;
-`;
-
 export default function PostDialog({
   open,
   onClose,
 }: {
   open?: boolean;
-  onClose: (value: FormData | undefined) => void;
+  onClose: (data: FormData | undefined) => void;
 }) {
   const [value, setValue] = useState<string>("");
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -62,15 +46,15 @@ export default function PostDialog({
           <TextField value={value} onChange={(event) => setValue(event.target.value)} fullWidth multiline />
           <Button component={"label"} color={"info"} variant={"outlined"} fullWidth>
             Upload Cover
-            <VisuallyHiddenInput type="file" accept={".png,.jpg"} onChange={handleFileUpload} />
+            <input type="file" accept={"image/*"} hidden onChange={handleFileUpload} />
           </Button>
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button variant={"outlined"} color={"error"} onClick={closeHandler}>
+        <Button onClick={closeHandler}>
           Cancel
         </Button>
-        <Button variant={"contained"} color={"success"} onClick={() => submitHandler(value)}>
+        <Button variant={"contained"} onClick={() => submitHandler(value)}>
           Post
         </Button>
       </DialogActions>
