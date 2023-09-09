@@ -26,7 +26,6 @@ import {
   ListItemText,
   Toolbar,
   Tooltip,
-  Typography,
   createTheme,
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
@@ -111,34 +110,39 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
               <IconButton onClick={() => setOpen(true)}>
                 <Menu />
               </IconButton>
-              <Typography sx={{ marginLeft: 1 }}>Anywhere Fitness</Typography>
+              {/* <Typography sx={{ marginLeft: 1 }}>Anywhere Fitness</Typography> */}
+              <Box sx={{ height: 50 }}>
+                <img src={"/assets/title.png"} />
+              </Box>
             </Box>
-            <Box sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center" }}>
+            <Box sx={{ display: { xs: "block", sm: "none" } }}>
               <IconButton onClick={() => navigate(-1)}>
                 <ChevronLeft />
               </IconButton>
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Tooltip title={"Chat"}>
-              <IconButton onClick={() => navigate("/chat")}>
-                <Message />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={"Notifications"}>
-              <IconButton onClick={() => navigate("/notifications")}>
-                <Notifications />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={"Profile"}>
-              <IconButton onClick={() => navigate("/profile")}>
-                <AccountCircle />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={"About"}>
-              <IconButton onClick={() => navigate("/about")}>
-                <Info />
-              </IconButton>
-            </Tooltip>
+            <Box>
+              <Tooltip title={"Chat"}>
+                <IconButton onClick={() => navigate("/chat")}>
+                  <Message />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={"Notifications"}>
+                <IconButton onClick={() => navigate("/notifications")}>
+                  <Notifications />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={"Profile"}>
+                <IconButton onClick={() => navigate("/profile")}>
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={"About"}>
+                <IconButton onClick={() => navigate("/about")}>
+                  <Info />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </Toolbar>
           <Drawer open={open} onClose={() => setOpen(false)}>
             <Toolbar>
@@ -170,18 +174,6 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
             </List>
           </Drawer>
         </AppBar>
-        <Box>
-          <Box height={topSpacing} />
-          <Box
-            sx={{
-              height: { xs: window.innerHeight - topSpacing - bottomSpacing, sm: window.innerHeight - topSpacing },
-              overflow: "hidden auto",
-            }}
-          >
-            {loading ? <LoadingBoundary /> : user ? children || <Outlet /> : <LoginForm />}
-          </Box>
-          <Box height={bottomSpacing} />
-        </Box>
         <BottomNavigation
           ref={bottomRef}
           showLabels
@@ -196,6 +188,18 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
             />
           ))}
         </BottomNavigation>
+        <Box>
+          <Box height={topSpacing} />
+          <Box
+            sx={{
+              height: { xs: window.innerHeight - topSpacing - bottomSpacing, sm: window.innerHeight - topSpacing },
+              overflow: "hidden auto",
+            }}
+          >
+            {loading ? <LoadingBoundary /> : user ? children || <Outlet /> : <LoginForm />}
+          </Box>
+          <Box height={bottomSpacing} />
+        </Box>
       </Box>
     </ThemeProvider>
   );

@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
 import LayoutContainer from "./components/layout-container";
+import "./globals.css";
 import AboutPage from "./routes/about";
 import AdvertisementsPage from "./routes/advertisements";
 import ChatPage from "./routes/chat";

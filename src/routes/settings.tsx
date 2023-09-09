@@ -158,6 +158,9 @@ export default function SettingsPage() {
             <SettingContainer label={"Make Profile Public"}>
               <Checkbox />
             </SettingContainer>
+            <SettingContainer label={"Allow Anonymous Data Collection"}>
+              <Checkbox />
+            </SettingContainer>
           </Stack>
         </Paper>
         <Paper sx={{ padding: 2 }}>
@@ -166,6 +169,9 @@ export default function SettingsPage() {
           </Typography>
           <Stack spacing={1}>
             <SettingContainer label={"Account Suggestions"}>
+              <Checkbox />
+            </SettingContainer>
+            <SettingContainer label={"Message Requests"}>
               <Checkbox />
             </SettingContainer>
           </Stack>

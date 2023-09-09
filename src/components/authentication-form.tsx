@@ -1,4 +1,4 @@
-import { Box, Button, Container, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, Paper, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { loginUser, registerUser } from "../lib/database";
 import { useGlobalState } from "../lib/state";
@@ -41,9 +41,9 @@ export default function LoginForm() {
   return (
     <Container sx={{ my: 2 }}>
       <Paper sx={{ maxWidth: 400, mx: "auto", padding: 2 }}>
-        <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
-          Anywhere Fitness
-        </Typography>
+        <Box sx={{ marginBottom: 1 }}>
+          <img src={"/assets/title.png"}/>
+        </Box>
         {mode === "login" ? (
           <Box>
             <Stack spacing={2}>
