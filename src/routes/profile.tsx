@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material";
-import { Avatar, Box, Container, Fab, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Divider, Fab, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFileUrl } from "../lib/database";
@@ -10,6 +10,8 @@ export default function ProfilePage() {
 
   const [user, _] = useGlobalState("user");
   const [range, setRange] = useState<"weekly" | "monthly" | "yearly">("weekly");
+
+  const handleTodo = () => alert("This feature is not implemented yet!");
 
   return (
     <Container sx={{ my: 2 }}>
@@ -50,7 +52,19 @@ export default function ProfilePage() {
             </Box>
           </Box>
         </Paper>
-        <Paper sx={{ display: "grid", height: 100, placeItems: "center" }}>Achievements, Goals & Stuff</Paper>
+        <Paper>
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button onClick={handleTodo}>Achievements</Button>
+          </Box>
+          <Divider />
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button onClick={handleTodo}>Goals</Button>
+          </Box>
+          <Divider />
+          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
+            <Button onClick={handleTodo}>History</Button>
+          </Box>
+        </Paper>
       </Stack>
       <Fab sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }} onClick={() => navigate("/settings")}>
         <Edit />

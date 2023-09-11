@@ -1,8 +1,8 @@
 import { MoreVert, Send } from "@mui/icons-material";
 import { Avatar, Box, Container, Divider, IconButton, Input, Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-export default function ChatAIPage() {
+export default function ChatBotPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -12,7 +12,8 @@ export default function ChatAIPage() {
     },
   ]);
 
-  const handleSend = () => {
+  const handleSend = (event: FormEvent) => {
+    event.preventDefault();
     setMessages([{ name: "You", message: input, self: true }, ...messages]);
     setInput("");
   };
@@ -46,9 +47,9 @@ export default function ChatAIPage() {
           ))}
         </Box>
         <Divider />
-        <Box sx={{ display: "flex", padding: 1 }}>
+        <Box component={"form"} onSubmit={handleSend} sx={{ display: "flex", padding: 1 }}>
           <Input value={input} sx={{ flexGrow: 1 }} onChange={(event) => setInput(event.target.value)} />
-          <IconButton onClick={handleSend}>
+          <IconButton type={"submit"}>
             <Send />
           </IconButton>
         </Box>

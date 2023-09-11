@@ -82,7 +82,7 @@ export default function SettingsPage() {
       >
         <Paper sx={{ padding: 2 }}>
           <Typography variant={"h5"} align={"center"}>
-            Personalization
+            Account
           </Typography>
           <Box sx={{ display: "flex", my: 2, justifyContent: "center" }}>
             <Badge

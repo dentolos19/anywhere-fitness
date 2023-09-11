@@ -10,7 +10,7 @@ export default function ChatPage() {
       <List sx={{ maxWidth: 600, mx: "auto" }}>
         <ListItem>
           <Paper sx={{ width: "100%" }}>
-            <ListItemButton onClick={() => navigate("/chat/ai")}>
+            <ListItemButton onClick={() => navigate("/chat/bot")}>
               <ListItemIcon>
                 <Avatar src={"/assets/baymax.jpg"}/>
               </ListItemIcon>

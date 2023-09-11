@@ -78,7 +78,7 @@ export function registerUser({
     username,
     email,
     password,
-    confirmPassword: password,
+    passwordConfirm: password,
   });
 }
 

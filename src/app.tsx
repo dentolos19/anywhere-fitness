@@ -11,7 +11,7 @@ import "./globals.css";
 import AboutPage from "./routes/about";
 import AdvertisementsPage from "./routes/advertisements";
 import ChatPage from "./routes/chat";
-import ChatAIPage from "./routes/chat-ai";
+import ChatBotPage from "./routes/chat-bot";
 import CommunityPage from "./routes/community";
 import NotificationsPage from "./routes/notifications";
 import ProfilePage from "./routes/profile";
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
       <Route element={<AboutPage />} path="/about" />
       <Route element={<AdvertisementsPage />} path="/advertisements" />
       <Route element={<ChatPage />} path="/chat" />
-      <Route element={<ChatAIPage />} path="/chat/ai" />
+      <Route element={<ChatBotPage />} path="/chat/bot" />
       <Route element={<CommunityPage />} index />
       <Route element={<NotificationsPage />} path="/notifications" />
       <Route element={<ProfilePage />} path="/profile" />
