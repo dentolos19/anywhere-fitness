@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function TrackPage() {
   const navigate = useNavigate();
 
+  const handleTodo = () => alert("This feature is not implemented yet!");
+
   return (
     <Box sx={{ height: "100%" }}>
       <GoogleMapReact
@@ -17,8 +19,20 @@ export default function TrackPage() {
         defaultZoom={16}
       />
       <SpeedDial ariaLabel={""} icon={<Add />} sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, left: 30 }}>
-        <SpeedDialAction icon={<MusicNote />} tooltipTitle={"Music"} tooltipPlacement={"right"} tooltipOpen />
-        <SpeedDialAction icon={<MonitorHeart />} tooltipTitle={"HRM"} tooltipPlacement={"right"} tooltipOpen />
+        <SpeedDialAction
+          icon={<MusicNote />}
+          tooltipTitle={"Music"}
+          tooltipPlacement={"right"}
+          tooltipOpen
+          onClick={handleTodo}
+        />
+        <SpeedDialAction
+          icon={<MonitorHeart />}
+          tooltipTitle={"HRM"}
+          tooltipPlacement={"right"}
+          tooltipOpen
+          onClick={handleTodo}
+        />
         <SpeedDialAction
           icon={<FitnessCenter />}
           tooltipTitle={"Gym"}
@@ -26,7 +40,13 @@ export default function TrackPage() {
           tooltipOpen
           onClick={() => navigate("/track/gym")}
         />
-        <SpeedDialAction icon={<PlayArrow />} tooltipTitle={"Activities"} tooltipPlacement={"right"} tooltipOpen />
+        <SpeedDialAction
+          icon={<PlayArrow />}
+          tooltipTitle={"Activities"}
+          tooltipPlacement={"right"}
+          tooltipOpen
+          onClick={handleTodo}
+        />
       </SpeedDial>
     </Box>
   );

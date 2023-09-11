@@ -1,6 +1,8 @@
-import { Add, Chat, Delete, Favorite, MoreVert, Share } from "@mui/icons-material";
+import { Add, Chat, Delete, Edit, Favorite, MoreVert, Share } from "@mui/icons-material";
 import {
+  Alert,
   Avatar,
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -28,6 +30,8 @@ const PostContainer = ({ post, onDelete }: { post: Post; onDelete: (id: string) 
   const [user, _] = useGlobalState("user");
   const [anchor, setAnchor] = useState<HTMLElement | undefined>();
 
+  const handleTodo = () => alert("This feature is not implemented yet!");
+
   return (
     <Card>
       <CardHeader
@@ -41,12 +45,12 @@ const PostContainer = ({ post, onDelete }: { post: Post; onDelete: (id: string) 
                 <MoreVert />
               </IconButton>
               <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
-                {/* <MenuItem>
+                <MenuItem onClick={handleTodo}>
                   <ListItemIcon>
                     <Edit />
                   </ListItemIcon>
                   <ListItemText>Edit</ListItemText>
-                </MenuItem> */}
+                </MenuItem>
                 <MenuItem onClick={() => onDelete(post.id)}>
                   <ListItemIcon>
                     <Delete />
@@ -64,17 +68,17 @@ const PostContainer = ({ post, onDelete }: { post: Post; onDelete: (id: string) 
       </CardContent>
       <CardActions>
         <Tooltip title={"Like"}>
-          <IconButton>
+          <IconButton onClick={handleTodo}>
             <Favorite />
           </IconButton>
         </Tooltip>
         <Tooltip title={"Comment"}>
-          <IconButton>
+          <IconButton onClick={handleTodo}>
             <Chat />
           </IconButton>
         </Tooltip>
         <Tooltip title={"Share"}>
-          <IconButton>
+          <IconButton onClick={handleTodo}>
             <Share />
           </IconButton>
         </Tooltip>
@@ -131,19 +135,24 @@ export default function CommunityPage() {
     <>
       <PostDialog open={open} onClose={handlePost} />
       <Container sx={{ my: 2 }}>
-        <Stack spacing={1} sx={{ maxWidth: 500, mx: "auto" }}>
-          {posts.map((post, index) => (
-            <PostContainer key={index} post={post} onDelete={handleDelete} />
-          ))}
-        </Stack>
-        <Fab
-          color={"primary"}
-          sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}
-          onClick={() => setOpen(true)}
-        >
-          <Add />
-        </Fab>
+        <Box sx={{ maxWidth: 500, mx: "auto" }}>
+          <Alert severity={"warning"} sx={{ marginBottom: 2 }}>
+            This app is not completed and fully-featured yet! Be warned that some functions may not work as expected.
+          </Alert>
+          <Stack spacing={1}>
+            {posts.map((post, index) => (
+              <PostContainer key={index} post={post} onDelete={handleDelete} />
+            ))}
+          </Stack>
+        </Box>
       </Container>
+      <Fab
+        color={"primary"}
+        sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}
+        onClick={() => setOpen(true)}
+      >
+        <Add />
+      </Fab>
     </>
   );
 }

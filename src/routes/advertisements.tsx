@@ -1,4 +1,4 @@
-import { Add, BackHand, Chat, Delete, MoreVert } from "@mui/icons-material";
+import { Add, BackHand, Chat, Delete, Edit, MoreVert } from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -39,6 +39,8 @@ const AdvertisementContainer = ({
   const [user, _] = useGlobalState("user");
   const [anchor, setAnchor] = useState<HTMLElement | undefined>();
 
+  const handleTodo = () => alert("This feature is not implemented yet!");
+
   return (
     <Card>
       <CardHeader
@@ -59,12 +61,12 @@ const AdvertisementContainer = ({
                 <MoreVert />
               </IconButton>
               <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
-                {/* <MenuItem>
+                <MenuItem onClick={handleTodo}>
                   <ListItemIcon>
                     <Edit />
                   </ListItemIcon>
                   <ListItemText>Edit</ListItemText>
-                </MenuItem> */}
+                </MenuItem>
                 <MenuItem onClick={() => onDelete(advertisement.id)}>
                   <ListItemIcon>
                     <Delete />
@@ -82,12 +84,12 @@ const AdvertisementContainer = ({
       </CardContent>
       <CardActions>
         <Tooltip title={"Join"}>
-          <IconButton>
+          <IconButton onClick={handleTodo}>
             <BackHand />
           </IconButton>
         </Tooltip>
         <Tooltip title={"Comment"}>
-          <IconButton>
+          <IconButton onClick={handleTodo}>
             <Chat />
           </IconButton>
         </Tooltip>

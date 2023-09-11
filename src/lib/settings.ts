@@ -1,3 +1,5 @@
+import { Workout } from "./types";
+
 class Settings {
   // theme
   get theme() {
@@ -7,6 +9,16 @@ class Settings {
   }
   set theme(value: string) {
     localStorage.setItem("theme", value);
+  }
+  // workouts
+  get workouts() {
+    const rawValue = localStorage.getItem("workouts");
+    const value = JSON.parse(rawValue || "[]") as Workout[];
+    if (!rawValue) return [];
+    return value;
+  }
+  set workouts(value: Workout[]) {
+    localStorage.setItem("workouts", JSON.stringify(value));
   }
 }
 

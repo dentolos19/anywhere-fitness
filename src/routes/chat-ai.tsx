@@ -13,7 +13,7 @@ export default function ChatAIPage() {
   ]);
 
   const handleSend = () => {
-    setMessages([...messages, { name: "You", message: input, self: true }]);
+    setMessages([{ name: "You", message: input, self: true }, ...messages]);
     setInput("");
   };
 
@@ -32,7 +32,9 @@ export default function ChatAIPage() {
           </Box>
         </Box>
         <Divider />
-        <Box sx={{ padding: 2, flexGrow: 1 }}>
+        <Box
+          sx={{ display: "flex", padding: 2, flexDirection: "column-reverse", flexGrow: 1, overflow: "hidden auto" }}
+        >
           {messages.map((message, index) => (
             <>
               <Box key={index} sx={{ py: 1 }}>
