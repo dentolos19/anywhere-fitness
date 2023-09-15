@@ -1,21 +1,68 @@
 import { MoreVert, Send } from "@mui/icons-material";
 import { Avatar, Box, Container, Divider, IconButton, Input, Paper, Typography } from "@mui/material";
+import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 import { FormEvent, useState } from "react";
+import { makeChat } from "../lib/ai";
+
+const CHAT_NAME = "Baymax";
+
+type Message = {
+  self?: boolean;
+  content?: string;
+};
 
 export default function ChatBotPage() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
+  const [typing, setTyping] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
     {
-      name: "Baymax",
-      message: "Hello, I am Baymax, your personal healthcare companion.",
       self: false,
+      content: "Hello, I am Baymax, your personal healthcare companion.",
     },
   ]);
 
   const handleSend = (event: FormEvent) => {
     event.preventDefault();
-    setMessages([{ name: "You", message: input, self: true }, ...messages]);
+    if (typing) return;
+    if (!input) return;
+    setMessages((messages) => [{ self: true, content: input }, ...messages]);
     setInput("");
+    setTyping(true);
+    makeChat([
+      {
+        role: "system",
+        content: "You are an AI companion for fitness and health.",
+      },
+      ...messages.map((message) => {
+        return {
+          role: message.self ? "user" : "assistant",
+          content: message.content,
+        } as ChatCompletionMessageParam;
+      }),
+      {
+        role: "user",
+        content: input,
+      },
+    ]).then(
+      (res) => {
+        setMessages((messages) => [
+          {
+            content: res.choices[0].message.content || "This message is not available.",
+          },
+          ...messages,
+        ]);
+        setTyping(false);
+      },
+      () => {
+        setMessages((messages) => [
+          {
+            content: "Sorry, I am not available right now.",
+          },
+          ...messages,
+        ]);
+        setTyping(false);
+      }
+    );
   };
 
   return (
@@ -36,19 +83,19 @@ export default function ChatBotPage() {
         <Box
           sx={{ display: "flex", padding: 2, flexDirection: "column-reverse", flexGrow: 1, overflow: "hidden auto" }}
         >
+          {typing && <Typography>Typing...</Typography>}
           {messages.map((message, index) => (
-            <>
-              <Box key={index} sx={{ py: 1 }}>
-                <Typography variant={"h6"}>{message.name}</Typography>
-                <Typography>{message.message}</Typography>
-              </Box>
-              <Divider />
-            </>
+            <Box key={index} sx={{ py: 1 }}>
+              <Typography variant={"h6"}>{message.self ? "You" : CHAT_NAME}</Typography>
+              <Typography>{message.content || "This message's content is not available."}</Typography>
+              <Divider sx={{ marginTop: 1 }} />
+            </Box>
           ))}
         </Box>
+        <Box></Box>
         <Divider />
         <Box component={"form"} onSubmit={handleSend} sx={{ display: "flex", padding: 1 }}>
-          <Input value={input} sx={{ flexGrow: 1 }} onChange={(event) => setInput(event.target.value)} />
+          <Input value={input} sx={{ flexGrow: 1 }} onChange={(event) => setInput(event.target.value)}/>
           <IconButton type={"submit"}>
             <Send />
           </IconButton>
