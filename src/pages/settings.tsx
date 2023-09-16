@@ -34,6 +34,9 @@ export default function SettingsPage() {
   const [theme, setTheme] = useGlobalState("theme");
   const [user, setUser] = useGlobalState("user");
   const [name, setName] = useState<string>();
+  const [aiBaseUrl, setAiBaseUrl] = useState<string>(settings.aiBaseUrl);
+  const [aiApiKey, setAiApiKey] = useState<string>(settings.aiApiKey);
+  const [aiModel, setAiModel] = useState<string>(settings.aiModel);
 
   useEnhancedEffect(() => {
     if (!user) return;
@@ -68,8 +71,7 @@ export default function SettingsPage() {
   const handleThemeChange = (value: "light" | "dark") => {
     settings.theme = value as string;
     setTheme(value);
-
-  }
+  };
 
   return (
     <Container sx={{ my: 2 }}>
@@ -81,7 +83,7 @@ export default function SettingsPage() {
         }}
       >
         <Paper sx={{ padding: 2 }}>
-          <Typography variant={"h5"} align={"center"}>
+          <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
             Account
           </Typography>
           <Box sx={{ display: "flex", my: 2, justifyContent: "center" }}>
@@ -126,7 +128,7 @@ export default function SettingsPage() {
           </Button>
         </Paper>
         <Paper sx={{ padding: 2 }}>
-          <Typography variant={"h5"} align={"center"}>
+          <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
             Personalization
           </Typography>
           <Stack spacing={1}>
@@ -151,7 +153,7 @@ export default function SettingsPage() {
           </Stack>
         </Paper>
         <Paper sx={{ padding: 2 }}>
-          <Typography variant={"h5"} align={"center"}>
+          <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
             Privacy
           </Typography>
           <Stack spacing={1}>
@@ -164,7 +166,7 @@ export default function SettingsPage() {
           </Stack>
         </Paper>
         <Paper sx={{ padding: 2 }}>
-          <Typography variant={"h5"} align={"center"}>
+          <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
             Notifications
           </Typography>
           <Stack spacing={1}>
@@ -173,6 +175,31 @@ export default function SettingsPage() {
             </SettingContainer>
             <SettingContainer label={"Message Requests"}>
               <Checkbox />
+            </SettingContainer>
+          </Stack>
+        </Paper>
+        <Paper sx={{ padding: 2 }}>
+          <Typography variant={"h5"} align={"center"} sx={{ marginBottom: 2 }}>
+            Artificial Intelligence
+          </Typography>
+          <Stack spacing={1}>
+            <SettingContainer label={"Base URL"}>
+              <Chip label={aiBaseUrl}/>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
+            <SettingContainer label={"API Key"}>
+              <Chip label={aiApiKey || "None"} />
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </SettingContainer>
+            <SettingContainer label={"Model"}>
+              <Chip label={aiModel} />
+              <IconButton>
+                <Edit />
+              </IconButton>
             </SettingContainer>
           </Stack>
         </Paper>

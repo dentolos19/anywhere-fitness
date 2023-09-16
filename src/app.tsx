@@ -8,16 +8,16 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import ErrorBoundary from "./components/error-boundary";
 import LayoutContainer from "./components/layout-container";
 import "./globals.css";
-import AboutPage from "./routes/about";
-import AdvertisementsPage from "./routes/advertisements";
-import ChatPage from "./routes/chat";
-import ChatBotPage from "./routes/chat-bot";
-import CommunityPage from "./routes/community";
-import NotificationsPage from "./routes/notifications";
-import ProfilePage from "./routes/profile";
-import SettingsPage from "./routes/settings";
-import TrackPage from "./routes/track";
-import TrackGymPage from "./routes/track-gym";
+import AboutPage from "./pages/about";
+import AdvertisementsPage from "./pages/advertisements";
+import ChatPage from "./pages/chat";
+import ChatBotPage from "./pages/chat-bot";
+import CommunityPage from "./pages/community";
+import NotificationsPage from "./pages/notifications";
+import ProfilePage from "./pages/profile";
+import SettingsPage from "./pages/settings";
+import TrackPage from "./pages/track";
+import TrackGymPage from "./pages/track-gym";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
