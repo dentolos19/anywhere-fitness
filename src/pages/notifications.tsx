@@ -1,10 +1,6 @@
 import { ChevronRight, Notifications } from "@mui/icons-material";
 import {
   Container,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   List,
   ListItem,
   ListItemButton,
@@ -14,6 +10,7 @@ import {
   Typography
 } from "@mui/material";
 import { useState } from "react";
+import NotificationDialog from "../dialogs/notification-dialog";
 
 const notifications = [
   {
@@ -22,25 +19,6 @@ const notifications = [
       "Discover new friends that will be with you in your fitness journey! With Anywhere Fitness, you can find the perfect workout routine that fits your schedule and lifestyle.",
   },
 ];
-
-const NotificationDialog = ({
-  open,
-  data,
-  onClose,
-}: {
-  open: boolean;
-  data: { title: string; message: string };
-  onClose: () => void;
-}) => {
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{data.title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>{data.message}</DialogContentText>
-      </DialogContent>
-    </Dialog>
-  );
-};
 
 export default function NotificationsPage() {
   const [dialogData, setDialogData] = useState(notifications[0]);

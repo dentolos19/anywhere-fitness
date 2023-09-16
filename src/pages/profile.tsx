@@ -12,6 +12,8 @@ export default function ProfilePage() {
   const [range, setRange] = useState<"weekly" | "monthly" | "yearly">("weekly");
 
   const handleTodo = () => alert("This feature is not implemented yet!");
+  const handleAchievements = () => navigate("/profile/achievements");
+  const handleGoals = () => navigate("/profile/goals");
 
   return (
     <Container sx={{ my: 2 }}>
@@ -54,11 +56,11 @@ export default function ProfilePage() {
         </Paper>
         <Paper>
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
-            <Button onClick={handleTodo}>Achievements</Button>
+            <Button onClick={handleAchievements}>Achievements</Button>
           </Box>
           <Divider />
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
-            <Button onClick={handleTodo}>Goals</Button>
+            <Button onClick={handleGoals}>Goals</Button>
           </Box>
           <Divider />
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>

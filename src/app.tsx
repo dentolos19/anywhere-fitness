@@ -15,6 +15,8 @@ import ChatBotPage from "./pages/chat-bot";
 import CommunityPage from "./pages/community";
 import NotificationsPage from "./pages/notifications";
 import ProfilePage from "./pages/profile";
+import ProfileAchievementsPage from "./pages/profile-achievements";
+import ProfileGoalsPage from "./pages/profile-goals";
 import SettingsPage from "./pages/settings";
 import TrackPage from "./pages/track";
 import TrackGymPage from "./pages/track-gym";
@@ -24,14 +26,16 @@ const router = createBrowserRouter(
     <Route path="/" element={<LayoutContainer />} errorElement={<ErrorBoundary />}>
       <Route element={<AboutPage />} path="/about" />
       <Route element={<AdvertisementsPage />} path="/advertisements" />
-      <Route element={<ChatPage />} path="/chat" />
       <Route element={<ChatBotPage />} path="/chat/bot" />
+      <Route element={<ChatPage />} path="/chat" />
       <Route element={<CommunityPage />} index />
       <Route element={<NotificationsPage />} path="/notifications" />
+      <Route element={<ProfileAchievementsPage />} path="/profile/achievements" />
+      <Route element={<ProfileGoalsPage />} path="/profile/goals" />
       <Route element={<ProfilePage />} path="/profile" />
       <Route element={<SettingsPage />} path="/settings" />
-      <Route element={<TrackPage />} path="/track" />
       <Route element={<TrackGymPage />} path="/track/gym" />
+      <Route element={<TrackPage />} path="/track" />
     </Route>
   )
 );
