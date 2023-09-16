@@ -1,17 +1,16 @@
 import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
+import settings from "./settings";
 
-const baseUrl = "https://cock-za06.onrender.com/v1";
-
-const openai = new OpenAI({
-  baseURL: baseUrl,
-  apiKey: "",
-  dangerouslyAllowBrowser: true
+const ai = new OpenAI({
+  baseURL: settings.aiBaseUrl,
+  apiKey: settings.aiApiKey,
+  dangerouslyAllowBrowser: true,
 });
 
 export function makeChat(messages: ChatCompletionMessageParam[]) {
-  return openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+  return ai.chat.completions.create({
+    model: settings.aiModel,
     stream: false,
     messages: messages,
   });

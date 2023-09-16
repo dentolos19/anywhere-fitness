@@ -138,7 +138,7 @@ export default function WorkoutsDialog({
 }) {
   return (
     <Dialog open={open === true} onClose={() => onClose(undefined)} maxWidth={"xs"} fullWidth={true}>
-      <DialogTitle>Select A Workout</DialogTitle>
+      <DialogTitle>Record A Workout</DialogTitle>
       <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
           <Box component={"ul"} key={workout.name}>

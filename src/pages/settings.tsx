@@ -34,9 +34,9 @@ export default function SettingsPage() {
   const [theme, setTheme] = useGlobalState("theme");
   const [user, setUser] = useGlobalState("user");
   const [name, setName] = useState<string>();
-  const [aiBaseUrl, setAiBaseUrl] = useState<string>(settings.aiBaseUrl);
-  const [aiApiKey, setAiApiKey] = useState<string>(settings.aiApiKey);
-  const [aiModel, setAiModel] = useState<string>(settings.aiModel);
+  // const [aiBaseUrl] = useState<string>(settings.aiBaseUrl);
+  // const [aiApiKey] = useState<string>(settings.aiApiKey);
+  // const [aiModel] = useState<string>(settings.aiModel);
 
   useEnhancedEffect(() => {
     if (!user) return;
@@ -184,19 +184,22 @@ export default function SettingsPage() {
           </Typography>
           <Stack spacing={1}>
             <SettingContainer label={"Base URL"}>
-              <Chip label={aiBaseUrl}/>
+              {/* <Chip label={aiBaseUrl}/> */}
+              <Chip label={settings.aiBaseUrl} />
               <IconButton>
                 <Edit />
               </IconButton>
             </SettingContainer>
             <SettingContainer label={"API Key"}>
-              <Chip label={aiApiKey || "None"} />
+              {/* <Chip label={aiApiKey || "None"} /> */}
+              <Chip label={settings.aiApiKey || "None"} />
               <IconButton>
                 <Edit />
               </IconButton>
             </SettingContainer>
             <SettingContainer label={"Model"}>
-              <Chip label={aiModel} />
+              {/* <Chip label={aiModel} /> */}
+              <Chip label={settings.aiModel} />
               <IconButton>
                 <Edit />
               </IconButton>
