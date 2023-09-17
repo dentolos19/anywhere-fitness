@@ -11,15 +11,33 @@ import {
   SpeedDialAction,
   Typography,
 } from "@mui/material";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
+import LoadingBoundary from "../components/loading-boundary";
 import WorkoutDialog from "../dialogs/workout-dialog";
-import settings from "../lib/settings";
+import { Profile, getProfile, updateProfile } from "../lib/database";
+import { useGlobalState } from "../lib/state";
 import { Workout } from "../lib/types";
 
 export default function TrackGymPage() {
-  const [workouts, setWorkouts] = useState<Workout[]>(settings.workouts);
+  const [user] = useGlobalState("user");
+  const [profile, setProfile] = useState<Profile>();
+  const [loading, setLoading] = useState(true);
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<Workout | undefined>(undefined);
+
+  useEnhancedEffect(() => {
+    if (!user) return;
+    getProfile(user.id).then((profile) => {
+      setProfile(profile);
+      setWorkouts(profile.workouts || []);
+      setLoading(false);
+    });
+    setLoading(false);
+  }, []);
+
+  if (loading) return <LoadingBoundary />;
 
   const handleDialogClose = (value: Workout | undefined) => {
     setDialogOpen(false);
@@ -34,8 +52,15 @@ export default function TrackGymPage() {
     } else {
       newWorkouts = [...workouts, value];
     }
-    setWorkouts(newWorkouts);
-    settings.workouts = newWorkouts;
+    // setWorkouts(newWorkouts);
+    // settings.workouts = newWorkouts;
+    if (!profile) return;
+    setLoading(true);
+    updateProfile(profile.id, { workouts: newWorkouts }).then((newProfile) => {
+      setWorkouts(newWorkouts);
+      setProfile(newProfile);
+      setLoading(false);
+    });
   };
 
   return (

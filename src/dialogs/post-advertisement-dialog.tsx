@@ -10,9 +10,14 @@ import {
 } from "@mui/material";
 import { FormEvent, useState } from "react";
 
+export type PostAdvertisementDialogResult = {
+  title: string;
+  description: string;
+};
+
 export default function PostAdvertisementDialog(params: {
   open: boolean;
-  onClose: (data: FormData | undefined) => void;
+  onClose: (value: PostAdvertisementDialogResult | undefined) => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,10 +28,10 @@ export default function PostAdvertisementDialog(params: {
 
   const handlePost = (event: FormEvent) => {
     event.preventDefault();
-    const data = new FormData();
-    data.append("title", title);
-    data.append("description", description);
-    params.onClose(data);
+    params.onClose({
+      title,
+      description,
+    });
   };
 
   return (
@@ -63,7 +68,9 @@ export default function PostAdvertisementDialog(params: {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
-        <Button type={"submit"} variant={"contained"}>Post</Button>
+        <Button type={"submit"} variant={"contained"}>
+          Post
+        </Button>
       </DialogActions>
     </Dialog>
   );

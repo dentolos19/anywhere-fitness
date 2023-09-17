@@ -8,16 +8,33 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
+  Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import LoadingBoundary from "../components/loading-boundary";
 import GoalDialog from "../dialogs/goal-dialog";
-import settings from "../lib/settings";
+import { Profile, getProfile, updateProfile } from "../lib/database";
+import { useGlobalState } from "../lib/state";
 import { Goal } from "../lib/types";
 
 export default function ProfileGoalsPage() {
-  const [goals, setGoals] = useState<Goal[]>(settings.goals);
+  const [user] = useGlobalState("user");
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile>();
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<Goal | undefined>(undefined);
+
+  useEffect(() => {
+    if (!user) return;
+    getProfile(user.id).then((profile) => {
+      setProfile(profile);
+      setGoals(profile.goals || []);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <LoadingBoundary />;
 
   const handleDialogClose = (value: Goal | undefined) => {
     setDialogOpen(false);
@@ -32,8 +49,14 @@ export default function ProfileGoalsPage() {
     } else {
       newGoals = [...goals, value];
     }
-    setGoals(newGoals);
-    settings.goals = newGoals;
+    console.log(profile);
+    if (!profile) return;
+    setLoading(true);
+    updateProfile(profile.id, { goals: newGoals }).then((newProfile) => {
+      setGoals(newGoals);
+      setProfile(newProfile);
+      setLoading(false);
+    })
   };
 
   return (
@@ -45,28 +68,35 @@ export default function ProfileGoalsPage() {
       />
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 600, mx: "auto" }}>
-          {goals.map((item, index) => (
-            <ListItem
-              key={index}
-              secondaryAction={
-                <IconButton>
-                  <Check />
-                </IconButton>
-              }
-              disablePadding
-            >
-              <Paper sx={{ width: "100%" }}>
-                <ListItemButton
-                  onClick={() => {
-                    setDialogData(item);
-                    setDialogOpen(true);
-                  }}
-                >
-                  <ListItemText primary={item.title} secondary={item.due && `Due ${item.due}`} />
-                </ListItemButton>
-              </Paper>
-            </ListItem>
-          ))}
+          {goals.length > 0 ? (
+            goals.map((item, index) => (
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <IconButton>
+                    <Check />
+                  </IconButton>
+                }
+                disablePadding
+              >
+                <Paper sx={{ width: "100%" }}>
+                  <ListItemButton
+                    onClick={() => {
+                      setDialogData(item);
+                      setDialogOpen(true);
+                    }}
+                  >
+                    <ListItemText
+                      primary={item.title}
+                      secondary={item.due && `Due ${item.due}`}
+                    />
+                  </ListItemButton>
+                </Paper>
+              </ListItem>
+            ))
+          ) : (
+            <Typography align={"center"}>No goals yet.</Typography>
+          )}
         </List>
         <Fab
           color={"primary"}

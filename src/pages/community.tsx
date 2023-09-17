@@ -138,10 +138,7 @@ export default function CommunityPage() {
     setOpen(false);
     if (!value) return;
     setLoading(true);
-    const form = new FormData();
-    form.append("message", value.message);
-    if (value.cover) form.append("cover", value.cover);
-    createPost(form).then(
+    createPost({ message: value.message, cover: value.cover }).then(
       (post) => {
         setPosts([post, ...posts]);
         setLoading(false);

@@ -66,11 +66,15 @@ const darkTheme = createTheme({
   },
 });
 
-export default function LayoutContainer({ children }: { children?: React.ReactNode }) {
+export default function LayoutContainer({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   const navigate = useNavigate();
 
   const [user, setUser] = useGlobalState("user");
-  const [theme, _] = useGlobalState("theme");
+  const [theme] = useGlobalState("theme");
   const [loading, setLoading] = useState(true);
   const [topSpacing, setTopSpacing] = useState(0);
   const [bottomSpacing, setBottomSpacing] = useState(0);
@@ -88,7 +92,8 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
       setLoading(false);
       return;
     }
-    setUser(getAuthUser());
+    const authUser = getAuthUser();
+    setUser(authUser);
     setLoading(false);
   }, []);
 
@@ -106,7 +111,9 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
       <Box>
         <AppBar>
           <Toolbar ref={topRef}>
-            <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}>
+            <Box
+              sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
+            >
               <IconButton onClick={() => setOpen(true)}>
                 <Menu />
               </IconButton>
@@ -177,7 +184,12 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
         <BottomNavigation
           ref={bottomRef}
           showLabels
-          sx={{ display: { xs: "flex", sm: "none" }, width: "100vw", position: "fixed", bottom: 0 }}
+          sx={{
+            display: { xs: "flex", sm: "none" },
+            width: "100vw",
+            position: "fixed",
+            bottom: 0,
+          }}
         >
           {navigations.map((navigation, index) => (
             <BottomNavigationAction
@@ -192,11 +204,20 @@ export default function LayoutContainer({ children }: { children?: React.ReactNo
           <Box height={topSpacing} />
           <Box
             sx={{
-              height: { xs: window.innerHeight - topSpacing - bottomSpacing, sm: window.innerHeight - topSpacing },
+              height: {
+                xs: window.innerHeight - topSpacing - bottomSpacing,
+                sm: window.innerHeight - topSpacing,
+              },
               overflow: "hidden auto",
             }}
           >
-            {loading ? <LoadingBoundary /> : user ? children || <Outlet /> : <LoginForm />}
+            {loading ? (
+              <LoadingBoundary />
+            ) : user ? (
+              children || <Outlet />
+            ) : (
+              <LoginForm />
+            )}
           </Box>
           <Box height={bottomSpacing} />
         </Box>

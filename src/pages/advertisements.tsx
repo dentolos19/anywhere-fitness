@@ -1,4 +1,11 @@
-import { Add, BackHand, Chat, Delete, Edit, MoreVert } from "@mui/icons-material";
+import {
+  Add,
+  BackHand,
+  Chat,
+  Delete,
+  Edit,
+  MoreVert,
+} from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -19,7 +26,9 @@ import {
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
 import LoadingBoundary from "../components/loading-boundary";
-import PostAdvertisementDialog from "../dialogs/post-advertisement-dialog";
+import PostAdvertisementDialog, {
+  PostAdvertisementDialogResult,
+} from "../dialogs/post-advertisement-dialog";
 import {
   Advertisement,
   createAdvertisement,
@@ -48,7 +57,10 @@ const AdvertisementContainer = ({
           <Avatar
             src={
               advertisement.expand.author.avatar &&
-              getFileUrl(advertisement.expand.author, advertisement.expand.author.avatar)
+              getFileUrl(
+                advertisement.expand.author,
+                advertisement.expand.author.avatar
+              )
             }
           />
         }
@@ -60,7 +72,11 @@ const AdvertisementContainer = ({
               <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
                 <MoreVert />
               </IconButton>
-              <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
+              <Menu
+                open={anchor !== undefined}
+                anchorEl={anchor}
+                onClose={() => setAnchor(undefined)}
+              >
                 <MenuItem onClick={handleTodo}>
                   <ListItemIcon>
                     <Edit />
@@ -80,7 +96,9 @@ const AdvertisementContainer = ({
       />
       <CardContent>
         <Typography variant={"h6"}>{advertisement.title}</Typography>
-        <Typography color={"text.secondary"}>{advertisement.description}</Typography>
+        <Typography color={"text.secondary"}>
+          {advertisement.description}
+        </Typography>
       </CardContent>
       <CardActions>
         <Tooltip title={"Join"}>
@@ -112,11 +130,14 @@ export default function AdvertisementsPage() {
 
   if (loading) return <LoadingBoundary />;
 
-  const handlePost = (data: FormData | undefined) => {
+  const handlePost = (value: PostAdvertisementDialogResult | undefined) => {
     setOpen(false);
-    if (!data) return;
+    if (!value) return;
     setLoading(true);
-    createAdvertisement(data).then(
+    createAdvertisement({
+      title: value.title,
+      description: value.description,
+    }).then(
       (advertisement) => {
         setAdvertisements([advertisement, ...advertisements]);
         setLoading(false);
@@ -132,7 +153,9 @@ export default function AdvertisementsPage() {
     setLoading(true);
     deleteAdvertisement(id).then(
       () => {
-        setAdvertisements(advertisements.filter((advertisement) => advertisement.id !== id));
+        setAdvertisements(
+          advertisements.filter((advertisement) => advertisement.id !== id)
+        );
         setLoading(false);
       },
       () => {
@@ -148,7 +171,10 @@ export default function AdvertisementsPage() {
       <Container sx={{ my: 2 }}>
         <Stack spacing={1} sx={{ maxWidth: 500, mx: "auto" }}>
           {advertisements.map((advertisement) => (
-            <AdvertisementContainer advertisement={advertisement} onDelete={handleDelete} />
+            <AdvertisementContainer
+              advertisement={advertisement}
+              onDelete={handleDelete}
+            />
           ))}
         </Stack>
         <Fab

@@ -1,4 +1,5 @@
 import PocketBase from "pocketbase";
+import { Goal, Workout } from "./types";
 
 const database = new PocketBase("https://inexpensive-fountain.pockethost.io");
 
@@ -35,9 +36,9 @@ export type Advertisement = {
 export type Profile = {
   id: string;
   user: string;
-  data: any;
-  statistics: any;
-  settings: any;
+  settings?: any;
+  workouts?: Workout[];
+  goals?: Goal[];
 };
 
 export function checkAuthUser() {
@@ -58,8 +59,16 @@ export function updateAuthUser(form: FormData) {
   });
 }
 
-export function loginUser({ username, password }: { username: string; password: string }) {
-  return database.collection("users").authWithPassword<User>(username, password);
+export function loginUser({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
+  return database
+    .collection("users")
+    .authWithPassword<User>(username, password);
 }
 
 export function registerUser({
@@ -82,9 +91,12 @@ export function registerUser({
   });
 }
 
-export function createPost(data: FormData) {
-  data.append("author", getAuthUser().id);
-  return database.collection("posts").create<Post>(data, {
+export function createPost(data: { message: string; cover?: File }) {
+  const form = new FormData();
+  form.append("author", getAuthUser().id);
+  form.append("message", data.message);
+  if (data.cover) form.append("cover", data.cover);
+  return database.collection("posts").create<Post>(form, {
     expand: "author",
   });
 }
@@ -100,9 +112,15 @@ export function getPosts() {
   });
 }
 
-export function createAdvertisement(data: FormData) {
-  data.append("author", getAuthUser().id);
-  return database.collection("advertisements").create<Advertisement>(data, {
+export function createAdvertisement(data: {
+  title: string;
+  description: string;
+}) {
+  const form = new FormData();
+  form.append("author", getAuthUser().id);
+  form.append("title", data.title);
+  form.append("description", data.description);
+  return database.collection("advertisements").create<Advertisement>(form, {
     expand: "author",
   });
 }
@@ -118,34 +136,37 @@ export function getAdvertisements() {
   });
 }
 
-export function createProfile(id: string) {
+export function createProfile(userId: string) {
   return database.collection("profiles").create<Profile>({
-    user: id,
+    user: userId,
     data: {},
     statistics: {},
     settings: {},
   });
 }
 
-export function getProfile(id: string) {
+export function getProfile(userId: string) {
   return database
     .collection("profiles")
-    .getFirstListItem<Profile>(`user.id='${id}'`)
+    .getFirstListItem<Profile>(`user.id='${userId}'`)
     .then(
       (profile) => profile,
       (error) => {
         if (error.status === 404) {
-          return createProfile(id);
+          return createProfile(userId);
         }
         throw error;
       }
     );
 }
 
-export function updateProfile(id: string, data: Partial<Omit<Profile, "id" | "user">>) {
+export function updateProfile(
+  id: string,
+  data: Partial<Omit<Profile, "id" | "user">>
+) {
   return database.collection("profiles").update<Profile>(id, data);
 }
 
-export function getFileUrl(model: { id: string }, fileName: string) {
-  return database.files.getUrl(model, fileName);
+export function getFileUrl(record: { id: string }, fileName: string) {
+  return database.files.getUrl(record, fileName);
 }
