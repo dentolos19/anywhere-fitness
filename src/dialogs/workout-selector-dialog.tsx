@@ -10,7 +10,6 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import { Workout } from "../lib/types";
 
 const workouts = [
   {
@@ -129,15 +128,17 @@ const workouts = [
   },
 ];
 
-export default function WorkoutsDialog({
-  open,
-  onClose,
-}: {
-  open?: boolean;
-  onClose: (value: Workout | undefined) => void;
+export default function WorkoutSelectorDialog(params: {
+  open: boolean;
+  onClose: (value: { name: string; category: string } | undefined) => void;
 }) {
   return (
-    <Dialog open={open === true} onClose={() => onClose(undefined)} maxWidth={"xs"} fullWidth={true}>
+    <Dialog
+      open={params.open}
+      onClose={() => params.onClose(undefined)}
+      maxWidth={"xs"}
+      fullWidth
+    >
       <DialogTitle>Record A Workout</DialogTitle>
       <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
@@ -148,13 +149,25 @@ export default function WorkoutsDialog({
                 <ListItem
                   key={index}
                   secondaryAction={
-                    <IconButton LinkComponent={"a"} edge={"end"} href={exercise.url} target={"_blank"}>
+                    <IconButton
+                      LinkComponent={"a"}
+                      edge={"end"}
+                      href={exercise.url}
+                      target={"_blank"}
+                    >
                       <Info />
                     </IconButton>
                   }
                   disablePadding
                 >
-                  <ListItemButton onClick={() => onClose({ name: exercise.name, category: workout.name })}>
+                  <ListItemButton
+                    onClick={() =>
+                      params.onClose({
+                        name: exercise.name,
+                        category: workout.name,
+                      })
+                    }
+                  >
                     <ListItemText primary={exercise.name} />
                   </ListItemButton>
                 </ListItem>

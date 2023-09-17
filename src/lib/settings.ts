@@ -1,4 +1,4 @@
-import { Workout } from "./types";
+import { Goal, Workout } from "./types";
 
 class Settings {
   // theme
@@ -19,6 +19,16 @@ class Settings {
   }
   set workouts(value: Workout[]) {
     localStorage.setItem("workouts", JSON.stringify(value));
+  }
+  // goals
+  get goals() {
+    const rawValue = localStorage.getItem("goals");
+    const value = JSON.parse(rawValue || "[]") as Goal[];
+    if (!rawValue) return [];
+    return value;
+  }
+  set goals(value: Goal[]) {
+    localStorage.setItem("goals", JSON.stringify(value));
   }
   // ai base url
   get aiBaseUrl() {

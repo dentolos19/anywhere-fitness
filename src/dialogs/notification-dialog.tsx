@@ -1,19 +1,20 @@
-import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
-export default function NotificationDialog({
-  open,
-  data,
-  onClose,
-}: {
+export default function NotificationDialog(params: {
   open: boolean;
   data: { title: string; message: string };
   onClose: () => void;
 }) {
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{data.title}</DialogTitle>
+    <Dialog open={params.open} onClose={params.onClose}>
+      <DialogTitle>{params.data.title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{data.message}</DialogContentText>
+        <DialogContentText>{params.data.message}</DialogContentText>
       </DialogContent>
     </Dialog>
   );

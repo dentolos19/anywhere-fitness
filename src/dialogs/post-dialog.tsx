@@ -6,55 +6,81 @@ import {
   DialogTitle,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-export default function PostDialog({
-  open,
-  onClose,
-}: {
-  open?: boolean;
-  onClose: (data: FormData | undefined) => void;
+import { ChangeEvent, FormEvent, useState } from "react";
+
+export type PostDialogResult = {
+  cover?: File;
+  message: string;
+};
+
+export default function PostDialog(params: {
+  open: boolean;
+  onClose: (value: PostDialogResult | undefined) => void;
 }) {
-  const [value, setValue] = useState<string>("");
-  const [file, setFile] = useState<File | undefined>(undefined);
+  const [message, setMessage] = useState<string>("");
+  const [cover, setCover] = useState<File | undefined>(undefined);
 
-  const closeHandler = () => onClose(undefined);
+  const handleCancel = () => {
+    params.onClose(undefined);
+  };
 
-  const submitHandler = (value: string) => {
-    const formData = new FormData();
-    formData.append("message", value);
-    if (file) formData.append("cover", file);
-    onClose(formData);
+  const handlePost = (event: FormEvent) => {
+    event.preventDefault();
+    params.onClose({
+      cover,
+      message,
+    });
   };
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    setFile(event.target.files?.item(0) || undefined);
+    setCover(event.target.files?.item(0) || undefined);
   };
 
   return (
-    <Dialog open={open === true} onClose={closeHandler} maxWidth={"xs"} fullWidth={true}>
+    <Dialog
+      component={"form"}
+      open={params.open}
+      onSubmit={handlePost}
+      onClose={handleCancel}
+      maxWidth={"xs"}
+      fullWidth={true}
+    >
       <DialogTitle>Create A Post</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          {file && (
+          <Typography>What's on your mind? Share it with the world!</Typography>
+          {cover && (
             <>
-              <img src={URL.createObjectURL(file)} />
-              <Typography align={"center"}>{file.name}</Typography>
+              <img src={URL.createObjectURL(cover)} />
+              <Typography align={"center"}>{cover.name}</Typography>
             </>
           )}
-          <TextField value={value} onChange={(event) => setValue(event.target.value)} fullWidth multiline />
-          <Button component={"label"} color={"info"} variant={"outlined"} fullWidth>
+          <TextField
+            type={"text"}
+            label={"Message"}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
+            multiline
+          />
+          <Button component={"label"} color={"info"} variant={"outlined"}>
             Upload Cover
-            <input type="file" accept={"image/*"} hidden onChange={handleFileUpload} />
+            <input
+              type="file"
+              accept={"image/*"}
+              hidden
+              onChange={handleFileUpload}
+            />
           </Button>
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeHandler}>
+        <Button type={"button"} onClick={handleCancel}>
           Cancel
         </Button>
-        <Button variant={"contained"} onClick={() => submitHandler(value)}>
+        <Button type={"submit"} variant={"contained"}>
           Post
         </Button>
       </DialogActions>
