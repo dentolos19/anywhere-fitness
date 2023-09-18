@@ -1,3 +1,4 @@
+import NotificationDialog from "@/dialogs/notification-dialog";
 import { ChevronRight, Notifications } from "@mui/icons-material";
 import {
   Container,
@@ -7,10 +8,9 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
-import NotificationDialog from "../dialogs/notification-dialog";
 
 const notifications = [
   {
@@ -26,7 +26,11 @@ export default function NotificationsPage() {
 
   return (
     <>
-      <NotificationDialog open={dialogOpen} data={dialogData} onClose={() => setDialogOpen(false)} />
+      <NotificationDialog
+        open={dialogOpen}
+        data={dialogData}
+        onClose={() => setDialogOpen(false)}
+      />
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 600, mx: "auto" }}>
           {notifications.map((notification, index) => (

@@ -1,9 +1,21 @@
+import { getFileUrl } from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
 import { Edit } from "@mui/icons-material";
-import { Avatar, Box, Button, Container, Divider, Fab, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Fab,
+  Paper,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getFileUrl } from "../lib/database";
-import { useGlobalState } from "../lib/state";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -18,9 +30,21 @@ export default function ProfilePage() {
   return (
     <Container sx={{ my: 2 }}>
       <Stack spacing={1} sx={{ maxWidth: 600, mx: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 2, flexDirection: "column", gap: 2 }}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
-            <Avatar src={user?.avatar && getFileUrl(user, user.avatar)} sx={{ width: 100, height: 100 }} />
+        <Paper
+          sx={{ display: "flex", padding: 2, flexDirection: "column", gap: 2 }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 2,
+            }}
+          >
+            <Avatar
+              src={user?.avatar && getFileUrl(user, user.avatar)}
+              sx={{ width: 100, height: 100 }}
+            />
             <Box>
               <Typography variant={"h5"}>{user?.name}</Typography>
               <Typography color={"text.secondary"}>Rookie</Typography>
@@ -43,7 +67,14 @@ export default function ProfilePage() {
             <Tab label={"Monthly"} value={"monthly"} />
             <Tab label={"Yearly"} value={"yearly"} />
           </Tabs>
-          <Box sx={{ display: "flex", height: 100, alignItems: "center", justifyContent: "space-evenly" }}>
+          <Box
+            sx={{
+              display: "flex",
+              height: 100,
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
             <Box sx={{ textAlign: "center" }}>
               <Typography>Avg. Distance</Typography>
               <Typography variant={"h5"}>0</Typography>
@@ -68,7 +99,10 @@ export default function ProfilePage() {
           </Box>
         </Paper>
       </Stack>
-      <Fab sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }} onClick={() => navigate("/settings")}>
+      <Fab
+        sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}
+        onClick={() => navigate("/settings")}
+      >
         <Edit />
       </Fab>
     </Container>

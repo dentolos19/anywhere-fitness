@@ -1,5 +1,5 @@
+import { Goal, Workout } from "@/lib/types";
 import PocketBase from "pocketbase";
-import { Goal, Workout } from "./types";
 
 const database = new PocketBase("https://inexpensive-fountain.pockethost.io");
 

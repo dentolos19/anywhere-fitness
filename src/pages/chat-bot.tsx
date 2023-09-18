@@ -1,8 +1,17 @@
+import { makeChat } from "@/lib/ai";
 import { MoreVert, Send } from "@mui/icons-material";
-import { Avatar, Box, Container, Divider, IconButton, Input, Paper, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Container,
+  Divider,
+  IconButton,
+  Input,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 import { FormEvent, useState } from "react";
-import { makeChat } from "../lib/ai";
 
 const CHAT_NAME = "Baymax";
 
@@ -47,7 +56,9 @@ export default function ChatBotPage() {
       (res) => {
         setMessages((messages) => [
           {
-            content: res.choices[0].message.content || "This message is not available.",
+            content:
+              res.choices[0].message.content ||
+              "This message is not available.",
           },
           ...messages,
         ]);
@@ -68,7 +79,14 @@ export default function ChatBotPage() {
   return (
     <Container sx={{ py: 2, height: "100%" }}>
       <Paper sx={{ display: "flex", height: "100%", flexDirection: "column" }}>
-        <Box sx={{ display: "flex", px: 2, py: 1, justifyContent: "space-between" }}>
+        <Box
+          sx={{
+            display: "flex",
+            px: 2,
+            py: 1,
+            justifyContent: "space-between",
+          }}
+        >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Avatar src={"/assets/baymax.jpg"} />
             <Typography>Baymax</Typography>
@@ -81,21 +99,39 @@ export default function ChatBotPage() {
         </Box>
         <Divider />
         <Box
-          sx={{ display: "flex", padding: 2, flexDirection: "column-reverse", flexGrow: 1, overflow: "hidden auto" }}
+          sx={{
+            display: "flex",
+            padding: 2,
+            flexDirection: "column-reverse",
+            flexGrow: 1,
+            overflow: "hidden auto",
+          }}
         >
           {typing && <Typography>Typing...</Typography>}
           {messages.map((message, index) => (
             <Box key={index} sx={{ py: 1 }}>
-              <Typography variant={"h6"}>{message.self ? "You" : CHAT_NAME}</Typography>
-              <Typography>{message.content || "This message's content is not available."}</Typography>
+              <Typography variant={"h6"}>
+                {message.self ? "You" : CHAT_NAME}
+              </Typography>
+              <Typography>
+                {message.content || "This message's content is not available."}
+              </Typography>
               <Divider sx={{ marginTop: 1 }} />
             </Box>
           ))}
         </Box>
         <Box></Box>
         <Divider />
-        <Box component={"form"} onSubmit={handleSend} sx={{ display: "flex", padding: 1 }}>
-          <Input value={input} sx={{ flexGrow: 1 }} onChange={(event) => setInput(event.target.value)}/>
+        <Box
+          component={"form"}
+          onSubmit={handleSend}
+          sx={{ display: "flex", padding: 1 }}
+        >
+          <Input
+            value={input}
+            sx={{ flexGrow: 1 }}
+            onChange={(event) => setInput(event.target.value)}
+          />
           <IconButton type={"submit"}>
             <Send />
           </IconButton>

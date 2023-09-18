@@ -1,4 +1,11 @@
-import { Box, Container, Paper, Stack, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Paper,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
 const caloriesAchievements = [
   {
@@ -10,7 +17,7 @@ const caloriesAchievements = [
     name: "Burn 69,696,969 Calories",
     unlocked: false,
     iconUrl: "/assets/rock.png",
-  }
+  },
 ];
 
 const sportsAchievements = [
@@ -23,8 +30,8 @@ const sportsAchievements = [
     name: "Run 1,000 Kilometers",
     unlocked: false,
     iconUrl: "/assets/finish.png",
-  }
-]
+  },
+];
 
 const activitiesAchievements = [
   {
@@ -46,8 +53,8 @@ const activitiesAchievements = [
     name: "Slay A Dinosaur",
     unlocked: true,
     iconUrl: "/assets/dinosaur.png",
-  }
-]
+  },
+];
 
 export default function ProfileAchievementsPage() {
   return (
@@ -63,10 +70,19 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Calories
           </Typography>
-          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
+          <Stack
+            direction={"row"}
+            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
+          >
             {caloriesAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
-                <Box sx={{ width: 100, height: 100, opacity: item.unlocked ? 1 : 0.5 }}>
+                <Box
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    opacity: item.unlocked ? 1 : 0.5,
+                  }}
+                >
                   <img src={item.iconUrl} />
                 </Box>
               </Tooltip>
@@ -77,10 +93,19 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Sports
           </Typography>
-          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
+          <Stack
+            direction={"row"}
+            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
+          >
             {sportsAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
-                <Box sx={{ width: 100, height: 100, opacity: item.unlocked ? 1 : 0.5 }}>
+                <Box
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    opacity: item.unlocked ? 1 : 0.5,
+                  }}
+                >
                   <img src={item.iconUrl} />
                 </Box>
               </Tooltip>
@@ -91,10 +116,19 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Activities
           </Typography>
-          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
+          <Stack
+            direction={"row"}
+            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
+          >
             {activitiesAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
-                <Box sx={{ width: 100, height: 100, opacity: item.unlocked ? 1 : 0.5 }}>
+                <Box
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    opacity: item.unlocked ? 1 : 0.5,
+                  }}
+                >
                   <img src={item.iconUrl} />
                 </Box>
               </Tooltip>

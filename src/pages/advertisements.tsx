@@ -1,3 +1,15 @@
+import LoadingPlaceholder from "@/components/loading-placeholder";
+import PostAdvertisementDialog, {
+  PostAdvertisementDialogResult,
+} from "@/dialogs/post-advertisement-dialog";
+import {
+  Advertisement,
+  createAdvertisement,
+  deleteAdvertisement,
+  getAdvertisements,
+  getFileUrl,
+} from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
 import {
   Add,
   BackHand,
@@ -25,18 +37,6 @@ import {
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
-import LoadingBoundary from "../components/loading-boundary";
-import PostAdvertisementDialog, {
-  PostAdvertisementDialogResult,
-} from "../dialogs/post-advertisement-dialog";
-import {
-  Advertisement,
-  createAdvertisement,
-  deleteAdvertisement,
-  getAdvertisements,
-  getFileUrl,
-} from "../lib/database";
-import { useGlobalState } from "../lib/state";
 
 const AdvertisementContainer = ({
   advertisement,
@@ -128,7 +128,7 @@ export default function AdvertisementsPage() {
     });
   }, []);
 
-  if (loading) return <LoadingBoundary />;
+  if (loading) return <LoadingPlaceholder />;
 
   const handlePost = (value: PostAdvertisementDialogResult | undefined) => {
     setOpen(false);

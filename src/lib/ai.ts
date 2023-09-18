@@ -1,6 +1,6 @@
+import settings from "@/lib/settings";
 import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
-import settings from "./settings";
 
 const ai = new OpenAI({
   baseURL: settings.aiBaseUrl,

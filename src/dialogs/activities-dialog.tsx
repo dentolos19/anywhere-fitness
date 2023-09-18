@@ -1,3 +1,4 @@
+import activities from "@/static/activities.json";
 import {
   Dialog,
   DialogTitle,
@@ -6,30 +7,6 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-
-const activities = [
-  {
-    name: "None",
-  },
-  {
-    name: "Walking",
-  },
-  {
-    name: "Running",
-  },
-  {
-    name: "Hiking",
-  },
-  {
-    name: "Swimming",
-  },
-  {
-    name: "Mountain Biking",
-  },
-  {
-    name: "Rowing (e.g. Kayaking)",
-  },
-];
 
 export default function ActivitiesDialog(params: {
   open: boolean;

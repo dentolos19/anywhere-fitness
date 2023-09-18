@@ -1,3 +1,8 @@
+import LoadingPlaceholder from "@/components/loading-placeholder";
+import WorkoutDialog from "@/dialogs/workout-dialog";
+import { Profile, getProfile, updateProfile } from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
+import { Workout } from "@/lib/types";
 import { Add, Delete, FitnessCenter, MonitorHeart } from "@mui/icons-material";
 import {
   Container,
@@ -13,11 +18,6 @@ import {
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
-import LoadingBoundary from "../components/loading-boundary";
-import WorkoutDialog from "../dialogs/workout-dialog";
-import { Profile, getProfile, updateProfile } from "../lib/database";
-import { useGlobalState } from "../lib/state";
-import { Workout } from "../lib/types";
 
 export default function TrackGymPage() {
   const [user] = useGlobalState("user");
@@ -37,7 +37,7 @@ export default function TrackGymPage() {
     setLoading(false);
   }, []);
 
-  if (loading) return <LoadingBoundary />;
+  if (loading) return <LoadingPlaceholder />;
 
   const updateChanges = (value: Workout[]) => {
     if (!profile) return;

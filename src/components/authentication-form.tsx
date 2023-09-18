@@ -41,9 +41,11 @@ export default function LoginForm() {
   };
 
   const guestHandler = () => {
-    loginUser({ username: "Guest", password: "wNkYXSBpFCLHC4C" }).then((user) => {
-      setUser(user.record);
-    });
+    loginUser({ username: "Guest", password: "wNkYXSBpFCLHC4C" }).then(
+      (user) => {
+        setUser(user.record);
+      }
+    );
   };
 
   return (
@@ -73,15 +75,32 @@ export default function LoginForm() {
                 required
               />
             </Stack>
-            <Box sx={{ display: "flex", marginTop: 2, gap: 1, "&>*": { flexGrow: 1 } }}>
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: 2,
+                gap: 1,
+                "&>*": { flexGrow: 1 },
+              }}
+            >
               <Button type={"submit"} variant={"contained"}>
                 Login
               </Button>
-              <Button type={"button"} variant={"outlined"} onClick={() => setMode("register")}>
+              <Button
+                type={"button"}
+                variant={"outlined"}
+                onClick={() => setMode("register")}
+              >
                 Register
               </Button>
             </Box>
-            <Button color={"secondary"} variant={"contained"} fullWidth sx={{ marginTop: 1 }} onClick={guestHandler}>
+            <Button
+              color={"secondary"}
+              variant={"contained"}
+              fullWidth
+              sx={{ marginTop: 1 }}
+              onClick={guestHandler}
+            >
               Continue As Guest
             </Button>
           </Box>
@@ -130,8 +149,19 @@ export default function LoginForm() {
                 required
               />
             </Stack>
-            <Box sx={{ display: "flex", marginTop: 2, gap: 1, "&>*": { flexGrow: 1 } }}>
-              <Button type={"button"} variant={"outlined"} onClick={() => setMode("login")}>
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: 2,
+                gap: 1,
+                "&>*": { flexGrow: 1 },
+              }}
+            >
+              <Button
+                type={"button"}
+                variant={"outlined"}
+                onClick={() => setMode("login")}
+              >
                 Login
               </Button>
               <Button type={"submit"} variant={"contained"}>

@@ -1,3 +1,4 @@
+import { Workout } from "@/lib/types";
 import {
   Button,
   Dialog,
@@ -9,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
-import { Workout } from "../lib/types";
 import WorkoutSelectorDialog from "./workout-selector-dialog";
 
 export default function WorkoutDialog(params: {
@@ -100,7 +100,7 @@ export default function WorkoutDialog(params: {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
-              <Button variant={"contained"} onClick={() => setDialogOpen(true)}>
+              <Button variant={"outlined"} onClick={() => setDialogOpen(true)}>
                 Select
               </Button>
             </Stack>

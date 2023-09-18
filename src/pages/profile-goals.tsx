@@ -1,3 +1,8 @@
+import LoadingPlaceholder from "@/components/loading-placeholder";
+import GoalDialog from "@/dialogs/goal-dialog";
+import { Profile, getProfile, updateProfile } from "@/lib/database";
+import { useGlobalState } from "@/lib/state";
+import { Goal } from "@/lib/types";
 import { Add, Check } from "@mui/icons-material";
 import {
   Container,
@@ -11,11 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import LoadingBoundary from "../components/loading-boundary";
-import GoalDialog from "../dialogs/goal-dialog";
-import { Profile, getProfile, updateProfile } from "../lib/database";
-import { useGlobalState } from "../lib/state";
-import { Goal } from "../lib/types";
 
 export default function ProfileGoalsPage() {
   const [user] = useGlobalState("user");
@@ -34,7 +34,7 @@ export default function ProfileGoalsPage() {
     });
   }, []);
 
-  if (loading) return <LoadingBoundary />;
+  if (loading) return <LoadingPlaceholder />;
 
   const updateChanges = (value: Goal[]) => {
     if (!profile) return;
@@ -43,8 +43,8 @@ export default function ProfileGoalsPage() {
       setGoals(value);
       setProfile(newProfile);
       setLoading(false);
-    })
-  }
+    });
+  };
 
   const handleDialogClose = (value: Goal | undefined) => {
     setDialogOpen(false);
@@ -66,7 +66,7 @@ export default function ProfileGoalsPage() {
     const newGoals = [...goals];
     newGoals.splice(index, 1);
     updateChanges(newGoals);
-  }
+  };
 
   return (
     <>

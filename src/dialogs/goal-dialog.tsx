@@ -1,3 +1,4 @@
+import { Goal } from "@/lib/types";
 import {
   Button,
   Dialog,
@@ -9,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
-import { Goal } from "../lib/types";
 
 export default function GoalDialog(params: {
   open: boolean;

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "None"
+  },
+  {
+    "name": "Walking"
+  },
+  {
+    "name": "Running"
+  },
+  {
+    "name": "Hiking"
+  },
+  {
+    "name": "Swimming"
+  },
+  {
+    "name": "Mountain Biking"
+  },
+  {
+    "name": "Rowing (e.g. Kayaking)"
+  }
+]

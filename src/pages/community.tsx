@@ -1,3 +1,5 @@
+import LoadingPlaceholder from "@/components/loading-placeholder";
+import PostDialog, { PostDialogResult } from "@/dialogs/post-dialog";
 import {
   Add,
   Chat,
@@ -29,8 +31,6 @@ import {
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
-import LoadingBoundary from "../components/loading-boundary";
-import PostDialog, { PostDialogResult } from "../dialogs/post-dialog";
 import {
   Post,
   createPost,
@@ -132,7 +132,7 @@ export default function CommunityPage() {
     });
   }, []);
 
-  if (loading) return <LoadingBoundary />;
+  if (loading) return <LoadingPlaceholder />;
 
   const handlePost = (value: PostDialogResult | undefined) => {
     setOpen(false);

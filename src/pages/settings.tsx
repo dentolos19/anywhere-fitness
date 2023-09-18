@@ -1,3 +1,6 @@
+import { getFileUrl, logoutAuthUser, updateAuthUser } from "@/lib/database";
+import settings from "@/lib/settings";
+import { useGlobalState } from "@/lib/state";
 import { DarkMode, Edit, LightMode } from "@mui/icons-material";
 import {
   Avatar,
@@ -17,13 +20,22 @@ import {
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { ChangeEvent, useState } from "react";
-import { getFileUrl, logoutAuthUser, updateAuthUser } from "../lib/database";
-import settings from "../lib/settings";
-import { useGlobalState } from "../lib/state";
 
-const SettingContainer = ({ label, children }: { label: string; children: React.ReactNode }) => {
+const SettingContainer = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       <Typography>{label}</Typography>
       <Box>{children}</Box>
     </Box>
@@ -96,7 +108,12 @@ export default function SettingsPage() {
               badgeContent={
                 <IconButton component={"label"}>
                   <Edit />
-                  <input type={"file"} accept="image/*" hidden onChange={handleUpload} />
+                  <input
+                    type={"file"}
+                    accept="image/*"
+                    hidden
+                    onChange={handleUpload}
+                  />
                 </IconButton>
               }
             >
@@ -110,12 +127,24 @@ export default function SettingsPage() {
             </Badge>
           </Box>
           <Stack spacing={2}>
-            <TextField type={"text"} label={"Name"} value={name} onChange={(event) => setName(event.target.value)} />
+            <TextField
+              type={"text"}
+              label={"Name"}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
             <Button variant={"contained"} onClick={handleUpdate}>
               Update
             </Button>
           </Stack>
-          <Box sx={{ display: "flex", marginTop: 2, gap: 1, "&>*": { flexGrow: 1 } }}>
+          <Box
+            sx={{
+              display: "flex",
+              marginTop: 2,
+              gap: 1,
+              "&>*": { flexGrow: 1 },
+            }}
+          >
             <Button color={"info"} variant={"outlined"}>
               Change Email
             </Button>
@@ -123,7 +152,13 @@ export default function SettingsPage() {
               Change Password
             </Button>
           </Box>
-          <Button color={"error"} variant={"contained"} fullWidth sx={{ marginTop: 1 }} onClick={handleLogout}>
+          <Button
+            color={"error"}
+            variant={"contained"}
+            fullWidth
+            sx={{ marginTop: 1 }}
+            onClick={handleLogout}
+          >
             Logout
           </Button>
         </Paper>
@@ -134,10 +169,16 @@ export default function SettingsPage() {
           <Stack spacing={1}>
             <SettingContainer label={"Theme"}>
               <ToggleButtonGroup value={theme as string}>
-                <ToggleButton value={"light"} onClick={() => handleThemeChange("light")}>
+                <ToggleButton
+                  value={"light"}
+                  onClick={() => handleThemeChange("light")}
+                >
                   <LightMode />
                 </ToggleButton>
-                <ToggleButton value={"dark"} onClick={() => handleThemeChange("dark")}>
+                <ToggleButton
+                  value={"dark"}
+                  onClick={() => handleThemeChange("dark")}
+                >
                   <DarkMode />
                 </ToggleButton>
               </ToggleButtonGroup>

@@ -1,6 +1,6 @@
+import { User } from "@/lib/database";
+import settings from "@/lib/settings";
 import { createGlobalState } from "react-hooks-global-state";
-import { User } from "./database";
-import settings from "./settings";
 
 export const { useGlobalState } = createGlobalState({
   user: undefined,

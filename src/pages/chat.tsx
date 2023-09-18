@@ -1,5 +1,14 @@
 import { ChevronRight } from "@mui/icons-material";
-import { Avatar, Container, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper } from "@mui/material";
+import {
+  Avatar,
+  Container,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function ChatPage() {
@@ -12,9 +21,14 @@ export default function ChatPage() {
           <Paper sx={{ width: "100%" }}>
             <ListItemButton onClick={() => navigate("/chat/bot")}>
               <ListItemIcon>
-                <Avatar src={"/assets/baymax.jpg"}/>
+                <Avatar src={"/assets/baymax.jpg"} />
               </ListItemIcon>
-              <ListItemText primary={"Baymax"} secondary={"Hello! I am Baymax, your personal healthcare companion."} />
+              <ListItemText
+                primary={"Baymax"}
+                secondary={
+                  "Hello! I am Baymax, your personal healthcare companion."
+                }
+              />
               <ChevronRight />
             </ListItemButton>
           </Paper>

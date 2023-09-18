@@ -12,4 +12,4 @@ export type Goal = {
   title: string;
   description?: string;
   due?: string;
-}
+};
