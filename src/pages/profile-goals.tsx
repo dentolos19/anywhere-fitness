@@ -36,6 +36,16 @@ export default function ProfileGoalsPage() {
 
   if (loading) return <LoadingBoundary />;
 
+  const updateChanges = (value: Goal[]) => {
+    if (!profile) return;
+    setLoading(true);
+    updateProfile(profile.id, { goals: value }).then((newProfile) => {
+      setGoals(value);
+      setProfile(newProfile);
+      setLoading(false);
+    })
+  }
+
   const handleDialogClose = (value: Goal | undefined) => {
     setDialogOpen(false);
     if (!value) return;
@@ -49,15 +59,14 @@ export default function ProfileGoalsPage() {
     } else {
       newGoals = [...goals, value];
     }
-    console.log(profile);
-    if (!profile) return;
-    setLoading(true);
-    updateProfile(profile.id, { goals: newGoals }).then((newProfile) => {
-      setGoals(newGoals);
-      setProfile(newProfile);
-      setLoading(false);
-    })
+    updateChanges(newGoals);
   };
+
+  const handleDelete = (index: number) => {
+    const newGoals = [...goals];
+    newGoals.splice(index, 1);
+    updateChanges(newGoals);
+  }
 
   return (
     <>
@@ -73,7 +82,7 @@ export default function ProfileGoalsPage() {
               <ListItem
                 key={index}
                 secondaryAction={
-                  <IconButton>
+                  <IconButton onClick={() => handleDelete(index)}>
                     <Check />
                   </IconButton>
                 }

@@ -39,6 +39,16 @@ export default function TrackGymPage() {
 
   if (loading) return <LoadingBoundary />;
 
+  const updateChanges = (value: Workout[]) => {
+    if (!profile) return;
+    setLoading(true);
+    updateProfile(profile.id, { workouts: value }).then((newProfile) => {
+      setWorkouts(value);
+      setProfile(newProfile);
+      setLoading(false);
+    });
+  };
+
   const handleDialogClose = (value: Workout | undefined) => {
     setDialogOpen(false);
     if (!value) return;
@@ -52,15 +62,13 @@ export default function TrackGymPage() {
     } else {
       newWorkouts = [...workouts, value];
     }
-    // setWorkouts(newWorkouts);
-    // settings.workouts = newWorkouts;
-    if (!profile) return;
-    setLoading(true);
-    updateProfile(profile.id, { workouts: newWorkouts }).then((newProfile) => {
-      setWorkouts(newWorkouts);
-      setProfile(newProfile);
-      setLoading(false);
-    });
+    updateChanges(newWorkouts);
+  };
+
+  const handleDelete = (index: number) => {
+    const newWorkouts = [...workouts];
+    newWorkouts.splice(index, 1);
+    updateChanges(newWorkouts);
   };
 
   return (
@@ -73,10 +81,11 @@ export default function TrackGymPage() {
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 500, mx: "auto" }}>
           {workouts.length > 0 ? (
-            workouts.map((workout) => (
+            workouts.map((workout, index) => (
               <ListItem
+                key={index}
                 secondaryAction={
-                  <IconButton>
+                  <IconButton onClick={() => handleDelete(index)}>
                     <Delete />
                   </IconButton>
                 }
