@@ -1,29 +1,21 @@
-"use client";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-
-export default function NotificationDialog({
-  open,
-  title,
-  message,
-  onClose,
-}: {
-  open?: boolean;
-  title: string;
-  message: string;
+export default function NotificationDialog(params: {
+  open: boolean;
+  data: { title: string; message: string };
   onClose: () => void;
 }) {
   return (
-    <Dialog open={open === true} onClose={onClose} maxWidth={"xs"} fullWidth={true}>
-      <DialogTitle>{title}</DialogTitle>
+    <Dialog open={params.open} onClose={params.onClose}>
+      <DialogTitle>{params.data.title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{message}</DialogContentText>
+        <DialogContentText>{params.data.message}</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button variant={"contained"} color={"success"} onClick={onClose}>
-          Close
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
