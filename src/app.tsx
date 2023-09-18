@@ -1,5 +1,6 @@
 import ErrorBoundary from "@/components/error-boundary";
 import LayoutContainer from "@/components/layout-container";
+import "@/globals.css";
 import AboutPage from "@/pages/about";
 import AdvertisementsPage from "@/pages/advertisements";
 import ChatPage from "@/pages/chat";

@@ -1,5 +1,5 @@
 <h1>
-    <img src="docs/icon.png" style="height: 1em;"/>
+    <img src="public/assets/icon.png" style="height: 1em;"/>
     <span>Anywhere Fitness</span>
 </h1>
 

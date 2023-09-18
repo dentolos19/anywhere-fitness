@@ -1,3 +1,5 @@
+import LoginForm from "@/components/authentication-form";
+import LoadingPlaceholder from "@/components/loading-placeholder";
 import { checkAuthUser, getAuthUser } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
 import { ThemeProvider } from "@emotion/react";
@@ -33,7 +35,6 @@ import {
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import LoadingPlaceholder from "./loading-placeholder";
 
 const navigations = [
   {
