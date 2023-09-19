@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-export type PostDialogResult = {
+export type PostDialogData = {
   cover?: File;
   message: string;
 };
 
 export default function PostDialog(params: {
   open: boolean;
-  onClose: (value: PostDialogResult | undefined) => void;
+  onClose: (value: PostDialogData | undefined) => void;
 }) {
   const [message, setMessage] = useState<string>("");
   const [cover, setCover] = useState<File | undefined>(undefined);

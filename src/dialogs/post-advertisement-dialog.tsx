@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import { FormEvent, useState } from "react";
 
-export type PostAdvertisementDialogResult = {
+export type PostAdvertisementDialogData = {
   title: string;
   description: string;
 };
 
 export default function PostAdvertisementDialog(params: {
   open: boolean;
-  onClose: (value: PostAdvertisementDialogResult | undefined) => void;
+  onClose: (value: PostAdvertisementDialogData | undefined) => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

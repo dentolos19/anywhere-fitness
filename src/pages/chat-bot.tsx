@@ -1,14 +1,14 @@
-import { makeChat } from "@/lib/ai";
+import { createChatCompletions } from "@/lib/ai";
 import { MoreVert, Send } from "@mui/icons-material";
 import {
-  Avatar,
-  Box,
-  Container,
-  Divider,
-  IconButton,
-  Input,
-  Paper,
-  Typography,
+    Avatar,
+    Box,
+    Container,
+    Divider,
+    IconButton,
+    Input,
+    Paper,
+    Typography,
 } from "@mui/material";
 import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 import { FormEvent, useState } from "react";
@@ -37,7 +37,7 @@ export default function ChatBotPage() {
     setMessages((messages) => [{ self: true, content: input }, ...messages]);
     setInput("");
     setTyping(true);
-    makeChat([
+    createChatCompletions([
       {
         role: "system",
         content: "You are an AI companion for fitness and health.",

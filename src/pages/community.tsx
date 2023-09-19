@@ -1,5 +1,5 @@
 import LoadingPlaceholder from "@/components/loading-placeholder";
-import PostDialog, { PostDialogResult } from "@/dialogs/post-dialog";
+import PostDialog, { PostDialogData } from "@/dialogs/post-dialog";
 import {
   Add,
   Chat,
@@ -47,7 +47,7 @@ const PostContainer = ({
   post: Post;
   onDelete: (id: string) => void;
 }) => {
-  const [user, _] = useGlobalState("user");
+  const [user] = useGlobalState("user");
   const [anchor, setAnchor] = useState<HTMLElement | undefined>();
 
   const handleTodo = () => alert("This feature is not implemented yet!");
@@ -134,7 +134,7 @@ export default function CommunityPage() {
 
   if (loading) return <LoadingPlaceholder />;
 
-  const handlePost = (value: PostDialogResult | undefined) => {
+  const handlePost = (value: PostDialogData | undefined) => {
     setOpen(false);
     if (!value) return;
     setLoading(true);

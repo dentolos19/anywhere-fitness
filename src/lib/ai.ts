@@ -8,7 +8,7 @@ const ai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export function makeChat(messages: ChatCompletionMessageParam[]) {
+export function createChatCompletions(messages: ChatCompletionMessageParam[]) {
   return ai.chat.completions.create({
     model: settings.aiModel,
     stream: false,

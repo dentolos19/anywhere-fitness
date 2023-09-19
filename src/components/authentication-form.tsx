@@ -4,7 +4,7 @@ import { loginUser, registerUser } from "../lib/database";
 import { useGlobalState } from "../lib/state";
 
 export default function LoginForm() {
-  const [_, setUser] = useGlobalState("user");
+  const [, setUser] = useGlobalState("user");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");

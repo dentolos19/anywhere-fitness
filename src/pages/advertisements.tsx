@@ -1,6 +1,6 @@
 import LoadingPlaceholder from "@/components/loading-placeholder";
 import PostAdvertisementDialog, {
-  PostAdvertisementDialogResult,
+  PostAdvertisementDialogData,
 } from "@/dialogs/post-advertisement-dialog";
 import {
   Advertisement,
@@ -45,7 +45,7 @@ const AdvertisementContainer = ({
   advertisement: Advertisement;
   onDelete: (id: string) => void;
 }) => {
-  const [user, _] = useGlobalState("user");
+  const [user] = useGlobalState("user");
   const [anchor, setAnchor] = useState<HTMLElement | undefined>();
 
   const handleTodo = () => alert("This feature is not implemented yet!");
@@ -130,7 +130,7 @@ export default function AdvertisementsPage() {
 
   if (loading) return <LoadingPlaceholder />;
 
-  const handlePost = (value: PostAdvertisementDialogResult | undefined) => {
+  const handlePost = (value: PostAdvertisementDialogData | undefined) => {
     setOpen(false);
     if (!value) return;
     setLoading(true);

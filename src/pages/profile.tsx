@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 export default function ProfilePage() {
   const navigate = useNavigate();
 
-  const [user, _] = useGlobalState("user");
+  const [user] = useGlobalState("user");
   const [range, setRange] = useState<"weekly" | "monthly" | "yearly">("weekly");
 
   const handleTodo = () => alert("This feature is not implemented yet!");
