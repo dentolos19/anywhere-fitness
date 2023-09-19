@@ -1,3 +1,4 @@
+import LoadingPlaceholder from "@/components/loading-placeholder";
 import { Box, Button, Container, Paper, Stack, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { loginUser, registerUser } from "../lib/database";
@@ -5,6 +6,7 @@ import { useGlobalState } from "../lib/state";
 
 export default function LoginForm() {
   const [, setUser] = useGlobalState("user");
+  const [loading, setLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<"login" | "register">("login");
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -12,14 +14,19 @@ export default function LoginForm() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+  if (loading) return <LoadingPlaceholder/>
+
   const handleLogin = (event: FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     loginUser({ username, password }).then(
       (user) => {
         setUser(user.record);
+        setLoading(false);
       },
       () => {
         alert("Unable to login.");
+        setLoading(false);
       }
     );
   };
@@ -30,20 +37,25 @@ export default function LoginForm() {
       alert("Your passwords do not match.");
       return;
     }
+    setLoading(true);
     registerUser({ name, username, email, password }).then(
       (user) => {
         setUser(user);
+        setLoading(false);
       },
       () => {
         alert("Unable to register.");
+        setLoading(false);
       }
     );
   };
 
   const guestHandler = () => {
+    setLoading(true);
     loginUser({ username: "Guest", password: "wNkYXSBpFCLHC4C" }).then(
       (user) => {
         setUser(user.record);
+        setLoading(false);
       }
     );
   };
