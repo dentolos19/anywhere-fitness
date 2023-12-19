@@ -3,7 +3,7 @@
     <span>Anywhere Fitness</span>
 </h1>
 
-A mock online community health app made for Code Overflow Hackathon 2023!
+A mock online community health app for Code Overflow Hackathon 2023!
 
 > **Announcement**: We have won 3rd place for the Code Overflow Hackathon 2023! The project's final state for submission for the hackathon is at [this tag](https://github.com/dentolos19/anywhere-fitness/tree/submission).
 
