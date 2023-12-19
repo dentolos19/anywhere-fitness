@@ -170,8 +170,8 @@ export default function CommunityPage() {
       <Container sx={{ my: 2 }}>
         <Box sx={{ maxWidth: 500, mx: "auto" }}>
           <Alert severity={"warning"} sx={{ marginBottom: 2 }}>
-            This app is just a mock and it is not fully-featured! Be warned
-            that some functions may not work as expected.
+            This app is just a mock and it is not fully-featured! Please be
+            warned that some functions may not work as expected.
           </Alert>
           <Stack spacing={1}>
             {posts.map((post, index) => (
