@@ -1,5 +1,5 @@
 <h1>
-    <img src="icon.png" style="height: 1em;"/>
+    <img src="public/favicon.png" alt="Icon" height="30"/>
     <span>Anywhere Fitness</span>
 </h1>
 
@@ -17,3 +17,7 @@ A mock online community health app for Code Overflow Hackathon 2023!
 - Yan Jun
 - Jian Wei
 - Alex
+
+## 📜 License
+
+Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.

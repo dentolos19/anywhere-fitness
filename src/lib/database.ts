@@ -1,7 +1,7 @@
 import { Goal, Workout } from "@/lib/types";
 import PocketBase from "pocketbase";
 
-const database = new PocketBase("https://inexpensive-fountain.pockethost.io");
+const database = new PocketBase("https://awf.pockethost.io");
 
 export type User = {
   id: string;
