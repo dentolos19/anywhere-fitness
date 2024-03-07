@@ -11,7 +11,7 @@ A mock online community health app for Code Overflow Hackathon 2023!
 
 **Problem Statement**: How might we leverage technology to encourage and promote healthy living?
 
-### Members
+### Team Members
 
 - Dennise (Leader)
 - Yan Jun
