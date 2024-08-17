@@ -1,14 +1,5 @@
 import { Workout } from "@/lib/types";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
 import WorkoutSelectorDialog from "./workout-selector-dialog";
 
@@ -87,13 +78,7 @@ export default function WorkoutDialog(params: {
           <Stack spacing={2}>
             <Typography>Record your workout here.</Typography>
             <Stack spacing={1}>
-              <TextField
-                type={"text"}
-                label={"Name"}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+              <TextField type={"text"} label={"Name"} value={name} onChange={(e) => setName(e.target.value)} required />
               <TextField
                 type={"text"}
                 label={"Category"}
@@ -131,12 +116,7 @@ export default function WorkoutDialog(params: {
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
             />
-            <TextField
-              type={"time"}
-              label={"End Time"}
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-            />
+            <TextField type={"time"} label={"End Time"} value={endTime} onChange={(e) => setEndTime(e.target.value)} />
           </Stack>
         </DialogContent>
         <DialogActions>

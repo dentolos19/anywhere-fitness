@@ -8,9 +8,7 @@ export default function ErrorBoundary() {
         <Typography variant={"h5"} gutterBottom>
           404
         </Typography>
-        <Typography>
-          The page that you're looking for does not exist.
-        </Typography>
+        <Typography>The page that you're looking for does not exist.</Typography>
       </Container>
     </LayoutContainer>
   );

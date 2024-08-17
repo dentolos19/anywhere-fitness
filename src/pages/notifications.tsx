@@ -26,11 +26,7 @@ export default function NotificationsPage() {
 
   return (
     <>
-      <NotificationDialog
-        open={dialogOpen}
-        data={dialogData}
-        onClose={() => setDialogOpen(false)}
-      />
+      <NotificationDialog open={dialogOpen} data={dialogData} onClose={() => setDialogOpen(false)} />
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 600, mx: "auto" }}>
           {notifications.map((notification, index) => (

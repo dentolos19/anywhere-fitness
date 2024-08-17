@@ -1,14 +1,6 @@
 import LoadingPlaceholder from "@/components/loading-placeholder";
 import PostDialog, { PostDialogData } from "@/dialogs/post-dialog";
-import {
-  Add,
-  Chat,
-  Delete,
-  Edit,
-  Favorite,
-  MoreVert,
-  Share,
-} from "@mui/icons-material";
+import { Add, Chat, Delete, Edit, Favorite, MoreVert, Share } from "@mui/icons-material";
 import {
   Alert,
   Avatar,
@@ -31,22 +23,10 @@ import {
 } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
-import {
-  Post,
-  createPost,
-  deletePost,
-  getFileUrl,
-  getPosts,
-} from "../lib/database";
+import { Post, createPost, deletePost, getFileUrl, getPosts } from "../lib/database";
 import { useGlobalState } from "../lib/state";
 
-const PostContainer = ({
-  post,
-  onDelete,
-}: {
-  post: Post;
-  onDelete: (id: string) => void;
-}) => {
+const PostContainer = ({ post, onDelete }: { post: Post; onDelete: (id: string) => void }) => {
   const [user] = useGlobalState("user");
   const [anchor, setAnchor] = useState<HTMLElement | undefined>();
 
@@ -55,14 +35,7 @@ const PostContainer = ({
   return (
     <Card>
       <CardHeader
-        avatar={
-          <Avatar
-            src={
-              post.expand.author.avatar &&
-              getFileUrl(post.expand.author, post.expand.author.avatar)
-            }
-          />
-        }
+        avatar={<Avatar src={post.expand.author.avatar && getFileUrl(post.expand.author, post.expand.author.avatar)} />}
         title={post.expand.author.name}
         subheader={post.created.toString()}
         action={
@@ -71,11 +44,7 @@ const PostContainer = ({
               <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
                 <MoreVert />
               </IconButton>
-              <Menu
-                open={anchor !== undefined}
-                anchorEl={anchor}
-                onClose={() => setAnchor(undefined)}
-              >
+              <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
                 <MenuItem onClick={handleTodo}>
                   <ListItemIcon>
                     <Edit />
@@ -93,9 +62,7 @@ const PostContainer = ({
           )
         }
       />
-      {post.cover && (
-        <CardMedia component={"img"} src={getFileUrl(post, post.cover)} />
-      )}
+      {post.cover && <CardMedia component={"img"} src={getFileUrl(post, post.cover)} />}
       <CardContent>
         <Typography>{post.message}</Typography>
       </CardContent>
@@ -170,8 +137,8 @@ export default function CommunityPage() {
       <Container sx={{ my: 2 }}>
         <Box sx={{ maxWidth: 500, mx: "auto" }}>
           <Alert severity={"warning"} sx={{ marginBottom: 2 }}>
-            This app is just a mock and it is not fully-featured! Please be
-            warned that some functions may not work as expected.
+            This app is just a mock and it is not fully-featured! Please be warned that some functions may not work as
+            expected.
           </Alert>
           <Stack spacing={1}>
             {posts.map((post, index) => (

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 export type PostDialogData = {
@@ -15,10 +6,7 @@ export type PostDialogData = {
   message: string;
 };
 
-export default function PostDialog(params: {
-  open: boolean;
-  onClose: (value: PostDialogData | undefined) => void;
-}) {
+export default function PostDialog(params: { open: boolean; onClose: (value: PostDialogData | undefined) => void }) {
   const [message, setMessage] = useState<string>("");
   const [cover, setCover] = useState<File | undefined>(undefined);
 
@@ -67,12 +55,7 @@ export default function PostDialog(params: {
           />
           <Button component={"label"} color={"info"} variant={"outlined"}>
             Upload Cover
-            <input
-              type="file"
-              accept={"image/*"}
-              hidden
-              onChange={handleFileUpload}
-            />
+            <input type="file" accept={"image/*"} hidden onChange={handleFileUpload} />
           </Button>
         </Stack>
       </DialogContent>

@@ -1,24 +1,9 @@
 import activities from "@/static/activities.json";
-import {
-  Dialog,
-  DialogTitle,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Dialog, DialogTitle, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
-export default function ActivitiesDialog(params: {
-  open: boolean;
-  onClose: (value: string | undefined) => void;
-}) {
+export default function ActivitiesDialog(params: { open: boolean; onClose: (value: string | undefined) => void }) {
   return (
-    <Dialog
-      open={params.open}
-      onClose={() => params.onClose(undefined)}
-      maxWidth={"xs"}
-      fullWidth
-    >
+    <Dialog open={params.open} onClose={() => params.onClose(undefined)} maxWidth={"xs"} fullWidth>
       <DialogTitle>Select An Activity</DialogTitle>
       <List sx={{ pt: 0 }}>
         {activities.map((activities) => (

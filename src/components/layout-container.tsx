@@ -66,11 +66,7 @@ const darkTheme = createTheme({
   },
 });
 
-export default function LayoutContainer({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export default function LayoutContainer({ children }: { children?: React.ReactNode }) {
   const navigate = useNavigate();
 
   const [user, setUser] = useGlobalState("user");
@@ -111,9 +107,7 @@ export default function LayoutContainer({
       <Box>
         <AppBar>
           <Toolbar ref={topRef}>
-            <Box
-              sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
-            >
+            <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}>
               <IconButton onClick={() => setOpen(true)}>
                 <Menu />
               </IconButton>
@@ -211,13 +205,7 @@ export default function LayoutContainer({
               overflow: "hidden auto",
             }}
           >
-            {loading ? (
-              <LoadingPlaceholder />
-            ) : user ? (
-              children || <Outlet />
-            ) : (
-              <LoginForm />
-            )}
+            {loading ? <LoadingPlaceholder /> : user ? children || <Outlet /> : <LoginForm />}
           </Box>
           <Box height={bottomSpacing} />
         </Box>

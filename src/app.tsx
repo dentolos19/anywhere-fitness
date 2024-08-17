@@ -19,30 +19,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      path="/"
-      element={<LayoutContainer />}
-      errorElement={<ErrorBoundary />}
-    >
+    <Route path="/" element={<LayoutContainer />} errorElement={<ErrorBoundary />}>
       <Route element={<AboutPage />} path="/about" />
       <Route element={<AdvertisementsPage />} path="/advertisements" />
       <Route element={<ChatBotPage />} path="/chat/bot" />
       <Route element={<ChatPage />} path="/chat" />
       <Route element={<CommunityPage />} index />
       <Route element={<NotificationsPage />} path="/notifications" />
-      <Route
-        element={<ProfileAchievementsPage />}
-        path="/profile/achievements"
-      />
+      <Route element={<ProfileAchievementsPage />} path="/profile/achievements" />
       <Route element={<ProfileGoalsPage />} path="/profile/goals" />
       <Route element={<ProfilePage />} path="/profile" />
       <Route element={<SettingsPage />} path="/settings" />

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { FormEvent, useState } from "react";
 
 export type PostAdvertisementDialogData = {
@@ -46,9 +37,7 @@ export default function PostAdvertisementDialog(params: {
       <DialogTitle>Create An Advertisement</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <Typography>
-            Describe what you are going to do together with other people.
-          </Typography>
+          <Typography>Describe what you are going to do together with other people.</Typography>
           <TextField
             type={"text"}
             label={"Title"}

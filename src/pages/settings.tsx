@@ -21,13 +21,7 @@ import {
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { ChangeEvent, useState } from "react";
 
-const SettingContainer = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) => {
+const SettingContainer = ({ label, children }: { label: string; children: React.ReactNode }) => {
   return (
     <Box
       sx={{
@@ -108,12 +102,7 @@ export default function SettingsPage() {
               badgeContent={
                 <IconButton component={"label"}>
                   <Edit />
-                  <input
-                    type={"file"}
-                    accept="image/*"
-                    hidden
-                    onChange={handleUpload}
-                  />
+                  <input type={"file"} accept="image/*" hidden onChange={handleUpload} />
                 </IconButton>
               }
             >
@@ -127,12 +116,7 @@ export default function SettingsPage() {
             </Badge>
           </Box>
           <Stack spacing={2}>
-            <TextField
-              type={"text"}
-              label={"Name"}
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
+            <TextField type={"text"} label={"Name"} value={name} onChange={(event) => setName(event.target.value)} />
             <Button variant={"contained"} onClick={handleUpdate}>
               Update
             </Button>
@@ -152,13 +136,7 @@ export default function SettingsPage() {
               Change Password
             </Button>
           </Box>
-          <Button
-            color={"error"}
-            variant={"contained"}
-            fullWidth
-            sx={{ marginTop: 1 }}
-            onClick={handleLogout}
-          >
+          <Button color={"error"} variant={"contained"} fullWidth sx={{ marginTop: 1 }} onClick={handleLogout}>
             Logout
           </Button>
         </Paper>
@@ -169,16 +147,10 @@ export default function SettingsPage() {
           <Stack spacing={1}>
             <SettingContainer label={"Theme"}>
               <ToggleButtonGroup value={theme as string}>
-                <ToggleButton
-                  value={"light"}
-                  onClick={() => handleThemeChange("light")}
-                >
+                <ToggleButton value={"light"} onClick={() => handleThemeChange("light")}>
                   <LightMode />
                 </ToggleButton>
-                <ToggleButton
-                  value={"dark"}
-                  onClick={() => handleThemeChange("dark")}
-                >
+                <ToggleButton value={"dark"} onClick={() => handleThemeChange("dark")}>
                   <DarkMode />
                 </ToggleButton>
               </ToggleButtonGroup>

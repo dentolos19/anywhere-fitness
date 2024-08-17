@@ -14,7 +14,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  if (loading) return <LoadingPlaceholder/>
+  if (loading) return <LoadingPlaceholder />;
 
   const handleLogin = (event: FormEvent) => {
     event.preventDefault();
@@ -52,12 +52,10 @@ export default function LoginForm() {
 
   const guestHandler = () => {
     setLoading(true);
-    loginUser({ username: "Guest", password: "wNkYXSBpFCLHC4C" }).then(
-      (user) => {
-        setUser(user.record);
-        setLoading(false);
-      }
-    );
+    loginUser({ username: "Guest", password: "wNkYXSBpFCLHC4C" }).then((user) => {
+      setUser(user.record);
+      setLoading(false);
+    });
   };
 
   return (
@@ -98,21 +96,11 @@ export default function LoginForm() {
               <Button type={"submit"} variant={"contained"}>
                 Login
               </Button>
-              <Button
-                type={"button"}
-                variant={"outlined"}
-                onClick={() => setMode("register")}
-              >
+              <Button type={"button"} variant={"outlined"} onClick={() => setMode("register")}>
                 Register
               </Button>
             </Box>
-            <Button
-              color={"secondary"}
-              variant={"contained"}
-              fullWidth
-              sx={{ marginTop: 1 }}
-              onClick={guestHandler}
-            >
+            <Button color={"secondary"} variant={"contained"} fullWidth sx={{ marginTop: 1 }} onClick={guestHandler}>
               Continue As Guest
             </Button>
           </Box>
@@ -169,11 +157,7 @@ export default function LoginForm() {
                 "&>*": { flexGrow: 1 },
               }}
             >
-              <Button
-                type={"button"}
-                variant={"outlined"}
-                onClick={() => setMode("login")}
-              >
+              <Button type={"button"} variant={"outlined"} onClick={() => setMode("login")}>
                 Login
               </Button>
               <Button type={"submit"} variant={"contained"}>

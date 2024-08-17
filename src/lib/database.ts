@@ -59,16 +59,8 @@ export function updateAuthUser(form: FormData) {
   });
 }
 
-export function loginUser({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}) {
-  return database
-    .collection("users")
-    .authWithPassword<User>(username, password);
+export function loginUser({ username, password }: { username: string; password: string }) {
+  return database.collection("users").authWithPassword<User>(username, password);
 }
 
 export function registerUser({
@@ -112,10 +104,7 @@ export function getPosts() {
   });
 }
 
-export function createAdvertisement(data: {
-  title: string;
-  description: string;
-}) {
+export function createAdvertisement(data: { title: string; description: string }) {
   const form = new FormData();
   form.append("author", getAuthUser().id);
   form.append("title", data.title);
@@ -160,10 +149,7 @@ export function getProfile(userId: string) {
     );
 }
 
-export function updateProfile(
-  id: string,
-  data: Partial<Omit<Profile, "id" | "user">>
-) {
+export function updateProfile(id: string, data: Partial<Omit<Profile, "id" | "user">>) {
   return database.collection("profiles").update<Profile>(id, data);
 }
 

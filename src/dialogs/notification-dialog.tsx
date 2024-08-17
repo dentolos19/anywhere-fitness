@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 export default function NotificationDialog(params: {
   open: boolean;

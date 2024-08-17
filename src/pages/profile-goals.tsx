@@ -70,11 +70,7 @@ export default function ProfileGoalsPage() {
 
   return (
     <>
-      <GoalDialog
-        open={dialogOpen}
-        onClose={handleDialogClose}
-        data={dialogData}
-      />
+      <GoalDialog open={dialogOpen} onClose={handleDialogClose} data={dialogData} />
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 600, mx: "auto" }}>
           {goals.length > 0 ? (
@@ -95,10 +91,7 @@ export default function ProfileGoalsPage() {
                       setDialogOpen(true);
                     }}
                   >
-                    <ListItemText
-                      primary={item.title}
-                      secondary={item.due && `Due ${item.due}`}
-                    />
+                    <ListItemText primary={item.title} secondary={item.due && `Due ${item.due}`} />
                   </ListItemButton>
                 </Paper>
               </ListItem>

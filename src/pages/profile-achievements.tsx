@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Paper,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Paper, Stack, Tooltip, Typography } from "@mui/material";
 
 const caloriesAchievements = [
   {
@@ -70,10 +63,7 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Calories
           </Typography>
-          <Stack
-            direction={"row"}
-            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
-          >
+          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
             {caloriesAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
                 <Box
@@ -93,10 +83,7 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Sports
           </Typography>
-          <Stack
-            direction={"row"}
-            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
-          >
+          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
             {sportsAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
                 <Box
@@ -116,10 +103,7 @@ export default function ProfileAchievementsPage() {
           <Typography variant={"h5"} gutterBottom>
             Activities
           </Typography>
-          <Stack
-            direction={"row"}
-            sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}
-          >
+          <Stack direction={"row"} sx={{ flexWrap: "wrap", justifyContent: "space-evenly" }}>
             {activitiesAchievements.map((item, index) => (
               <Tooltip key={index} title={item.name}>
                 <Box

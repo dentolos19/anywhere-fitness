@@ -73,11 +73,7 @@ export default function TrackGymPage() {
 
   return (
     <>
-      <WorkoutDialog
-        open={dialogOpen}
-        onClose={handleDialogClose}
-        data={dialogData}
-      />
+      <WorkoutDialog open={dialogOpen} onClose={handleDialogClose} data={dialogData} />
       <Container sx={{ my: 2 }}>
         <List sx={{ maxWidth: 500, mx: "auto" }}>
           {workouts.length > 0 ? (
@@ -98,10 +94,7 @@ export default function TrackGymPage() {
                       setDialogOpen(true);
                     }}
                   >
-                    <ListItemText
-                      primary={workout.name}
-                      secondary={workout.category}
-                    />
+                    <ListItemText primary={workout.name} secondary={workout.category} />
                   </ListItemButton>
                 </Paper>
               </ListItem>
@@ -110,16 +103,8 @@ export default function TrackGymPage() {
             <Typography align={"center"}>No workouts yet.</Typography>
           )}
         </List>
-        <SpeedDial
-          ariaLabel={""}
-          icon={<Add />}
-          sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}
-        >
-          <SpeedDialAction
-            icon={<MonitorHeart />}
-            tooltipTitle={"Rest"}
-            tooltipOpen
-          />
+        <SpeedDial ariaLabel={""} icon={<Add />} sx={{ position: "fixed", bottom: { xs: 80, sm: 30 }, right: 30 }}>
+          <SpeedDialAction icon={<MonitorHeart />} tooltipTitle={"Rest"} tooltipOpen />
           <SpeedDialAction
             icon={<FitnessCenter />}
             tooltipTitle={"Workout"}

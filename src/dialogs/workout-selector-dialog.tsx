@@ -17,12 +17,7 @@ export default function WorkoutSelectorDialog(params: {
   onClose: (value: { name: string; category: string } | undefined) => void;
 }) {
   return (
-    <Dialog
-      open={params.open}
-      onClose={() => params.onClose(undefined)}
-      maxWidth={"xs"}
-      fullWidth
-    >
+    <Dialog open={params.open} onClose={() => params.onClose(undefined)} maxWidth={"xs"} fullWidth>
       <DialogTitle>Record A Workout</DialogTitle>
       <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
@@ -33,12 +28,7 @@ export default function WorkoutSelectorDialog(params: {
                 <ListItem
                   key={index}
                   secondaryAction={
-                    <IconButton
-                      LinkComponent={"a"}
-                      edge={"end"}
-                      href={exercise.url}
-                      target={"_blank"}
-                    >
+                    <IconButton LinkComponent={"a"} edge={"end"} href={exercise.url} target={"_blank"}>
                       <Info />
                     </IconButton>
                   }

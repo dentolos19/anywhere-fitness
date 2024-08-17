@@ -1,15 +1,6 @@
 import { createChatCompletions } from "@/lib/ai";
 import { MoreVert, Send } from "@mui/icons-material";
-import {
-    Avatar,
-    Box,
-    Container,
-    Divider,
-    IconButton,
-    Input,
-    Paper,
-    Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Divider, IconButton, Input, Paper, Typography } from "@mui/material";
 import { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 import { FormEvent, useState } from "react";
 
@@ -56,9 +47,7 @@ export default function ChatBotPage() {
       (res) => {
         setMessages((messages) => [
           {
-            content:
-              res.choices[0].message.content ||
-              "This message is not available.",
+            content: res.choices[0].message.content || "This message is not available.",
           },
           ...messages,
         ]);
@@ -110,28 +99,16 @@ export default function ChatBotPage() {
           {typing && <Typography>Typing...</Typography>}
           {messages.map((message, index) => (
             <Box key={index} sx={{ py: 1 }}>
-              <Typography variant={"h6"}>
-                {message.self ? "You" : CHAT_NAME}
-              </Typography>
-              <Typography>
-                {message.content || "This message's content is not available."}
-              </Typography>
+              <Typography variant={"h6"}>{message.self ? "You" : CHAT_NAME}</Typography>
+              <Typography>{message.content || "This message's content is not available."}</Typography>
               <Divider sx={{ marginTop: 1 }} />
             </Box>
           ))}
         </Box>
         <Box></Box>
         <Divider />
-        <Box
-          component={"form"}
-          onSubmit={handleSend}
-          sx={{ display: "flex", padding: 1 }}
-        >
-          <Input
-            value={input}
-            sx={{ flexGrow: 1 }}
-            onChange={(event) => setInput(event.target.value)}
-          />
+        <Box component={"form"} onSubmit={handleSend} sx={{ display: "flex", padding: 1 }}>
+          <Input value={input} sx={{ flexGrow: 1 }} onChange={(event) => setInput(event.target.value)} />
           <IconButton type={"submit"}>
             <Send />
           </IconButton>

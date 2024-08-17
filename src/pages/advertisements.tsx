@@ -1,23 +1,8 @@
 import LoadingPlaceholder from "@/components/loading-placeholder";
-import PostAdvertisementDialog, {
-  PostAdvertisementDialogData,
-} from "@/dialogs/post-advertisement-dialog";
-import {
-  Advertisement,
-  createAdvertisement,
-  deleteAdvertisement,
-  getAdvertisements,
-  getFileUrl,
-} from "@/lib/database";
+import PostAdvertisementDialog, { PostAdvertisementDialogData } from "@/dialogs/post-advertisement-dialog";
+import { Advertisement, createAdvertisement, deleteAdvertisement, getAdvertisements, getFileUrl } from "@/lib/database";
 import { useGlobalState } from "@/lib/state";
-import {
-  Add,
-  BackHand,
-  Chat,
-  Delete,
-  Edit,
-  MoreVert,
-} from "@mui/icons-material";
+import { Add, BackHand, Chat, Delete, Edit, MoreVert } from "@mui/icons-material";
 import {
   Avatar,
   Card,
@@ -57,10 +42,7 @@ const AdvertisementContainer = ({
           <Avatar
             src={
               advertisement.expand.author.avatar &&
-              getFileUrl(
-                advertisement.expand.author,
-                advertisement.expand.author.avatar
-              )
+              getFileUrl(advertisement.expand.author, advertisement.expand.author.avatar)
             }
           />
         }
@@ -72,11 +54,7 @@ const AdvertisementContainer = ({
               <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
                 <MoreVert />
               </IconButton>
-              <Menu
-                open={anchor !== undefined}
-                anchorEl={anchor}
-                onClose={() => setAnchor(undefined)}
-              >
+              <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
                 <MenuItem onClick={handleTodo}>
                   <ListItemIcon>
                     <Edit />
@@ -96,9 +74,7 @@ const AdvertisementContainer = ({
       />
       <CardContent>
         <Typography variant={"h6"}>{advertisement.title}</Typography>
-        <Typography color={"text.secondary"}>
-          {advertisement.description}
-        </Typography>
+        <Typography color={"text.secondary"}>{advertisement.description}</Typography>
       </CardContent>
       <CardActions>
         <Tooltip title={"Join"}>
@@ -153,9 +129,7 @@ export default function AdvertisementsPage() {
     setLoading(true);
     deleteAdvertisement(id).then(
       () => {
-        setAdvertisements(
-          advertisements.filter((advertisement) => advertisement.id !== id)
-        );
+        setAdvertisements(advertisements.filter((advertisement) => advertisement.id !== id));
         setLoading(false);
       },
       () => {
@@ -171,10 +145,7 @@ export default function AdvertisementsPage() {
       <Container sx={{ my: 2 }}>
         <Stack spacing={1} sx={{ maxWidth: 500, mx: "auto" }}>
           {advertisements.map((advertisement) => (
-            <AdvertisementContainer
-              advertisement={advertisement}
-              onDelete={handleDelete}
-            />
+            <AdvertisementContainer advertisement={advertisement} onDelete={handleDelete} />
           ))}
         </Stack>
         <Fab
