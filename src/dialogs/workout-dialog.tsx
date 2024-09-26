@@ -3,11 +3,13 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextF
 import { FormEvent, useEffect, useState } from "react";
 import WorkoutSelectorDialog from "./workout-selector-dialog";
 
-export default function WorkoutDialog(params: {
+type WorkoutDialogProps = {
   open: boolean;
   onClose: (value: Workout | undefined) => void;
   data?: Workout;
-}) {
+};
+
+export default function WorkoutDialog(props: WorkoutDialogProps) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [notes, setNotes] = useState("");
@@ -18,14 +20,14 @@ export default function WorkoutDialog(params: {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (params.data) {
-      setName(params.data.name);
-      setCategory(params.data.category || "");
-      setNotes(params.data.notes || "");
-      setReps(params.data.reps || 0);
-      setSets(params.data.sets || 0);
-      setStartTime(params.data.startTime || "");
-      setEndTime(params.data.endTime || "");
+    if (props.data) {
+      setName(props.data.name);
+      setCategory(props.data.category || "");
+      setNotes(props.data.notes || "");
+      setReps(props.data.reps || 0);
+      setSets(props.data.sets || 0);
+      setStartTime(props.data.startTime || "");
+      setEndTime(props.data.endTime || "");
     } else {
       setName("");
       setCategory("");
@@ -35,15 +37,15 @@ export default function WorkoutDialog(params: {
       setStartTime("");
       setEndTime("");
     }
-  }, [params.data]);
+  }, [props.data]);
 
   const handleCancel = () => {
-    params.onClose(undefined);
+    props.onClose(undefined);
   };
 
   const handleSave = (event: FormEvent) => {
     event.preventDefault();
-    params.onClose({
+    props.onClose({
       name,
       category,
       notes,
@@ -67,7 +69,7 @@ export default function WorkoutDialog(params: {
       />
       <Dialog
         component={"form"}
-        open={params.open}
+        open={props.open}
         onSubmit={handleSave}
         onClose={handleCancel}
         maxWidth={"sm"}

@@ -36,6 +36,7 @@ export type Advertisement = {
 export type Profile = {
   id: string;
   user: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   settings?: any;
   workouts?: Workout[];
   goals?: Goal[];

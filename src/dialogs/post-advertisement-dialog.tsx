@@ -1,39 +1,34 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { FormEvent, useState } from "react";
 
+type PostAdvertisementDialogProps = {
+  open: boolean;
+  onClose: (value: PostAdvertisementDialogData | undefined) => void;
+};
+
 export type PostAdvertisementDialogData = {
   title: string;
   description: string;
 };
 
-export default function PostAdvertisementDialog(params: {
-  open: boolean;
-  onClose: (value: PostAdvertisementDialogData | undefined) => void;
-}) {
+export default function PostAdvertisementDialog(props: PostAdvertisementDialogProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleCancel = () => {
-    params.onClose(undefined);
+    props.onClose(undefined);
   };
 
   const handlePost = (event: FormEvent) => {
     event.preventDefault();
-    params.onClose({
+    props.onClose({
       title,
       description,
     });
   };
 
   return (
-    <Dialog
-      component={"form"}
-      open={params.open}
-      onSubmit={handlePost}
-      onClose={handleCancel}
-      maxWidth={"xs"}
-      fullWidth
-    >
+    <Dialog component={"form"} open={props.open} onSubmit={handlePost} onClose={handleCancel} maxWidth={"xs"} fullWidth>
       <DialogTitle>Create An Advertisement</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>

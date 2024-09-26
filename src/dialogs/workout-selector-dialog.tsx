@@ -1,4 +1,4 @@
-import workouts from "@/static/workouts.json";
+import workouts from "@/data/workouts.json";
 import { Info } from "@mui/icons-material";
 import {
   Box,
@@ -12,12 +12,14 @@ import {
   ListSubheader,
 } from "@mui/material";
 
-export default function WorkoutSelectorDialog(params: {
+type WorkoutSelectorDialogProps = {
   open: boolean;
   onClose: (value: { name: string; category: string } | undefined) => void;
-}) {
+};
+
+export default function WorkoutSelectorDialog(props: WorkoutSelectorDialogProps) {
   return (
-    <Dialog open={params.open} onClose={() => params.onClose(undefined)} maxWidth={"xs"} fullWidth>
+    <Dialog open={props.open} onClose={() => props.onClose(undefined)} maxWidth={"xs"} fullWidth>
       <DialogTitle>Record A Workout</DialogTitle>
       <List sx={{ paddingTop: 0, "& ul": { padding: 0 } }} subheader={<li />}>
         {workouts.map((workout) => (
@@ -36,7 +38,7 @@ export default function WorkoutSelectorDialog(params: {
                 >
                   <ListItemButton
                     onClick={() =>
-                      params.onClose({
+                      props.onClose({
                         name: exercise.name,
                         category: workout.name,
                       })

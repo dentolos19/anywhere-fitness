@@ -1,3 +1,5 @@
+"use client";
+
 class Settings {
   // theme
   get theme() {

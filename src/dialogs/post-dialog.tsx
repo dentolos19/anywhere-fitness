@@ -1,22 +1,27 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+type PostDialogProps = {
+  open: boolean;
+  onClose: (value: PostDialogData | undefined) => void;
+};
+
 export type PostDialogData = {
   cover?: File;
   message: string;
 };
 
-export default function PostDialog(params: { open: boolean; onClose: (value: PostDialogData | undefined) => void }) {
+export default function PostDialog(props: PostDialogProps) {
   const [message, setMessage] = useState<string>("");
   const [cover, setCover] = useState<File | undefined>(undefined);
 
   const handleCancel = () => {
-    params.onClose(undefined);
+    props.onClose(undefined);
   };
 
   const handlePost = (event: FormEvent) => {
     event.preventDefault();
-    params.onClose({
+    props.onClose({
       cover,
       message,
     });
@@ -29,7 +34,7 @@ export default function PostDialog(params: { open: boolean; onClose: (value: Pos
   return (
     <Dialog
       component={"form"}
-      open={params.open}
+      open={props.open}
       onSubmit={handlePost}
       onClose={handleCancel}
       maxWidth={"xs"}
@@ -38,7 +43,7 @@ export default function PostDialog(params: { open: boolean; onClose: (value: Pos
       <DialogTitle>Create A Post</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <Typography>What's on your mind? Share it with the world!</Typography>
+          <Typography>What&apos;s on your mind? Share it with the world!</Typography>
           {cover && (
             <>
               <img src={URL.createObjectURL(cover)} />

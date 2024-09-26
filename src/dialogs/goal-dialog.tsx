@@ -2,41 +2,40 @@ import { Goal } from "@/lib/types";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
 
-export default function GoalDialog(params: { open: boolean; onClose: (value: Goal | undefined) => void; data?: Goal }) {
+type GoalDialogProps = {
+  open: boolean;
+  onClose: (value: Goal | undefined) => void;
+  data?: Goal;
+};
+
+export default function GoalDialog(props: GoalDialogProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    if (params.data) {
-      setTitle(params.data.title);
-      setDescription(params.data.description || "");
-      setDate(params.data.due || "");
+    if (props.data) {
+      setTitle(props.data.title);
+      setDescription(props.data.description || "");
+      setDate(props.data.due || "");
     } else {
       setTitle("");
       setDescription("");
       setDate("");
     }
-  }, [params.data]);
+  }, [props.data]);
 
   const handleCancel = () => {
-    params.onClose(undefined);
+    props.onClose(undefined);
   };
 
   const handleSave = (event: FormEvent) => {
     event.preventDefault();
-    params.onClose({ title, description, due: date });
+    props.onClose({ title, description, due: date });
   };
 
   return (
-    <Dialog
-      component={"form"}
-      open={params.open}
-      onSubmit={handleSave}
-      onClose={handleCancel}
-      maxWidth={"xs"}
-      fullWidth
-    >
+    <Dialog component={"form"} open={props.open} onSubmit={handleSave} onClose={handleCancel} maxWidth={"xs"} fullWidth>
       <DialogTitle>Goal Setting</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
