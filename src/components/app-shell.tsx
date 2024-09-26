@@ -1,9 +1,9 @@
 "use client";
 
+import { useApp } from "@/components/app-context";
 import AuthenticationView from "@/components/authentication-view";
 import LoadingView from "@/components/loading-view";
-import { checkAuthUser, getAuthUser } from "@/lib/database";
-import { useGlobalState } from "@/lib/state";
+import { checkUser, getUser } from "@/lib/database";
 import {
   AccountCircle,
   ChevronLeft,
@@ -11,7 +11,6 @@ import {
   Home,
   Info,
   Menu,
-  Message,
   Notifications,
   Timeline,
 } from "@mui/icons-material";
@@ -56,7 +55,7 @@ const navigations = [
 export default function AppShell(props: { children?: React.ReactNode }) {
   const router = useRouter();
 
-  const [user, setUser] = useGlobalState("user");
+  const { user, setUser } = useApp();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -65,11 +64,11 @@ export default function AppShell(props: { children?: React.ReactNode }) {
       setLoading(false);
       return;
     }
-    if (!checkAuthUser()) {
+    if (!checkUser()) {
       setLoading(false);
       return;
     }
-    const authUser = getAuthUser();
+    const authUser = getUser();
     setUser(authUser);
     setLoading(false);
   }, []);
@@ -97,11 +96,6 @@ export default function AppShell(props: { children?: React.ReactNode }) {
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
-            <Tooltip title={"Chat"}>
-              <IconButton onClick={() => router.push("/chat")}>
-                <Message />
-              </IconButton>
-            </Tooltip>
             <Tooltip title={"Notifications"}>
               <IconButton onClick={() => router.push("/notifications")}>
                 <Notifications />

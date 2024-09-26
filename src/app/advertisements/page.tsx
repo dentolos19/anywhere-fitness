@@ -1,98 +1,13 @@
 "use client";
 
+import AdvertisementItem from "@/app/advertisements/_components/advertisement-item";
 import LoadingView from "@/components/loading-view";
 import PostAdvertisementDialog, { PostAdvertisementDialogData } from "@/dialogs/post-advertisement-dialog";
-import { Advertisement, createAdvertisement, deleteAdvertisement, getAdvertisements, getFileUrl } from "@/lib/database";
-import { useGlobalState } from "@/lib/state";
-import { Add, BackHand, Chat, Delete, Edit, MoreVert } from "@mui/icons-material";
-import {
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Fab,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Advertisement, createAdvertisement, deleteAdvertisement, getAdvertisements } from "@/lib/database";
+import { Add } from "@mui/icons-material";
+import { Container, Fab, Stack } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
-
-const AdvertisementContainer = ({
-  advertisement,
-  onDelete,
-}: {
-  advertisement: Advertisement;
-  onDelete: (id: string) => void;
-}) => {
-  const [user] = useGlobalState("user");
-  const [anchor, setAnchor] = useState<HTMLElement | undefined>();
-
-  const handleTodo = () => alert("This feature is not implemented yet!");
-
-  return (
-    <Card>
-      <CardHeader
-        avatar={
-          <Avatar
-            src={
-              advertisement.expand.author.avatar &&
-              getFileUrl(advertisement.expand.author, advertisement.expand.author.avatar)
-            }
-          />
-        }
-        title={advertisement.expand.author.name}
-        subheader={advertisement.created.toString()}
-        action={
-          advertisement.author === user?.id && (
-            <>
-              <IconButton onClick={(event) => setAnchor(event.currentTarget)}>
-                <MoreVert />
-              </IconButton>
-              <Menu open={anchor !== undefined} anchorEl={anchor} onClose={() => setAnchor(undefined)}>
-                <MenuItem onClick={handleTodo}>
-                  <ListItemIcon>
-                    <Edit />
-                  </ListItemIcon>
-                  <ListItemText>Edit</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={() => onDelete(advertisement.id)}>
-                  <ListItemIcon>
-                    <Delete />
-                  </ListItemIcon>
-                  <ListItemText>Delete</ListItemText>
-                </MenuItem>
-              </Menu>
-            </>
-          )
-        }
-      />
-      <CardContent>
-        <Typography variant={"h6"}>{advertisement.title}</Typography>
-        <Typography color={"text.secondary"}>{advertisement.description}</Typography>
-      </CardContent>
-      <CardActions>
-        <Tooltip title={"Join"}>
-          <IconButton onClick={handleTodo}>
-            <BackHand />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title={"Comment"}>
-          <IconButton onClick={handleTodo}>
-            <Chat />
-          </IconButton>
-        </Tooltip>
-      </CardActions>
-    </Card>
-  );
-};
 
 export default function Page() {
   const [loading, setLoading] = useState(true);
@@ -147,7 +62,7 @@ export default function Page() {
       <Container sx={{ my: 2 }}>
         <Stack spacing={1} sx={{ maxWidth: 500, mx: "auto" }}>
           {advertisements.map((advertisement, index) => (
-            <AdvertisementContainer key={index} advertisement={advertisement} onDelete={handleDelete} />
+            <AdvertisementItem key={index} advertisement={advertisement} onDelete={handleDelete} />
           ))}
         </Stack>
         <Fab

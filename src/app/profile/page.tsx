@@ -1,7 +1,7 @@
 "use client";
 
+import { useApp } from "@/components/app-context";
 import { getFileUrl } from "@/lib/database";
-import { useGlobalState } from "@/lib/state";
 import { Edit } from "@mui/icons-material";
 import { Avatar, Box, Button, Container, Divider, Fab, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -10,10 +10,9 @@ import { useState } from "react";
 export default function Page() {
   const router = useRouter();
 
-  const [user] = useGlobalState("user");
+  const { user } = useApp();
   const [range, setRange] = useState<"weekly" | "monthly" | "yearly">("weekly");
 
-  const handleTodo = () => alert("This feature is not implemented yet!");
   const handleAchievements = () => router.push("/profile/achievements");
   const handleGoals = () => router.push("/profile/goals");
 
@@ -35,16 +34,6 @@ export default function Page() {
               <Typography color={"text.secondary"}>Rookie</Typography>
             </Box>
           </Box>
-          {/* <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography>Followers</Typography>
-              <Typography variant={"h5"}>0</Typography>
-            </Box>
-            <Box sx={{ textAlign: "center" }}>
-              <Typography>Followings</Typography>
-              <Typography variant={"h5"}>0</Typography>
-            </Box>
-          </Box> */}
         </Paper>
         <Paper>
           <Tabs value={range} centered onChange={(_, value) => setRange(value)}>
@@ -77,10 +66,6 @@ export default function Page() {
           <Divider />
           <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
             <Button onClick={handleGoals}>Goals</Button>
-          </Box>
-          <Divider />
-          <Box sx={{ display: "grid", height: 100, placeItems: "center" }}>
-            <Button onClick={handleTodo}>History</Button>
           </Box>
         </Paper>
       </Stack>

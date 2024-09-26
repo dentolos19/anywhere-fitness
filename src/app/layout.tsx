@@ -1,8 +1,5 @@
-import AppShell from "@/components/app-shell";
-import theme from "@/theme";
+import AppProvider from "@/components/app-provider";
 import { LayoutProps } from "@/types";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Metadata } from "next";
 import "./globals.css";
 
@@ -20,12 +17,7 @@ export default function Layout(props: LayoutProps) {
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AppShell>{props.children}</AppShell>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <AppProvider>{props.children}</AppProvider>
       </body>
     </html>
   );

@@ -1,11 +1,11 @@
+import { useApp } from "@/components/app-context";
 import LoadingView from "@/components/loading-view";
+import { loginUser, registerUser } from "@/lib/database";
 import { Box, Button, Container, Paper, Stack, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { loginUser, registerUser } from "../lib/database";
-import { useGlobalState } from "../lib/state";
 
 export default function AuthenticationView() {
-  const [, setUser] = useGlobalState("user");
+  const { setUser } = useApp();
   const [loading, setLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<"login" | "register">("login");
   const [name, setName] = useState<string>("");

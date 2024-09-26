@@ -42,51 +42,38 @@ export type Profile = {
   goals?: Goal[];
 };
 
-export function checkAuthUser() {
+export function checkUser() {
   return database.authStore.isValid;
 }
 
-export function getAuthUser() {
+export function getUser() {
   return database.authStore.model as User;
 }
 
-export function logoutAuthUser() {
-  database.authStore.clear();
-}
-
-export function updateAuthUser(form: FormData) {
-  return database.collection("users").update<User>(getAuthUser().id, form, {
+export function updateUser(form: FormData) {
+  return database.collection("users").update<User>(getUser().id, form, {
     expand: "author",
   });
 }
 
-export function loginUser({ username, password }: { username: string; password: string }) {
-  return database.collection("users").authWithPassword<User>(username, password);
+export function loginUser(data: { username: string; password: string }) {
+  return database.collection("users").authWithPassword<User>(data.username, data.password);
 }
 
-export function registerUser({
-  name,
-  username,
-  email,
-  password,
-}: {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-}) {
+export function logoutUser() {
+  database.authStore.clear();
+}
+
+export function registerUser(data: { name: string; username: string; email: string; password: string }) {
   return database.collection("users").create<User>({
-    name,
-    username,
-    email,
-    password,
-    passwordConfirm: password,
+    ...data,
+    passwordConfirm: data.password,
   });
 }
 
 export function createPost(data: { message: string; cover?: File }) {
   const form = new FormData();
-  form.append("author", getAuthUser().id);
+  form.append("author", getUser().id);
   form.append("message", data.message);
   if (data.cover) form.append("cover", data.cover);
   return database.collection("posts").create<Post>(form, {
@@ -107,7 +94,7 @@ export function getPosts() {
 
 export function createAdvertisement(data: { title: string; description: string }) {
   const form = new FormData();
-  form.append("author", getAuthUser().id);
+  form.append("author", getUser().id);
   form.append("title", data.title);
   form.append("description", data.description);
   return database.collection("advertisements").create<Advertisement>(form, {

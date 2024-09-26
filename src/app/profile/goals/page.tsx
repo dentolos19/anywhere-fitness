@@ -1,9 +1,9 @@
 "use client";
 
+import { useApp } from "@/components/app-context";
 import LoadingView from "@/components/loading-view";
 import GoalDialog from "@/dialogs/goal-dialog";
 import { Profile, getProfile, updateProfile } from "@/lib/database";
-import { useGlobalState } from "@/lib/state";
 import { Goal } from "@/lib/types";
 import { Add, Check } from "@mui/icons-material";
 import {
@@ -20,7 +20,7 @@ import {
 import { useEffect, useState } from "react";
 
 export default function Page() {
-  const [user] = useGlobalState("user");
+  const { user } = useApp();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile>();
   const [goals, setGoals] = useState<Goal[]>([]);
@@ -34,7 +34,7 @@ export default function Page() {
       setGoals(profile.goals || []);
       setLoading(false);
     });
-  }, []);
+  }, [user]);
 
   if (loading) return <LoadingView />;
 

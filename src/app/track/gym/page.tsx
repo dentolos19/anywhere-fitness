@@ -1,9 +1,9 @@
 "use client";
 
+import { useApp } from "@/components/app-context";
 import LoadingView from "@/components/loading-view";
 import WorkoutDialog from "@/dialogs/workout-dialog";
 import { Profile, getProfile, updateProfile } from "@/lib/database";
-import { useGlobalState } from "@/lib/state";
 import { Workout } from "@/lib/types";
 import { Add, Delete, FitnessCenter, MonitorHeart } from "@mui/icons-material";
 import {
@@ -22,7 +22,7 @@ import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { useState } from "react";
 
 export default function Page() {
-  const [user] = useGlobalState("user");
+  const { user } = useApp();
   const [profile, setProfile] = useState<Profile>();
   const [loading, setLoading] = useState(true);
   const [workouts, setWorkouts] = useState<Workout[]>([]);
