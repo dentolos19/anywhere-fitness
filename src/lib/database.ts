@@ -1,7 +1,7 @@
 import { Goal, Workout } from "@/lib/types";
 import PocketBase from "pocketbase";
 
-const database = new PocketBase("https://awf.pockethost.io");
+const database = new PocketBase("https://anywherefitness.pockethost.io");
 
 export type User = {
   id: string;
@@ -133,7 +133,7 @@ export function getProfile(userId: string) {
           return createProfile(userId);
         }
         throw error;
-      }
+      },
     );
 }
 
