@@ -38,7 +38,7 @@ export default function Page() {
       () => {
         alert("Unable to create advertisement!");
         setLoading(false);
-      }
+      },
     );
   };
 
@@ -52,7 +52,7 @@ export default function Page() {
       () => {
         alert("Unable to delete post!");
         setLoading(false);
-      }
+      },
     );
   };
 

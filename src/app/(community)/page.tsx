@@ -35,7 +35,7 @@ export default function Page() {
       () => {
         alert("Unable to create post!");
         setLoading(false);
-      }
+      },
     );
   };
 
@@ -49,7 +49,7 @@ export default function Page() {
       () => {
         alert("Unable to delete post!");
         setLoading(false);
-      }
+      },
     );
   };
 

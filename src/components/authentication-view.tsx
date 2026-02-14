@@ -27,7 +27,7 @@ export default function AuthenticationView() {
       () => {
         alert("Unable to login.");
         setLoading(false);
-      }
+      },
     );
   };
 
@@ -46,7 +46,7 @@ export default function AuthenticationView() {
       () => {
         alert("Unable to register.");
         setLoading(false);
-      }
+      },
     );
   };
 
